@@ -19,6 +19,6 @@ As fontes em fonts/ (Fredoka e Silkscreen) eram da v2 e não são mais usadas.
 
 VITRINE KITSUNE (cores, loja decorativa e novidades)
   Os dados vêm de site/data/kitsune.json e os ícones de site/img/decor/. Gere de novo sempre que mudar uma cor, um bloco ou o changelog do jogo:
-      cd addon && python tools/gerar_dados_site.py
+      cd ../BotVulpus/addon && python tools/gerar_dados_site.py   (escreve nesta pasta; depois é só commitar e dar push aqui)
   (precisa de node e Python; lê cores.js, o catálogo da loja e textos.CHANGELOG_MC.)
   A seção #estilos e #novidades não usam a classe .secao de propósito: assim não mexem na conta das nove caudas.
