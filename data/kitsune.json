@@ -1,0 +1,872 @@
+{
+ "estilos": {
+  "familias": {
+   "lisas": "Cores lisas",
+   "ceu": "Céu e noite",
+   "fogo": "Fogo e terra",
+   "agua": "Água e gelo",
+   "natureza": "Flores e natureza",
+   "doces": "Doces e pastéis",
+   "magia": "Magia e energia",
+   "especial": "Especiais"
+  },
+  "normais": [
+   {
+    "id": "rosa",
+    "nome": "Rosa",
+    "familia": "lisas",
+    "modo": "degrade",
+    "cores": [
+     "#FF55FF"
+    ]
+   },
+   {
+    "id": "ciano",
+    "nome": "Ciano",
+    "familia": "lisas",
+    "modo": "degrade",
+    "cores": [
+     "#55FFFF"
+    ]
+   },
+   {
+    "id": "verde",
+    "nome": "Verde",
+    "familia": "lisas",
+    "modo": "degrade",
+    "cores": [
+     "#55FF55"
+    ]
+   },
+   {
+    "id": "amarelo",
+    "nome": "Amarelo",
+    "familia": "lisas",
+    "modo": "degrade",
+    "cores": [
+     "#FFFF55"
+    ]
+   },
+   {
+    "id": "vermelho",
+    "nome": "Vermelho",
+    "familia": "lisas",
+    "modo": "degrade",
+    "cores": [
+     "#FF5555"
+    ]
+   },
+   {
+    "id": "roxo",
+    "nome": "Roxo",
+    "familia": "lisas",
+    "modo": "degrade",
+    "cores": [
+     "#AA00AA"
+    ]
+   },
+   {
+    "id": "laranja",
+    "nome": "Laranja",
+    "familia": "lisas",
+    "modo": "degrade",
+    "cores": [
+     "#FFAA00"
+    ]
+   },
+   {
+    "id": "azulroyal",
+    "nome": "Azul-royal",
+    "familia": "lisas",
+    "modo": "degrade",
+    "cores": [
+     "#5555FF"
+    ]
+   },
+   {
+    "id": "vinho",
+    "nome": "Vinho",
+    "familia": "lisas",
+    "modo": "degrade",
+    "cores": [
+     "#AA0000"
+    ]
+   },
+   {
+    "id": "pordosol",
+    "nome": "Pôr do sol",
+    "familia": "ceu",
+    "modo": "degrade",
+    "cores": [
+     "#FFFF55",
+     "#FFAA00",
+     "#FF5555",
+     "#FF55FF"
+    ]
+   },
+   {
+    "id": "aurora",
+    "nome": "Neon tropical",
+    "familia": "ceu",
+    "modo": "degrade",
+    "cores": [
+     "#55FF55",
+     "#00AAAA",
+     "#5555FF",
+     "#AA00AA"
+    ]
+   },
+   {
+    "id": "crepusculo",
+    "nome": "Crepúsculo",
+    "familia": "ceu",
+    "modo": "degrade",
+    "cores": [
+     "#5555FF",
+     "#AA00AA",
+     "#FF55FF",
+     "#FF5555"
+    ]
+   },
+   {
+    "id": "noiteestrelada",
+    "nome": "Noite estrelada",
+    "familia": "ceu",
+    "modo": "degrade",
+    "cores": [
+     "#0000AA",
+     "#5555FF",
+     "#FFFFFF"
+    ]
+   },
+   {
+    "id": "eclipse",
+    "nome": "Eclipse",
+    "familia": "ceu",
+    "modo": "degrade",
+    "cores": [
+     "#555555",
+     "#AAAAAA",
+     "#DDD605"
+    ]
+   },
+   {
+    "id": "lava",
+    "nome": "Lava",
+    "familia": "fogo",
+    "modo": "degrade",
+    "cores": [
+     "#FFFF55",
+     "#FFAA00",
+     "#FF5555",
+     "#AA0000"
+    ]
+   },
+   {
+    "id": "outono",
+    "nome": "Outono",
+    "familia": "fogo",
+    "modo": "degrade",
+    "cores": [
+     "#DDD605",
+     "#FFAA00",
+     "#AA0000",
+     "#555555"
+    ]
+   },
+   {
+    "id": "ouro",
+    "nome": "Ouro",
+    "familia": "fogo",
+    "modo": "degrade",
+    "cores": [
+     "#DDD605",
+     "#FFFF55",
+     "#FFAA00"
+    ]
+   },
+   {
+    "id": "areia",
+    "nome": "Duna",
+    "familia": "fogo",
+    "modo": "degrade",
+    "cores": [
+     "#FFFFFF",
+     "#FFAA00",
+     "#555555"
+    ]
+   },
+   {
+    "id": "girassol",
+    "nome": "Girassol",
+    "familia": "fogo",
+    "modo": "degrade",
+    "cores": [
+     "#FFFF55",
+     "#FFAA00",
+     "#00AA00"
+    ]
+   },
+   {
+    "id": "oceano",
+    "nome": "Oceano",
+    "familia": "agua",
+    "modo": "degrade",
+    "cores": [
+     "#55FFFF",
+     "#00AAAA",
+     "#5555FF"
+    ]
+   },
+   {
+    "id": "gelo",
+    "nome": "Gelo",
+    "familia": "agua",
+    "modo": "degrade",
+    "cores": [
+     "#FFFFFF",
+     "#55FFFF"
+    ]
+   },
+   {
+    "id": "lagoa",
+    "nome": "Lagoa",
+    "familia": "agua",
+    "modo": "degrade",
+    "cores": [
+     "#00AAAA",
+     "#55FFFF",
+     "#55FF55"
+    ]
+   },
+   {
+    "id": "nevoa",
+    "nome": "Névoa",
+    "familia": "agua",
+    "modo": "degrade",
+    "cores": [
+     "#FFFFFF",
+     "#AAAAAA",
+     "#555555"
+    ]
+   },
+   {
+    "id": "sakura",
+    "nome": "Sakura",
+    "familia": "natureza",
+    "modo": "degrade",
+    "cores": [
+     "#FFFFFF",
+     "#FF55FF",
+     "#AA00AA"
+    ]
+   },
+   {
+    "id": "floresta",
+    "nome": "Floresta",
+    "familia": "natureza",
+    "modo": "degrade",
+    "cores": [
+     "#55FF55",
+     "#00AA00"
+    ]
+   },
+   {
+    "id": "lotus",
+    "nome": "Lótus azul",
+    "familia": "natureza",
+    "modo": "degrade",
+    "cores": [
+     "#FFFFFF",
+     "#55FFFF",
+     "#5555FF"
+    ]
+   },
+   {
+    "id": "melancia",
+    "nome": "Melancia",
+    "familia": "natureza",
+    "modo": "degrade",
+    "cores": [
+     "#FF5555",
+     "#FFFFFF",
+     "#55FF55",
+     "#00AA00"
+    ]
+   },
+   {
+    "id": "limao",
+    "nome": "Limão",
+    "familia": "natureza",
+    "modo": "degrade",
+    "cores": [
+     "#55FF55",
+     "#FFFF55"
+    ]
+   },
+   {
+    "id": "algodaodoce",
+    "nome": "Algodão-doce",
+    "familia": "doces",
+    "modo": "degrade",
+    "cores": [
+     "#FF55FF",
+     "#FFFFFF",
+     "#55FFFF"
+    ]
+   },
+   {
+    "id": "menta",
+    "nome": "Menta",
+    "familia": "doces",
+    "modo": "degrade",
+    "cores": [
+     "#55FF55",
+     "#FFFFFF",
+     "#55FFFF"
+    ]
+   },
+   {
+    "id": "cereja",
+    "nome": "Cereja",
+    "familia": "doces",
+    "modo": "degrade",
+    "cores": [
+     "#AA0000",
+     "#FF5555",
+     "#FF55FF"
+    ]
+   },
+   {
+    "id": "pessego",
+    "nome": "Pêssego",
+    "familia": "doces",
+    "modo": "degrade",
+    "cores": [
+     "#FFAA00",
+     "#FF55FF",
+     "#FFFFFF"
+    ]
+   },
+   {
+    "id": "lavanda",
+    "nome": "Lavanda",
+    "familia": "doces",
+    "modo": "degrade",
+    "cores": [
+     "#5555FF",
+     "#AA00AA",
+     "#FFFFFF"
+    ]
+   },
+   {
+    "id": "arcoiris",
+    "nome": "Arco-íris",
+    "familia": "especial",
+    "modo": "ciclo",
+    "cores": [
+     "#FF5555",
+     "#FFAA00",
+     "#FFFF55",
+     "#55FF55",
+     "#55FFFF",
+     "#5555FF",
+     "#FF55FF"
+    ]
+   }
+  ],
+  "animados": [
+   {
+    "id": "chamaviva",
+    "nome": "Chama viva",
+    "familia": "magia",
+    "modo": "onda",
+    "cores": [
+     "#FFFF55",
+     "#FFAA00",
+     "#FF5555",
+     "#AA0000",
+     "#FF5555",
+     "#FFAA00"
+    ]
+   },
+   {
+    "id": "eletrico",
+    "nome": "Elétrico",
+    "familia": "magia",
+    "modo": "onda",
+    "cores": [
+     "#FFFF55",
+     "#FFFFFF",
+     "#55FFFF",
+     "#5555FF",
+     "#55FFFF",
+     "#FFFFFF"
+    ]
+   },
+   {
+    "id": "pocao",
+    "nome": "Poção mágica",
+    "familia": "magia",
+    "modo": "onda",
+    "cores": [
+     "#AA00AA",
+     "#FF55FF",
+     "#55FF55",
+     "#00AA00",
+     "#55FF55",
+     "#FF55FF"
+    ]
+   },
+   {
+    "id": "gosma",
+    "nome": "Gosma tóxica",
+    "familia": "magia",
+    "modo": "onda",
+    "cores": [
+     "#AA00AA",
+     "#00AA00",
+     "#55FF55",
+     "#AA00AA",
+     "#00AA00",
+     "#55FF55"
+    ]
+   },
+   {
+    "id": "retroneon",
+    "nome": "Retrô neon",
+    "familia": "magia",
+    "modo": "onda",
+    "cores": [
+     "#FF55FF",
+     "#AA00AA",
+     "#FF55FF",
+     "#55FFFF",
+     "#5555FF",
+     "#55FFFF"
+    ]
+   },
+   {
+    "id": "fogos",
+    "nome": "Fogos de artifício",
+    "familia": "especial",
+    "modo": "onda",
+    "cores": [
+     "#FF5555",
+     "#FFFF55",
+     "#55FFFF",
+     "#55FF55",
+     "#FF55FF",
+     "#FFFFFF"
+    ]
+   },
+   {
+    "id": "batida",
+    "nome": "Batida de coração",
+    "familia": "especial",
+    "modo": "onda",
+    "cores": [
+     "#FF5555",
+     "#FF55FF",
+     "#FF5555",
+     "#AA0000",
+     "#FF5555",
+     "#FFFFFF"
+    ]
+   },
+   {
+    "id": "ondadomar",
+    "nome": "Onda do mar",
+    "familia": "agua",
+    "modo": "onda",
+    "cores": [
+     "#FFFFFF",
+     "#55FFFF",
+     "#00AAAA",
+     "#5555FF",
+     "#00AAAA",
+     "#55FFFF"
+    ]
+   },
+   {
+    "id": "nevasca",
+    "nome": "Nevasca",
+    "familia": "agua",
+    "modo": "onda",
+    "cores": [
+     "#FFFFFF",
+     "#FFFFFF",
+     "#55FFFF",
+     "#FFFFFF",
+     "#AAAAAA",
+     "#FFFFFF"
+    ]
+   },
+   {
+    "id": "auroraboreal",
+    "nome": "Aurora boreal",
+    "familia": "ceu",
+    "modo": "onda",
+    "cores": [
+     "#55FF55",
+     "#55FFFF",
+     "#5555FF",
+     "#FF55FF",
+     "#5555FF",
+     "#55FFFF"
+    ]
+   },
+   {
+    "id": "galaxia",
+    "nome": "Galáxia",
+    "familia": "ceu",
+    "modo": "onda",
+    "cores": [
+     "#AA00AA",
+     "#FF55FF",
+     "#5555FF",
+     "#00AAAA",
+     "#5555FF",
+     "#FF55FF"
+    ]
+   },
+   {
+    "id": "estrelacadente",
+    "nome": "Estrela cadente",
+    "familia": "ceu",
+    "modo": "onda",
+    "cores": [
+     "#FFFFFF",
+     "#FFFF55",
+     "#FFAA00",
+     "#555555",
+     "#555555",
+     "#555555"
+    ]
+   },
+   {
+    "id": "cinzas",
+    "nome": "Cinzas e brasas",
+    "familia": "ceu",
+    "modo": "onda",
+    "cores": [
+     "#555555",
+     "#AAAAAA",
+     "#555555",
+     "#AA0000",
+     "#555555",
+     "#FF5555"
+    ]
+   },
+   {
+    "id": "petalas",
+    "nome": "Pétalas ao vento",
+    "familia": "natureza",
+    "modo": "onda",
+    "cores": [
+     "#FFFFFF",
+     "#FF55FF",
+     "#AA00AA",
+     "#FF55FF",
+     "#FFFFFF",
+     "#FF55FF"
+    ]
+   },
+   {
+    "id": "vagalume",
+    "nome": "Vaga-lume",
+    "familia": "natureza",
+    "modo": "onda",
+    "cores": [
+     "#00AA00",
+     "#55FF55",
+     "#FFFF55",
+     "#FFFFFF",
+     "#FFFF55",
+     "#55FF55"
+    ]
+   },
+   {
+    "id": "borboleta",
+    "nome": "Borboleta",
+    "familia": "natureza",
+    "modo": "onda",
+    "cores": [
+     "#55FFFF",
+     "#5555FF",
+     "#AA00AA",
+     "#FF55FF",
+     "#FFFFFF",
+     "#FFFF55"
+    ]
+   }
+  ]
+ },
+ "decor": [
+  {
+   "id": "lanterna_papel",
+   "nome": "Lanterna de Papel",
+   "preco": 180,
+   "dica": "Brilho quente de festival.",
+   "luz": 12
+  },
+  {
+   "id": "toro_pedra",
+   "nome": "Lanterna de Pedra",
+   "preco": 260,
+   "dica": "Pedra com musgo e luz de vela.",
+   "luz": 13
+  },
+  {
+   "id": "fogo_fatuo_pote",
+   "nome": "Pote de Fogo-fátuo",
+   "preco": 320,
+   "dica": "Uma chama azul que não queima.",
+   "luz": 10
+  },
+  {
+   "id": "candeeiro_raposa",
+   "nome": "Candeeiro de Raposa",
+   "preco": 240,
+   "dica": "A cabeça da raposa brilha por dentro.",
+   "luz": 12
+  },
+  {
+   "id": "estatua_raposa",
+   "nome": "Estátua da Kitsune",
+   "preco": 1800,
+   "dica": "Guardiã de pedra com babador vermelho.",
+   "luz": 0
+  },
+  {
+   "id": "pelucia_kitsune",
+   "nome": "Pelúcia Kitsune",
+   "preco": 420,
+   "dica": "Fofa, macia e muito sua.",
+   "luz": 0
+  },
+  {
+   "id": "torii_mini",
+   "nome": "Mini Torii",
+   "preco": 700,
+   "dica": "Um portal para passar pensando.",
+   "luz": 0
+  },
+  {
+   "id": "bonsai_sakura",
+   "nome": "Bonsai de Sakura",
+   "preco": 520,
+   "dica": "Pétalas rosa o ano todo.",
+   "luz": 0
+  },
+  {
+   "id": "luminaria_lua",
+   "nome": "Luminária da Lua",
+   "preco": 340,
+   "dica": "Uma lua crescente só sua.",
+   "luz": 14
+  },
+  {
+   "id": "lampiao_sakura",
+   "nome": "Lampião de Sakura",
+   "preco": 280,
+   "dica": "Luz rosada para a rua da sua base.",
+   "luz": 12
+  },
+  {
+   "id": "sino_vento",
+   "nome": "Sino de Vento",
+   "preco": 200,
+   "dica": "Tilinta com o vento (sem som, por enquanto).",
+   "luz": 0
+  },
+  {
+   "id": "biombo_shoji",
+   "nome": "Biombo Shoji",
+   "preco": 380,
+   "dica": "Papel de arroz com ramo de sakura e lua.",
+   "luz": 0
+  },
+  {
+   "id": "tatame",
+   "nome": "Tatame",
+   "preco": 120,
+   "dica": "Pisos tradicionais.",
+   "luz": 0
+  },
+  {
+   "id": "tapete_ondas",
+   "nome": "Tapete de Ondas",
+   "preco": 140,
+   "dica": "Padrão tradicional de ondas.",
+   "luz": 0
+  },
+  {
+   "id": "tapete_sakura",
+   "nome": "Tapete de Pétalas",
+   "preco": 160,
+   "dica": "Pétalas caídas para sempre.",
+   "luz": 0
+  },
+  {
+   "id": "mesa_baixa",
+   "nome": "Mesa Baixa de Chá",
+   "preco": 360,
+   "dica": "Com bule, xícara e dango.",
+   "luz": 0
+  },
+  {
+   "id": "almofada_rosa",
+   "nome": "Almofada Rosa",
+   "preco": 100,
+   "dica": "Zabuton macio para sentar.",
+   "luz": 0
+  },
+  {
+   "id": "almofada_lilas",
+   "nome": "Almofada Lilás",
+   "preco": 100,
+   "dica": "Zabuton macio para sentar.",
+   "luz": 0
+  },
+  {
+   "id": "almofada_laranja",
+   "nome": "Almofada Laranja",
+   "preco": 100,
+   "dica": "Zabuton macio para sentar.",
+   "luz": 0
+  },
+  {
+   "id": "jardim_zen",
+   "nome": "Jardim Zen",
+   "preco": 460,
+   "dica": "Areia rastelada e pedras com musgo.",
+   "luz": 0
+  },
+  {
+   "id": "tigela_lotus",
+   "nome": "Tigela de Lótus",
+   "preco": 300,
+   "dica": "Água calma e uma flor de lótus.",
+   "luz": 0
+  },
+  {
+   "id": "caixa_oferendas",
+   "nome": "Caixa de Oferendas",
+   "preco": 380,
+   "dica": "Para jogar uma moedinha e fazer um pedido.",
+   "luz": 0
+  },
+  {
+   "id": "pergaminho_kitsune",
+   "nome": "Pergaminho Kitsune",
+   "preco": 260,
+   "dica": "Uma raposa a nanquim.",
+   "luz": 0
+  },
+  {
+   "id": "espelho_lunar",
+   "nome": "Espelho Lunar",
+   "preco": 420,
+   "dica": "Reflete a luz da lua.",
+   "luz": 0
+  },
+  {
+   "id": "cristal_lua",
+   "nome": "Cristal da Lua",
+   "preco": 900,
+   "dica": "Brilha em lilás, de dia e de noite.",
+   "luz": 14
+  },
+  {
+   "id": "cauda_fofa",
+   "nome": "Cauda Fofa",
+   "preco": 480,
+   "dica": "A cauda da Kiza, em tamanho gigante.",
+   "luz": 0
+  },
+  {
+   "id": "dango_prato",
+   "nome": "Dango e Mochi",
+   "preco": 150,
+   "dica": "Doce de festival, só de enfeite.",
+   "luz": 0
+  },
+  {
+   "id": "shimenawa",
+   "nome": "Shimenawa",
+   "preco": 220,
+   "dica": "Corda sagrada com papéis shide.",
+   "luz": 0
+  },
+  {
+   "id": "banco_jardim",
+   "nome": "Banco de Jardim",
+   "preco": 320,
+   "dica": "Um lugar para ver as pétalas cair.",
+   "luz": 0
+  },
+  {
+   "id": "painel_bambu",
+   "nome": "Painel de Bambu",
+   "preco": 200,
+   "dica": "Divisória de bambu amarrada.",
+   "luz": 0
+  },
+  {
+   "id": "vaso_flores",
+   "nome": "Vaso de Flores",
+   "preco": 180,
+   "dica": "Flores frescas que nunca murcham.",
+   "luz": 0
+  },
+  {
+   "id": "pagode_mini",
+   "nome": "Mini Pagode",
+   "preco": 950,
+   "dica": "Três andares de telhado.",
+   "luz": 0
+  },
+  {
+   "id": "pedra_jardim",
+   "nome": "Pedra de Passagem",
+   "preco": 90,
+   "dica": "Pedra com musgo para o caminho.",
+   "luz": 0
+  },
+  {
+   "id": "ponte_arco",
+   "nome": "Ponte Arqueada",
+   "preco": 450,
+   "dica": "Para atravessar o laguinho com estilo.",
+   "luz": 0
+  }
+ ],
+ "novidades": [
+  {
+   "data": "30/10/2026",
+   "titulo": "muito mais estilos de cor para os Kitsunes",
+   "texto": "🎨 O selo Kitsune ganhou 34 estilos de cor normais e 16 animados para o nome, o chat e a tag do clã (os animados são só para o nome). Chegaram Noite estrelada, Eclipse, Girassol, Melancia, Lavanda, Pêssego, Névoa e mais, e os animados Poção mágica, Fogos de artifício, Batida de coração, Nevasca, Estrela cadente, Borboleta e outros.\n\n• No menu de cor, normais e animados ficam separados, cada um em famílias (Céu e noite, Fogo e terra, Água e gelo, Flores e natureza, Doces e pastéis, Magia e energia) para achar rápido\n• Neon tropical (antiga Aurora), Outono, Gelo e Gosma tóxica mudaram um pouco de cor para não ficarem parecidos com outros\n\n🎮 E o servidor agora comporta 10 jogadores ao mesmo tempo!"
+  },
+  {
+   "data": "30/10/2026",
+   "titulo": "LOJA DECORATIVA e Cantinho Kitsune novo",
+   "texto": "🦊 Chegou a LOJA DECORATIVA para os Kitsunes! No Cantinho Kitsune (botão Kitsune no canto do menu, ou /cantinho) tem 34 blocos de enfeite feitos pela Vulpus: torii, lanternas de papel e de pedra, bonsai de sakura, estátua da kitsune, jardim zen, mesa de chá, tatames, tapetes e mais. Cada bloco aparece com a imagem, o nome e o valor embaixo.\n\n• A loja só vende (não compra de volta) e os blocos não dão nenhuma vantagem no jogo\n• Dá para sentar no banco de jardim, nas almofadas, nos tatames e nos tapetes: clique com a mão e agache para levantar\n• O bloco só pode ficar com Kitsune: se passar para outra pessoa, ele some do inventário dela com o aviso \"Apenas Kitsunes podem ter esse item\"\n• O Cantinho Kitsune agora é um hub com tudo reunido: nome e cor, looks, tema do painel, chat e chegada, pets, clã, próxima Era e vantagens\n\n🔔 E mais: no Discord tem o canal de pings. Cada ping ligado soma +10 Caudas e +10 XP na sua diária do Minecraft e no /daily do Discord, e os pings acumulam!"
+  },
+  {
+   "data": "30/10/2026",
+   "titulo": "Mão esquerda estilo Java (em testes)",
+   "texto": "🦊 Agora dá para ter uma mão esquerda como no Java, para colocar luz sem trocar de ferramenta:\n\n• Segure uma tocha, lanterna ou bloco de iluminação (pedra luminosa, lanterna do mar, luz de cogumelo, rã luminosa) e digite /esq: a pilha vai para a mão esquerda.\n• Com a mão vazia, picareta ou espada, clique num bloco: um item da esquerda é colocado. Em caixas, portas e botões, agache para colocar em vez de abrir.\n• /esq com a mão vazia traz a pilha de volta; segurando outro item, ele troca com o que está na esquerda.\n• O item aparece na sua mão esquerda, e tochas, lanternas e blocos de iluminação, na mão direita ou na esquerda, iluminam em volta de você (a luz sai quando você larga o item, anda ou sai do jogo, e nunca troca um bloco).\n• Não funciona em terreno protegido, no lobby nem nos minijogos.\n\nPara ligar: Menu > Ajustes > Mão esquerda e luz na mão ou /vulpus:maoesq (o /esq já liga sozinho). Vem desligada por padrão, por ser um teste, e por enquanto só aceita itens de iluminação."
+  },
+  {
+   "data": "29/10/2026",
+   "titulo": "Chegada de quem é novo",
+   "texto": "🦊 Quem entra pela primeira vez na VULPUS agora tem uma recepção de verdade:\n\n• Cena de chegada: a tela clareia em laranja, chamas e faíscas giram em volta e a raposa faz sua festa.\n• Aviso no chat: o servidor todo vê \"Fulano chegou pela primeira vez na toca!\". Os 3 primeiros que derem as boas-vindas no chat ganham 5 Caudas (até 3 cumprimentos por dia cada, e só vale para quem joga há mais de 1 dia).\n• Kit de começo: pão, tochas e ferramentas de pedra, uma vez só.\n\n💬 No Discord: a mensagem de boas-vindas ganhou os primeiros passos (regras, vincular a conta, missões), quem chega fica com o cargo Novato por alguns dias, e quando alguém vincula a conta pela primeira vez a Kiza avisa e a galera reage com 🦊."
+  },
+  {
+   "data": "28/10/2026",
+   "titulo": "Loja nova: categorias, ícones e preços justos",
+   "texto": "🛒 A Loja foi reorganizada e ganhou ícone próprio em cada item.\n\n• Categorias novas: Minérios (antes ficavam em \"Outros\"), Plantações e Drops de monstros, além das que já existiam.\n• Estoque limitado: cada item mostra ×12/64. Quando a Loja enche de um item, ela para de comprar dele até alguém comprar. Os valiosos têm limite menor (diamante 150) e os comuns, bem maior (ex.: carvão 640).\n• Itens infinitos: pedra, terra, areia, madeira, vidro, lã, flechas e afins a Loja só vende (sempre tem) e não compra, porque dá para farmar sem fim.\n• Preços revistos: comprar e revender sempre dá prejuízo, e fabricar algo não rende mais que vender os ingredientes. Minérios, drops e comida pagam bem menos que antes.\n• Limite diário: cada pessoa pode ganhar até 300 Caudas por dia vendendo para a Loja (a staff muda o valor em Configurações). O que passar disso fica com você.\n• Vendendo mais do que cabe, a Loja aceita só até o limite e avisa quanto sobra. O /ultravender segue as mesmas regras."
+  }
+ ]
+}
