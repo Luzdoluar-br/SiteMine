@@ -531,3 +531,6 @@ details p{padding:0 4px 24px;color:var(--nevoa);max-width:64ch}
 .nov-item h3{font:400 1.3rem var(--serifa);margin:6px 0 10px}
 .nov-item p{color:var(--nevoa);white-space:pre-line;font-size:.95rem}
 @media (max-width:560px){.est-grid{grid-template-columns:1fr 1fr}.est-nome{font-size:1rem}.decor-grid{grid-template-columns:1fr 1fr}}
+
+/* o atributo hidden precisa vencer qualquer display definido nas classes (ex.: "0 guerras" aparecendo sem dados) */
+[hidden]{display:none!important}
