@@ -12,7 +12,7 @@ const CONFIG = {
   porta: "27151",
 
   // URL base da API do bot (sem / no final). Vazio = painel ao vivo desligado.
-  api: "",
+  api: "https://botmine-production-70b0.up.railway.app",
 
   // Vídeos: cole o ID do YouTube (a parte depois de v=). A seção só aparece quando houver pelo menos um ID.
   videos: [
