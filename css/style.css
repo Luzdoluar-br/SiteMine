@@ -301,7 +301,6 @@ h1{margin-top:28px;max-width:11.5ch;font:300 clamp(3rem,7.4vw,6.4rem)/.98 var(--
 .cm b.k{color:var(--fogo)}
 .tag{margin-left:6px;padding:1px 5px;border-radius:4px;background:#5865f2;color:#fff;font-size:.6rem;letter-spacing:.04em;vertical-align:2px}
 .cm p{color:#d6d8e4;font-size:.93rem;line-height:1.5;margin-top:2px}
-.cm .rabisco{margin-top:8px;max-width:240px;border-radius:10px;border:1px solid rgba(255,255,255,.08)}
 .digitando{display:flex;align-items:center;gap:4px;height:26px;padding:0 20px;font-size:.78rem;color:var(--cinza);opacity:0;transition:opacity .2s}
 .digitando.on{opacity:1}
 .digitando i{width:5px;height:5px;border-radius:50%;background:var(--nevoa);animation:pula 1.2s infinite}
@@ -534,3 +533,35 @@ details p{padding:0 4px 24px;color:var(--nevoa);max-width:64ch}
 
 /* o atributo hidden precisa vencer qualquer display definido nas classes (ex.: "0 guerras" aparecendo sem dados) */
 [hidden]{display:none!important}
+
+
+/* ===================== COMUNIDADE AO VIVO (destaque logo depois do topo) ===================== */
+.links .link-comunidade{color:var(--fogo);font-weight:600}
+.menu-mobile .link-comunidade{color:var(--fogo)}
+.btn-comunidade{border-color:rgba(143,209,158,.45);color:#d7f5df;background:rgba(143,209,158,.08)}
+.btn-comunidade:hover{border-color:rgba(143,209,158,.8);background:rgba(143,209,158,.14)}
+.btn-comunidade .vivo{margin-right:2px}
+.faixa-comunidade{position:relative;z-index:2;padding:46px 0 54px;background:linear-gradient(180deg,var(--noite-1),var(--noite-2) 40%,var(--noite-1));border-top:1px solid var(--linha);border-bottom:1px solid var(--linha)}
+.fc-cabeca{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:22px}
+.fc-cabeca h2{font:400 clamp(28px,4.6vw,46px)/1.08 var(--serifa)}
+.fc-cabeca h2 em{font-style:normal;color:var(--fogo)}
+.fc-acoes{display:flex;flex-wrap:wrap;gap:10px}
+.fc-grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px}
+.fc-cartao{display:grid;gap:10px;align-content:start;padding:18px 18px 20px;border-radius:var(--r-lg);background:var(--vidro);border:1px solid var(--linha);text-decoration:none;color:inherit;transition:transform .2s var(--ease),border-color .2s}
+.fc-cartao:hover{transform:translateY(-3px);border-color:rgba(255,154,60,.45)}
+.fc-rot{font:600 12px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--fogo)}
+.fc-num{font:400 34px/1 var(--serifa)}
+.fc-num span{font:500 15px var(--sans);color:var(--nevoa)}
+.fc-nicks{display:flex;flex-wrap:wrap;gap:6px}
+.fc-nicks span{font-size:12.5px;padding:4px 9px;border-radius:999px;background:rgba(143,209,158,.1);border:1px solid rgba(143,209,158,.3);color:#cdeed5}
+.fc-top{display:grid;gap:8px;counter-reset:fc}
+.fc-top li{display:grid;grid-template-columns:22px 30px 1fr auto;align-items:center;gap:8px;counter-increment:fc;min-width:0}
+.fc-top li::before{content:counter(fc);font:600 14px var(--serifa);color:var(--cinza);text-align:center}
+.fc-top li:nth-child(1)::before{color:#ffd36b}.fc-top li:nth-child(2)::before{color:#dfe4f3}.fc-top li:nth-child(3)::before{color:#e8a06a}
+.fc-top li.fc-vazio{display:block;color:var(--cinza);font-size:14px}
+.fc-top li.fc-vazio::before{content:none}
+.fc-top img{width:30px;height:30px;border-radius:50%;object-fit:cover;border:1px solid var(--linha-2)}
+.fc-top .nome{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+.fc-top .val{font:500 14px var(--serifa);color:var(--ouro);white-space:nowrap}
+.fc-novidade{font:400 19px/1.3 var(--serifa)}
+.fc-mais{font-size:14px;color:var(--nevoa)}

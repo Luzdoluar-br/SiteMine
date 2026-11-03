@@ -1,0 +1,118 @@
+/* Comunidade, Rankings, Perfil e Mural. Usa os tokens e o topo de conta.css (carregado antes). */
+
+/* menu com 5 seções: no celular ele rola de lado em vez de quebrar */
+.links{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.links::-webkit-scrollbar{display:none}
+.quem{text-decoration:none}
+@media (max-width:760px){.topo{flex-wrap:wrap}.links{order:3;width:100%;margin:6px 0 0;gap:16px;padding-bottom:2px}}
+
+.pagina{padding:34px 0 30px;display:grid;gap:26px}
+.titulo-pagina{display:grid;gap:8px}
+.titulo-pagina h1{font:400 clamp(30px,5.5vw,52px)/1.08 var(--serifa)}
+.titulo-pagina h1 em{font-style:normal;color:var(--fogo)}
+.titulo-pagina p{color:var(--nevoa);max-width:640px}
+.secao-titulo{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.secao-titulo h2{font:400 clamp(22px,3.4vw,30px)/1.15 var(--serifa)}
+.secao-titulo a{color:var(--fogo);text-decoration:none;font-size:14px;font-weight:600}
+.secao-titulo a:hover{text-decoration:underline}
+
+/* números ao vivo */
+.vivo{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.vivo .n{background:var(--vidro);border:1px solid var(--linha);border-radius:var(--r);padding:16px 18px}
+.vivo .valor{font-size:30px}
+.ponto{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--cinza);margin-right:8px;vertical-align:middle}
+.ponto.ligado{background:var(--ok);box-shadow:0 0 0 0 rgba(143,209,158,.6);animation:pulso 2s infinite}
+@keyframes pulso{0%{box-shadow:0 0 0 0 rgba(143,209,158,.55)}70%{box-shadow:0 0 0 10px rgba(143,209,158,0)}100%{box-shadow:0 0 0 0 rgba(143,209,158,0)}}
+@media (prefers-reduced-motion:reduce){.ponto.ligado{animation:none}}
+.online-nomes{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.online-nomes span{font-size:12.5px;padding:4px 9px;border-radius:999px;background:rgba(143,209,158,.1);border:1px solid rgba(143,209,158,.3);color:#cdeed5}
+
+/* busca */
+.busca{position:relative}
+.busca input{width:100%;font:500 16px var(--sans);color:var(--papel);background:rgba(7,8,24,.6);border:1px solid var(--linha-2);border-radius:999px;padding:14px 20px 14px 48px;outline:none}
+.busca input:focus{border-color:var(--fogo);box-shadow:0 0 0 4px rgba(255,154,60,.12)}
+.busca svg{position:absolute;left:18px;top:50%;width:18px;height:18px;transform:translateY(-50%);color:var(--cinza)}
+.resultados{display:grid;gap:6px;margin-top:10px}
+.resultados a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--r);background:var(--vidro);border:1px solid var(--linha);text-decoration:none}
+.resultados a:hover{border-color:var(--fogo)}
+.resultados small{color:var(--cinza)}
+
+/* avatar */
+.av{width:36px;height:36px;border-radius:50%;object-fit:cover;flex:none;border:1px solid var(--linha-2);background:var(--noite-3)}
+.av.sem-foto{opacity:.75}
+
+/* pódio (prévia dos rankings) */
+.podios{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.podio{background:var(--vidro);border:1px solid var(--linha);border-radius:var(--r-lg);padding:18px;display:grid;gap:10px;align-content:start}
+.podio h3{font:500 13px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--fogo);display:flex;justify-content:space-between}
+.podio h3 a{color:var(--nevoa);text-transform:none;letter-spacing:0;font-size:13px;text-decoration:none}
+.podio h3 a:hover{color:var(--fogo)}
+
+/* linhas de ranking */
+.linhas{display:grid;gap:8px}
+.linha{display:grid;grid-template-columns:34px auto 1fr auto;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--r);background:rgba(7,8,24,.4);border:1px solid var(--linha);text-decoration:none;min-width:0}
+a.linha:hover{border-color:var(--fogo);transform:translateY(-1px)}
+.linha .pos{font:600 15px var(--serifa);color:var(--cinza);text-align:center}
+.linha.p1 .pos{color:#ffd36b}.linha.p2 .pos{color:#dfe4f3}.linha.p3 .pos{color:#e8a06a}
+.linha.p1{border-color:rgba(255,211,107,.35);background:linear-gradient(90deg,rgba(255,211,107,.08),rgba(7,8,24,.4))}
+.linha .quem-l{min-width:0}
+.linha .nome{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.linha .det{display:block;font-size:12.5px;color:var(--cinza);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.linha .val{font:500 17px var(--serifa);color:var(--ouro);white-space:nowrap}
+.kit{color:var(--fogo);font-size:12px;margin-left:6px}
+
+/* abas */
+.abas{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.abas::-webkit-scrollbar{display:none}
+.aba{flex:none;border:1px solid var(--linha-2);background:transparent;color:var(--nevoa);border-radius:999px;padding:9px 16px;font:600 14px var(--sans);cursor:pointer}
+.aba[aria-selected=true]{background:linear-gradient(180deg,var(--ouro),var(--fogo));color:#1a0e04;border-color:transparent}
+
+/* enquetes */
+.enquetes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px}
+.enquete{background:var(--vidro);border:1px solid var(--linha);border-radius:var(--r-lg);padding:20px;display:grid;gap:12px;align-content:start}
+.enquete h3{font:500 20px/1.25 var(--serifa)}
+.opcao{position:relative;display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;padding:11px 14px;border-radius:12px;border:1px solid var(--linha-2);background:rgba(7,8,24,.45);overflow:hidden;font:500 15px var(--sans);color:var(--papel);text-align:left;width:100%}
+button.opcao{cursor:pointer}
+button.opcao:hover:not(:disabled){border-color:var(--fogo)}
+.opcao .enche{position:absolute;inset:0 auto 0 0;width:0;background:linear-gradient(90deg,rgba(255,154,60,.28),rgba(255,154,60,.08));transition:width .7s var(--ease,ease)}
+.opcao>span{position:relative}
+.opcao.minha{border-color:var(--fogo)}
+.opcao.minha .rot::after{content:" ✓ seu voto";color:var(--fogo);font-size:12px}
+.opcao .pct{color:var(--ouro);font-variant-numeric:tabular-nums}
+.enquete .rodape-e{font-size:13px;color:var(--cinza)}
+
+/* mural */
+.mural{display:grid;gap:14px}
+.post{background:var(--vidro);border:1px solid var(--linha);border-radius:var(--r-lg);padding:20px 22px;display:grid;gap:10px}
+.post .meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;color:var(--cinza)}
+.selo{font:600 11.5px/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;padding:5px 9px;border-radius:999px;border:1px solid var(--linha-2);color:var(--lua)}
+.selo.jogo{color:#a6f0b8;border-color:rgba(143,209,158,.4)}
+.selo.bot{color:var(--ouro);border-color:rgba(255,154,60,.4)}
+.selo.transp{color:#f6d38b;border-color:rgba(245,197,66,.4)}
+.post h3{font:500 21px/1.25 var(--serifa)}
+.post .corpo{display:grid;gap:8px;color:var(--nevoa)}
+.post .corpo strong{color:var(--papel)}
+.post ul.itens{display:grid;gap:6px;padding-left:2px}
+.post ul.itens li{color:var(--nevoa)}
+.post .campo{display:grid;gap:4px}
+.post .campo b{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--fogo)}
+.post.fechado .corpo{max-height:170px;overflow:hidden;mask-image:linear-gradient(#000 60%,transparent)}
+.ler-mais{justify-self:start;background:none;border:0;color:var(--fogo);font:600 14px var(--sans);cursor:pointer;padding:0}
+
+/* perfil */
+.perfil-topo{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.perfil-topo .av{width:96px;height:96px;border:2px solid rgba(255,154,60,.55);box-shadow:0 0 0 7px rgba(255,154,60,.08)}
+.perfil-topo h1{font:400 clamp(30px,5vw,46px)/1.05 var(--serifa)}
+.perfil-topo .nick{color:var(--ouro);font-size:15px}
+#perfil{display:grid;gap:18px}
+.posicoes{display:flex;flex-wrap:wrap;gap:8px}
+.posicoes a{font-size:13px;padding:6px 11px;border-radius:999px;border:1px solid rgba(255,154,60,.35);color:var(--ouro);text-decoration:none;background:rgba(255,154,60,.07)}
+.posicoes a:hover{border-color:var(--fogo)}
+.compartilhar{justify-self:start}
+
+/* estados */
+.vazio-c{color:var(--cinza);padding:12px 0}
+.esqueleto{height:52px;border-radius:var(--r);background:linear-gradient(90deg,rgba(159,178,255,.06),rgba(159,178,255,.12),rgba(159,178,255,.06));background-size:200% 100%;animation:brilho 1.4s infinite}
+@keyframes brilho{to{background-position:-200% 0}}
+.cta-conta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;background:linear-gradient(120deg,rgba(255,154,60,.14),rgba(111,133,240,.1));border:1px solid rgba(255,154,60,.3);border-radius:var(--r-lg);padding:20px 22px}
+.cta-conta p{color:var(--nevoa);max-width:560px}

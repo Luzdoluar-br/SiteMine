@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src https://botmine-production-70b0.up.railway.app; img-src 'self' https://cdn.discordapp.com data:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; base-uri 'none'; form-action 'self'">
+<title>VULPUS · Comunidade</title>
+<meta name="description" content="Quem está jogando, rankings, enquetes e novidades da VULPUS ao vivo.">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&family=Instrument+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../css/conta.css?v=20261103b">
+<link rel="stylesheet" href="../css/comunidade.css?v=20261103b">
+<script src="../js/comum.js?v=20261103b" defer></script>
+<script src="../js/comunidade.js?v=20261103b" defer></script>
+</head>
+<body data-secao="comunidade">
+<header class="topo">
+  <a class="marca" href="../" aria-label="VULPUS, página inicial">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 6l7 5h10l7-5-2 13-10 9-10-9z" fill="currentColor"/><path d="M12 17l4 3 4-3" stroke="#0b0d22" stroke-width="2" fill="none"/></svg>
+    <span>VULPUS</span><small>comunidade</small>
+  </a>
+  <nav class="links" aria-label="Seções">
+    <a href="../home/" data-secao="home">Home</a>
+    <a href="../comunidade/" data-secao="comunidade">Comunidade</a>
+    <a href="../habilidades/" data-secao="habilidades">Talentos</a>
+    <a href="../rankings/" data-secao="rankings">Rankings</a>
+    <a href="../mural/" data-secao="mural">Mural</a>
+    <a href="../conta/" data-secao="conta">Minha conta</a>
+  </nav>
+  <a class="quem" id="quem" href="../conta/" hidden><img id="quem-foto" alt=""><span id="quem-nome"></span></a>
+</header>
+<main class="wrap pagina">
+  <section class="titulo-pagina">
+    <h1>A toca está <em>viva</em></h1>
+    <p>Quem está jogando agora, quem está no topo, o que mudou no servidor e as enquetes da comunidade. Tudo ao vivo, direto do Minecraft e do Discord.</p>
+  </section>
+
+  <section class="vivo" aria-label="Números ao vivo">
+    <div class="n"><span class="valor" id="online">–</span><span class="rotulo"><span class="ponto" id="ponto"></span><span id="online-rot">no servidor agora</span></span><div class="online-nomes" id="online-nomes"></div></div>
+    <div class="n"><span class="valor" id="membros">–</span><span class="rotulo">membros no Discord</span></div>
+    <div class="n"><span class="valor" id="ligadas">–</span><span class="rotulo">contas do jogo ligadas</span></div>
+    <div class="n"><span class="valor" id="jogadores">–</span><span class="rotulo">jogadores que já passaram pela toca</span></div>
+  </section>
+
+  <section aria-label="Procurar jogador">
+    <div class="busca"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M10.5 18a7.5 7.5 0 1 1 5.3-2.2L21 21"/></svg><input id="busca" type="search" placeholder="Procure um jogador pelo nick ou nome no Discord" autocomplete="off" aria-label="Procurar jogador"></div>
+    <div class="resultados" id="resultados"></div>
+  </section>
+
+  <section>
+    <div class="secao-titulo"><h2>Quem está no topo</h2><a href="../rankings/">Todos os rankings →</a></div>
+    <div class="podios">
+      <article class="podio"><h3>Nível <a href="../rankings/?tipo=nivel">ver tudo</a></h3><div class="linhas" id="top-nivel"><div class="esqueleto"></div></div></article>
+      <article class="podio"><h3>Duelos <a href="../rankings/?tipo=duelos">ver tudo</a></h3><div class="linhas" id="top-duelos"><div class="esqueleto"></div></div></article>
+      <article class="podio"><h3>Abates PvP <a href="../rankings/?tipo=abates">ver tudo</a></h3><div class="linhas" id="top-abates"><div class="esqueleto"></div></div></article>
+    </div>
+  </section>
+
+  <section>
+    <div class="secao-titulo"><h2>Enquetes</h2><span class="pequeno" id="enquetes-dica"></span></div>
+    <div class="enquetes" id="enquetes"><div class="esqueleto"></div></div>
+  </section>
+
+  <section>
+    <div class="secao-titulo"><h2>Novidades</h2><a href="../mural/">Mural completo →</a></div>
+    <div class="mural" id="novidades"><div class="esqueleto"></div></div>
+  </section>
+
+  <section class="cta-conta" id="cta-conta">
+    <p><strong>Sua trajetória também aparece aqui.</strong> Entre com o Discord para ver sua conta, seu tempo de jogo e o seu lugar nos rankings. Se preferir, dá para deixar seu perfil privado.</p>
+    <a class="botao fogo-bt" href="../conta/">Minha conta</a>
+  </section>
+</main>
+<footer class="rodape wrap"><p>VULPUS · Equipe Anúbis · sem pay-to-win · dados reais do servidor e do Discord</p></footer>
+</body>
+</html>

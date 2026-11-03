@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src https://botmine-production-70b0.up.railway.app; img-src 'self' https://cdn.discordapp.com data:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; base-uri 'none'; form-action 'self'">
+<title>VULPUS · Perfil</title>
+<meta name="description" content="Perfil público de um jogador da VULPUS.">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&family=Instrument+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../css/conta.css?v=20261103b">
+<link rel="stylesheet" href="../css/comunidade.css?v=20261103b">
+<script src="../js/comum.js?v=20261103b" defer></script>
+<script src="../js/jogador.js?v=20261103b" defer></script>
+</head>
+<body data-secao="jogador">
+<header class="topo">
+  <a class="marca" href="../" aria-label="VULPUS, página inicial">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 6l7 5h10l7-5-2 13-10 9-10-9z" fill="currentColor"/><path d="M12 17l4 3 4-3" stroke="#0b0d22" stroke-width="2" fill="none"/></svg>
+    <span>VULPUS</span><small>perfil</small>
+  </a>
+  <nav class="links" aria-label="Seções">
+    <a href="../home/" data-secao="home">Home</a>
+    <a href="../comunidade/" data-secao="comunidade">Comunidade</a>
+    <a href="../habilidades/" data-secao="habilidades">Talentos</a>
+    <a href="../rankings/" data-secao="rankings">Rankings</a>
+    <a href="../mural/" data-secao="mural">Mural</a>
+    <a href="../conta/" data-secao="conta">Minha conta</a>
+  </nav>
+  <a class="quem" id="quem" href="../conta/" hidden><img id="quem-foto" alt=""><span id="quem-nome"></span></a>
+</header>
+<main class="wrap pagina">
+  <section id="perfil-carregando" class="estado"><div class="fogo" aria-hidden="true"></div><p>Procurando pela toca…</p></section>
+  <section id="perfil-erro" class="estado" hidden><h1 id="erro-titulo">Não encontrei esse jogador</h1><p class="lead" id="erro-texto"></p><a class="botao fantasma" href="../comunidade/">Voltar para a Comunidade</a></section>
+  <section id="perfil" hidden>
+    <div class="perfil-topo">
+      <img class="av" id="p-foto" alt="">
+      <div>
+        <h1 id="p-nome"></h1>
+        <p class="nick" id="p-nick"></p>
+        <p class="etiquetas" id="p-etiquetas"></p>
+      </div>
+    </div>
+    <div class="posicoes" id="p-posicoes"></div>
+    <div class="grade">
+      <article class="cartao" id="c-nivel" hidden><h2>Na toca</h2><div class="numeros"><div><span class="valor" id="p-nivel"></span><span class="rotulo" id="p-rank"></span></div><div><span class="valor" id="p-xp"></span><span class="rotulo">XP</span></div><div><span class="valor" id="p-call"></span><span class="rotulo">em call</span></div></div><div class="barra" aria-hidden="true"><span id="p-barra"></span></div></article>
+      <article class="cartao" id="c-mc" hidden><h2>Minecraft</h2><div class="numeros"><div><span class="valor" id="p-tempo"></span><span class="rotulo">de jogo no total</span></div><div><span class="valor" id="p-sessao"></span><span class="rotulo">maior sessão</span></div></div></article>
+      <article class="cartao" id="c-duelos" hidden><h2>Duelos</h2><div class="numeros"><div><span class="valor" id="p-elo"></span><span class="rotulo" id="p-div"></span></div><div><span class="valor" id="p-vd"></span><span class="rotulo">vitórias / derrotas</span></div></div></article>
+      <article class="cartao" id="c-pvp" hidden><h2>PvP no mundo</h2><div class="numeros"><div><span class="valor" id="p-kills"></span><span class="rotulo">abates</span></div><div><span class="valor" id="p-mortes"></span><span class="rotulo">mortes em PvP</span></div></div></article>
+    </div>
+    <p class="pequeno" id="p-desde"></p>
+    <button class="botao fantasma compartilhar" id="copiar" type="button">Copiar link do perfil</button>
+  </section>
+</main>
+<footer class="rodape wrap"><p>VULPUS · Equipe Anúbis · sem pay-to-win · dados reais do servidor e do Discord</p></footer>
+</body>
+</html>

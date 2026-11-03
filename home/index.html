@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src https://botmine-production-70b0.up.railway.app; img-src 'self' https://cdn.discordapp.com data:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; base-uri 'none'; form-action 'self'">
+<title>VULPUS · Home</title>
+<meta name="description" content="Os painéis da VULPUS: talentos, comunidade, rankings, mural e sua conta.">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&family=Instrument+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../css/conta.css?v=20261103b">
+<link rel="stylesheet" href="../css/comunidade.css?v=20261103b">
+<link rel="stylesheet" href="../css/talentos.css?v=20261103b">
+<script src="../js/comum.js?v=20261103b" defer></script>
+<script src="../js/home.js?v=20261103b" defer></script>
+</head>
+<body data-secao="home">
+<header class="topo">
+  <a class="marca" href="../" aria-label="VULPUS, página inicial">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 6l7 5h10l7-5-2 13-10 9-10-9z" fill="currentColor"/><path d="M12 17l4 3 4-3" stroke="#0b0d22" stroke-width="2" fill="none"/></svg>
+    <span>VULPUS</span><small>home</small>
+  </a>
+  <nav class="links" aria-label="Seções">
+    <a href="../home/" data-secao="home">Home</a>
+    <a href="../comunidade/" data-secao="comunidade">Comunidade</a>
+    <a href="../habilidades/" data-secao="habilidades">Talentos</a>
+    <a href="../rankings/" data-secao="rankings">Rankings</a>
+    <a href="../mural/" data-secao="mural">Mural</a>
+    <a href="../conta/" data-secao="conta">Minha conta</a>
+  </nav>
+  <a class="quem" id="quem" href="../conta/" hidden><img id="quem-foto" alt=""><span id="quem-nome"></span></a>
+</header>
+<main class="wrap pagina">
+  <section class="home-topo">
+    <div class="home-ola">
+      <img class="home-av" id="h-av" src="../img/avatar-kiza.webp" width="72" height="72" alt="">
+      <div>
+        <p class="sobre-t">Painéis da VULPUS</p>
+        <h1 id="h-titulo">Bem-vindo à <em>toca</em></h1>
+        <p id="h-sub">Tudo do servidor num lugar só: escolha para onde ir.</p>
+      </div>
+    </div>
+    <div class="home-vivo">
+      <div><span class="ponto" id="h-ponto"></span><b id="h-online">–</b><span id="h-online-rot">no servidor</span></div>
+      <div><b id="h-membros">–</b><span>no Discord</span></div>
+    </div>
+  </section>
+
+  <section class="tiles" aria-label="Painéis">
+    <a class="tile t-talentos" href="../habilidades/" style="--i:0">
+      <img class="tile-arte" src="../img/kiza-mapa.webp" width="720" height="579" alt="" loading="lazy">
+      <span class="tile-selo" id="h-pontos" hidden></span>
+      <span class="tile-txt"><b>Árvore de Talentos</b><span>Libere o VeinMiner, o Tree Capitator e bônus para jogar mais.</span></span>
+    </a>
+    <a class="tile t-comunidade" href="../comunidade/" style="--i:1">
+      <img class="tile-arte" src="../img/kiza-boasvindas.webp" width="720" height="579" alt="" loading="lazy">
+      <span class="tile-txt"><b>Comunidade ao vivo</b><span id="h-com">Quem está jogando, enquetes e novidades.</span></span>
+    </a>
+    <a class="tile t-rankings" href="../rankings/" style="--i:2">
+      <img class="tile-icone" src="../img/decor/estatua_raposa.png" width="64" height="64" alt="" loading="lazy">
+      <span class="tile-txt"><b>Rankings</b><span id="h-rank">Nível, tempo de jogo, duelos e abates.</span></span>
+    </a>
+    <a class="tile t-mural" href="../mural/" style="--i:3">
+      <img class="tile-icone" src="../img/decor/pergaminho_kitsune.png" width="64" height="64" alt="" loading="lazy">
+      <span class="tile-txt"><b>Mural</b><span id="h-mural">O que mudou no servidor e na Kiza.</span></span>
+    </a>
+    <a class="tile t-conta" href="../conta/" style="--i:4">
+      <img class="tile-icone" src="../img/decor/lanterna_papel.png" width="64" height="64" alt="" loading="lazy">
+      <span class="tile-txt"><b>Minha conta</b><span id="h-conta">Seu nível, tempo de jogo, histórico e privacidade.</span></span>
+    </a>
+    <a class="tile t-entrar" href="../#entrar" style="--i:5">
+      <img class="tile-icone" src="../img/decor/torii_mini.png" width="64" height="64" alt="" loading="lazy">
+      <span class="tile-txt"><b>Como entrar no servidor</b><span>IP, versão e o passo a passo para chegar na toca.</span></span>
+    </a>
+  </section>
+</main>
+<footer class="rodape wrap"><p>VULPUS · Equipe Anúbis · sem pay-to-win · dados reais do servidor e do Discord</p></footer>
+</body>
+</html>

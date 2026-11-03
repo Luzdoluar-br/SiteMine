@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src https://botmine-production-70b0.up.railway.app; img-src 'self' https://cdn.discordapp.com data:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; base-uri 'none'; form-action 'self'">
+<title>VULPUS · Árvore de Talentos</title>
+<meta name="description" content="Distribua seus pontos de talento: VeinMiner, Tree Capitator, colheita em área e bônus para o Minecraft da VULPUS.">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&family=Instrument+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../css/conta.css?v=20261103b">
+<link rel="stylesheet" href="../css/comunidade.css?v=20261103b">
+<link rel="stylesheet" href="../css/talentos.css?v=20261103b">
+<script src="../js/comum.js?v=20261103b" defer></script>
+<script src="../js/habilidades.js?v=20261103b" defer></script>
+</head>
+<body data-secao="habilidades">
+<header class="topo">
+  <a class="marca" href="../" aria-label="VULPUS, página inicial">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 6l7 5h10l7-5-2 13-10 9-10-9z" fill="currentColor"/><path d="M12 17l4 3 4-3" stroke="#0b0d22" stroke-width="2" fill="none"/></svg>
+    <span>VULPUS</span><small>talentos</small>
+  </a>
+  <nav class="links" aria-label="Seções">
+    <a href="../home/" data-secao="home">Home</a>
+    <a href="../comunidade/" data-secao="comunidade">Comunidade</a>
+    <a href="../habilidades/" data-secao="habilidades">Talentos</a>
+    <a href="../rankings/" data-secao="rankings">Rankings</a>
+    <a href="../mural/" data-secao="mural">Mural</a>
+    <a href="../conta/" data-secao="conta">Minha conta</a>
+  </nav>
+  <a class="quem" id="quem" href="../conta/" hidden><img id="quem-foto" alt=""><span id="quem-nome"></span></a>
+</header>
+<main class="wrap pagina">
+  <section class="tal-hero">
+    <div class="tal-hero-txt">
+      <p class="sobre-t">✦ Só aqui no site · chega no jogo sozinho</p>
+      <h1>Árvore de <em>Talentos</em></h1>
+      <p>Cada nível de habilidade no Minecraft vira ponto de talento. Gaste aqui para liberar o <strong>VeinMiner</strong>, o <strong>Tree Capitator</strong> e a <strong>colheita em área</strong>, e para ganhar bônus que fazem cada minuto de jogo render mais. Ponto só vem de jogar: nada se compra.</p>
+    </div>
+    <figure class="tal-kiza" aria-live="polite">
+      <img id="kiza-rosto" src="../img/humor-feliz.webp" width="130" height="144" alt="A Kiza">
+      <figcaption class="balao" id="kiza-fala">Escolhe com carinho: a árvore inteira custa bem mais do que dá para juntar.</figcaption>
+    </figure>
+  </section>
+
+  <section class="tal-aviso" id="tal-entrar" hidden>
+    <div><strong>Entre com o Discord para distribuir seus pontos.</strong><p>Sem login dá para olhar a árvore inteira; para escolher, o site precisa saber quem é você.</p></div>
+    <a class="botao fogo-bt" href="../conta/?entrar=1&amp;volta=habilidades">Entrar com Discord</a>
+  </section>
+  <section class="tal-aviso" id="tal-vincular" hidden>
+    <div><strong>Ligue sua conta do Minecraft.</strong><p>Os pontos vêm dos níveis das habilidades no jogo. No servidor, abra o menu e use <code>Vincular conta</code>; depois de jogar um pouco, seus pontos aparecem aqui.</p></div>
+  </section>
+
+  <section class="tal-painel" id="tal-painel">
+    <div class="tal-pontos">
+      <svg class="anel" viewBox="0 0 120 120" aria-hidden="true"><circle class="anel-fundo" cx="60" cy="60" r="52"/><circle class="anel-cheio" id="anel" cx="60" cy="60" r="52"/></svg>
+      <div class="tal-pontos-num"><span class="grande" id="pt-livres">–</span><span class="rotulo">pontos para usar</span></div>
+      <p class="pt-mini"><span id="pt-total">–</span> ganhos · <span id="pt-gastos">–</span> gastos</p>
+    </div>
+    <div class="tal-habs" id="tal-habs"></div>
+  </section>
+
+  <div class="abas tal-abas" role="tablist" id="tal-abas" aria-label="Ramos da árvore"></div>
+  <section class="arvore" id="arvore" aria-label="Árvore de talentos">
+    <svg class="fios" id="fios" aria-hidden="true"></svg>
+    <div class="esqueleto alto"></div>
+  </section>
+  <p class="legenda"><span class="l l-tem">tem</span><span class="l l-pode">dá para pegar</span><span class="l l-falta">falta pré-requisito</span><span class="l l-novo">escolhido agora (falta confirmar)</span></p>
+
+  <section class="grade">
+    <article class="cartao"><h2>Seus bônus ativos</h2><div class="tabela-rola"><table class="tabela" id="tab-ativos"><thead><tr><th>Talento</th><th>Nível</th><th>O que faz</th></tr></thead><tbody></tbody></table></div><p class="pequeno" id="ativos-vazio">Nenhum talento confirmado ainda.</p></article>
+    <article class="cartao"><h2>Como ganhar pontos</h2><div class="tabela-rola"><table class="tabela" id="tab-niveis"><thead><tr><th>Nível</th><th>Pontos de habilidade</th><th>Talento</th></tr></thead><tbody></tbody></table></div>
+      <p class="pequeno">Cada habilidade (Mineração, Lenhador, Fazendeiro, Combate e PvP) sobe sozinha fazendo a atividade no jogo. Vale o maior nível que você já alcançou: morrer não tira talento.</p></article>
+  </section>
+
+  <section class="cartao largo tal-redist">
+    <h2>Redistribuir</h2>
+    <p class="pequeno" id="redist-texto">Devolve todos os pontos para você escolher de novo. Grátis, uma vez a cada 7 dias.</p>
+    <button class="botao fantasma" id="redistribuir" type="button" disabled>Redistribuir todos os pontos</button>
+  </section>
+
+  <div class="barra-confirma" id="confirma" hidden>
+    <span id="confirma-txt"></span>
+    <button class="botao fantasma" id="desfazer" type="button">Desfazer</button>
+    <button class="botao fogo-bt" id="confirmar" type="button">Confirmar talentos</button>
+  </div>
+  <dialog class="detalhe" id="detalhe" aria-labelledby="d-nome">
+    <button class="fechar" id="d-fechar" type="button" aria-label="Fechar">×</button>
+    <div class="d-topo"><span class="d-emoji" id="d-emoji"></span><div><p class="d-ramo" id="d-ramo"></p><h2 id="d-nome"></h2></div></div>
+    <div class="tabela-rola"><table class="tabela" id="d-niveis"><thead><tr><th>Nível</th><th>Efeito</th><th>Custo</th></tr></thead><tbody></tbody></table></div>
+    <ul class="d-req" id="d-req"></ul>
+    <p class="pequeno" id="d-nota"></p>
+    <p class="d-msg" id="d-msg"></p>
+    <div class="acoes"><button class="botao fantasma" id="d-menos" type="button">− Tirar</button><button class="botao fogo-bt" id="d-mais" type="button">+ Adicionar nível</button></div>
+  </dialog>
+  <div class="toast" id="toast" role="status" hidden></div>
+</main>
+<footer class="rodape wrap"><p>VULPUS · Equipe Anúbis · sem pay-to-win · dados reais do servidor e do Discord</p></footer>
+</body>
+</html>

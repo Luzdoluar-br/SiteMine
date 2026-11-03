@@ -64,6 +64,9 @@
   <div class="wrap">
     <a class="marca" href="#inicio" aria-label="Vulpus, início"><svg width="28" height="28" aria-hidden="true"><use href="#i-raposa"/></svg><span>Vulpus</span></a>
     <div class="links">
+      <a class="link-comunidade" href="home/">Home</a>
+      <a href="comunidade/">Comunidade</a>
+      <a href="habilidades/">Talentos</a>
       <a href="#lenda">A lenda</a>
       <a href="#toca">A toca</a>
       <a href="#kiza">Kiza</a>
@@ -78,6 +81,7 @@
   </div>
 </nav>
 <div class="menu-mobile" id="menu" aria-hidden="true">
+  <a class="link-comunidade" href="home/">Home · todos os painéis</a><a href="comunidade/">Comunidade ao vivo</a><a href="habilidades/">Árvore de Talentos</a><a href="rankings/">Rankings</a><a href="mural/">Mural</a>
   <a href="#lenda">A lenda</a><a href="#toca">A toca</a><a href="#kiza">Kiza</a><a href="#colecao">Coleção</a><a href="#kitsune">Kitsune</a><a href="#estilos">Estilos</a><a href="#entrar">Como entrar</a>
   <a class="btn btn-fantasma" href="conta/">Minha conta</a>
   <a class="btn btn-fogo js-convite" href="#" target="_blank" rel="noopener">Entrar no Discord</a>
@@ -105,6 +109,7 @@
     <p class="lead">A Vulpus é um servidor de Minecraft Bedrock com plataforma própria, uma IA que lembra de cada jogador e uma regra que não se dobra: nada que dá vantagem se compra.</p>
     <div class="acoes">
       <a class="btn btn-fogo js-convite" href="#" target="_blank" rel="noopener">Entrar na toca <svg class="ic" width="18" height="18" aria-hidden="true"><use href="#i-seta"/></svg></a>
+      <a class="btn btn-comunidade" href="comunidade/"><span class="vivo"></span>Comunidade ao vivo</a>
       <a class="btn btn-fantasma" href="#lenda">Ler a lenda</a>
     </div>
     <ul class="selos">
@@ -154,6 +159,43 @@
 <path fill="#0b0d22" d="M-40,320 L-40,302 Q-40,302 -23,298 Q-6,293 11,289 Q28,285 45,281 Q62,277 79,276 Q96,274 113,276 Q130,278 147,279 Q164,281 181,282 Q198,282 215,284 Q232,286 249,290 Q266,294 283,296 Q300,298 317,296 Q334,295 351,291 Q368,288 385,287 Q402,285 419,285 Q436,285 453,283 Q470,282 487,279 Q504,277 521,275 Q538,274 555,274 Q572,275 589,278 Q606,282 623,288 Q640,293 657,295 Q674,296 691,293 Q708,290 725,286 Q742,282 759,278 Q776,275 793,273 Q810,272 827,275 Q844,277 861,282 Q878,287 895,288 Q912,290 929,289 Q946,288 963,289 Q980,290 997,291 Q1014,292 1031,292 Q1048,292 1065,291 Q1082,290 1099,289 Q1116,288 1133,286 Q1150,285 1167,283 Q1184,282 1201,281 Q1218,281 1235,282 Q1252,283 1269,285 Q1286,287 1303,287 Q1320,287 1337,287 Q1354,287 1371,288 Q1388,289 1405,289 Q1422,288 1439,283 Q1456,278 1473,269 L1490,261 L1490,320 Z"/>
 </svg>
 </header>
+
+<!-- ======================= COMUNIDADE AO VIVO (fora da conta das caudas) ======================= -->
+<section class="faixa-comunidade" id="comunidade-ao-vivo" aria-labelledby="fcTitulo">
+  <div class="wrap">
+    <div class="fc-cabeca">
+      <div>
+        <p class="kicker"><span class="vivo"></span>Agora na toca</p>
+        <h2 id="fcTitulo">A comunidade está <em>ao vivo</em></h2>
+      </div>
+      <div class="fc-acoes">
+        <a class="btn btn-fogo" href="comunidade/">Abrir a Comunidade <svg class="ic" width="18" height="18" aria-hidden="true"><use href="#i-seta"/></svg></a>
+        <a class="btn btn-fantasma" href="rankings/">Rankings</a>
+        <a class="btn btn-fantasma" href="conta/">Minha conta</a>
+      </div>
+    </div>
+    <div class="fc-grade">
+      <a class="fc-cartao" href="comunidade/">
+        <p class="fc-rot">No servidor agora</p>
+        <p class="fc-num"><b id="fcOnline">–</b> <span id="fcOnlineRot">jogando</span></p>
+        <div class="fc-nicks" id="fcNicks"></div>
+      </a>
+      <a class="fc-cartao" href="rankings/?tipo=duelos">
+        <p class="fc-rot">Topo dos duelos</p>
+        <ol class="fc-top" id="fcDuelos"><li class="fc-vazio">carregando…</li></ol>
+      </a>
+      <a class="fc-cartao" href="rankings/?tipo=nivel">
+        <p class="fc-rot">Maiores níveis</p>
+        <ol class="fc-top" id="fcNivel"><li class="fc-vazio">carregando…</li></ol>
+      </a>
+      <a class="fc-cartao" href="mural/">
+        <p class="fc-rot">Última novidade</p>
+        <p class="fc-novidade" id="fcNovidade">carregando…</p>
+        <p class="fc-mais" id="fcEnquetes"></p>
+      </a>
+    </div>
+  </div>
+</section>
 
 <!-- ======================= 2 · A LENDA ======================= -->
 <section class="lenda secao" id="lenda" data-nome="A lenda">
@@ -308,7 +350,7 @@
       <header class="cab">
         <p class="sobre"><svg width="14" height="18" aria-hidden="true"><use href="#cauda"/></svg>Cauda V · Kiza</p>
         <h2>Uma IA que <em>lembra de você.</em></h2>
-        <p>Mascote e alma da toca. Conversa com o contexto do chat, ajuda com Minecraft, desenha sob pedido e guarda o que você contar, até você pedir para esquecer.</p>
+        <p>Mascote e alma da toca. Conversa com quem é Kitsune, entende o contexto do chat, conhece o servidor de ponta a ponta para ajudar no Minecraft e guarda o que você contar, até você pedir para esquecer.</p>
       </header>
       <div class="ficha rev">
         <div class="retrato"><img id="retrato" src="img/humor-normal.webp" width="130" height="144" alt="Rosto da Kiza: normal"></div>
@@ -343,7 +385,7 @@
         <div class="chips" id="chips">
           <button type="button" data-p="0">onde acho axolote?</button>
           <button type="button" data-p="1">lembra do meu gato?</button>
-          <button type="button" data-p="2">desenha você olhando as estrelas</button>
+          <button type="button" data-p="2">como libero o VeinMiner?</button>
           <button type="button" data-p="3">você é uma IA?</button>
           <button type="button" data-p="4">qual sua cor favorita?</button>
         </div>
@@ -464,7 +506,7 @@
           <li>Servidor Bedrock com addons próprios: menu, casas, TPA, RTP, caçadas e spleef</li>
           <li>Clãs com bases e bandeiras, guerras e histórico</li>
           <li>Ponte de chat e contas vinculadas entre Discord e jogo</li>
-          <li>Kiza com IA, memória, humor e desenhos</li>
+          <li>Kiza com IA, memória e humor, assistente do servidor</li>
           <li>Caudas, níveis, ranks, missões, quiz e figurinhas</li>
           <li>Kitsune por PIX, doações com metas e Toca Kitsune</li>
           <li>Convites, placares automáticos e proteção contra raids</li>
@@ -538,5 +580,7 @@
 </footer>
 
 <script src="js/main.js?v=20261030b"></script>
+<script src="js/comum.js?v=20261103a" defer></script>
+<script src="js/destaque.js?v=20261103a" defer></script>
 </body>
 </html>

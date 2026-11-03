@@ -299,7 +299,7 @@ $$(".rev").forEach(observarRev);
   const roteiro = [
     { p: "onde acho axolote?", h: "piscando", r: ["nas cavernas exuberantes. procura uma árvore de azaleia na superfície, a caverna costuma estar logo embaixo", "leva um balde de água. é com ele que você pega"] },
     { p: "lembra do meu gato?", h: "feliz", r: ["o pipoca! ele ainda derruba tudo da mesa ou finalmente tomou jeito?"] },
-    { p: "desenha você olhando as estrelas", h: "feliz", r: ["toma, rabisquei rapidinho"], img: true },
+    { p: "como libero o VeinMiner?", h: "feliz", r: ["entra no site com o discord e abre a árvore de talentos. o veinminer custa 2 pontos, e cada nível de habilidade te dá 1", "depois é só agachar com a picareta no minério. o veio inteiro vem junto"] },
     { p: "você é uma IA?", h: "lado", r: ["sou a kiza, o bot-mascote da toca. então sim, mas com opinião própria", "e não vou fingir que sou gente de carne e osso. tenho uma cauda só, mas tenho ética"] },
     { p: "qual sua cor favorita?", h: "envergonhada", r: ["roxo. aquela cor do céu logo depois que o sol vai embora"] }
   ];
@@ -317,8 +317,7 @@ $$(".rev").forEach(observarRev);
       digitando.classList.add("on"); msgs.scrollTop = msgs.scrollHeight;
       await espera(calmo ? 100 : Math.min(2200, 700 + item.r[i].length * 16));
       digitando.classList.remove("on");
-      const extra = item.img && i === item.r.length - 1 ? `<img class="rabisco" src="img/rabisco.webp" width="800" height="600" alt="Rabisco da Kiza: ela sentada num morro, olhando as estrelas">` : "";
-      adicionar(`<div class="av av-k"><img src="img/humor-${item.h}.webp" width="40" height="40" alt=""></div><div><b class="k">Kiza <span class="tag">APP</span></b><p>${esc(item.r[i])}</p>${extra}</div>`);
+      adicionar(`<div class="av av-k"><img src="img/humor-${item.h}.webp" width="40" height="40" alt=""></div><div><b class="k">Kiza <span class="tag">APP</span></b><p>${esc(item.r[i])}</p></div>`);
       if (i === 0) humor(item.h);
     }
     b.remove();

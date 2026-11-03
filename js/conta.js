@@ -7,6 +7,8 @@
 const API = "https://botmine-production-70b0.up.railway.app";
 const CHAVE_SESSAO = "vulpus_sessao";
 const CHAVE_NUMERO = "vulpus_login_n";
+const CHAVE_VOLTA = "vulpus_login_volta";
+const VOLTAS = new Set(["habilidades", "home", "comunidade"]); // páginas para onde o login pode devolver
 
 const $ = (id) => document.getElementById(id);
 
@@ -94,6 +96,9 @@ function receberLogin() {
   }
   sessao = token;
   guardar.gravar(CHAVE_SESSAO, token);
+  const volta = guardar.ler(CHAVE_VOLTA, sessionStorage);
+  guardar.gravar(CHAVE_VOLTA, "", sessionStorage);
+  if (VOLTAS.has(volta)) location.replace(`../${volta}/`);
 }
 
 async function api(caminho, opcoes = {}) {
@@ -197,6 +202,13 @@ async function carregar() {
     aviso(ERROS[erro] || ERROS.login);
   }
   receberLogin();
+  if (params.get("entrar") === "1" && !sessao) {
+    // veio de outra página do site ("Entrar com Discord"): guarda para onde voltar e já vai para o Discord
+    const volta = params.get("volta") || "";
+    guardar.gravar(CHAVE_VOLTA, VOLTAS.has(volta) ? volta : "", sessionStorage);
+    return entrar();
+  }
+  if (sessao && VOLTAS.has(params.get("volta") || "")) return location.replace(`../${params.get("volta")}/`);
   if (!sessao) return mostrar("entrar");
   try {
     const { r, d } = await api("/painel/api/eu");

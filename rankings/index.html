@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src https://botmine-production-70b0.up.railway.app; img-src 'self' https://cdn.discordapp.com data:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; base-uri 'none'; form-action 'self'">
+<title>VULPUS · Rankings</title>
+<meta name="description" content="Os rankings da VULPUS: nível, tempo de jogo, duelos, abates e mais.">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&family=Instrument+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../css/conta.css?v=20261103b">
+<link rel="stylesheet" href="../css/comunidade.css?v=20261103b">
+<script src="../js/comum.js?v=20261103b" defer></script>
+<script src="../js/rankings.js?v=20261103b" defer></script>
+</head>
+<body data-secao="rankings">
+<header class="topo">
+  <a class="marca" href="../" aria-label="VULPUS, página inicial">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 6l7 5h10l7-5-2 13-10 9-10-9z" fill="currentColor"/><path d="M12 17l4 3 4-3" stroke="#0b0d22" stroke-width="2" fill="none"/></svg>
+    <span>VULPUS</span><small>rankings</small>
+  </a>
+  <nav class="links" aria-label="Seções">
+    <a href="../home/" data-secao="home">Home</a>
+    <a href="../comunidade/" data-secao="comunidade">Comunidade</a>
+    <a href="../habilidades/" data-secao="habilidades">Talentos</a>
+    <a href="../rankings/" data-secao="rankings">Rankings</a>
+    <a href="../mural/" data-secao="mural">Mural</a>
+    <a href="../conta/" data-secao="conta">Minha conta</a>
+  </nav>
+  <a class="quem" id="quem" href="../conta/" hidden><img id="quem-foto" alt=""><span id="quem-nome"></span></a>
+</header>
+<main class="wrap pagina">
+  <section class="titulo-pagina">
+    <h1>Rankings da <em>toca</em></h1>
+    <p>Quem mais se destaca na VULPUS. Atualiza sozinho a cada minuto. Quem deixou o perfil privado não aparece.</p>
+  </section>
+  <div class="abas" role="tablist" id="abas"></div>
+  <section class="cartao largo">
+    <h2 id="titulo-rank">Ranking</h2>
+    <p class="pequeno" id="explica"></p>
+    <div class="linhas" id="lista"><div class="esqueleto"></div><div class="esqueleto"></div><div class="esqueleto"></div></div>
+  </section>
+</main>
+<footer class="rodape wrap"><p>VULPUS · Equipe Anúbis · sem pay-to-win · dados reais do servidor e do Discord</p></footer>
+</body>
+</html>
