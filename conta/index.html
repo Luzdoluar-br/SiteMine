@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VULPUS · Minha conta</title>
+<meta name="description" content="Painel da VULPUS: sua conta, sua trajetória no servidor e sua identidade na comunidade.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&family=Instrument+Sans:wght@400;500;600&display=swap">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src https://botmine-production-70b0.up.railway.app; img-src 'self' https://cdn.discordapp.com data:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; base-uri 'none'; form-action 'self'">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="stylesheet" href="../css/conta.css">
+<script src="../js/conta.js" defer></script>
+</head>
+<body>
+<header class="topo">
+  <a class="marca" href="../" aria-label="VULPUS, página inicial">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 6l7 5h10l7-5-2 13-10 9-10-9z" fill="currentColor"/><path d="M12 17l4 3 4-3" stroke="#0b0d22" stroke-width="2" fill="none"/></svg>
+    <span>VULPUS</span><small>minha conta</small>
+  </a>
+  <nav class="links" aria-label="Seções">
+    <a href="../">Início</a>
+    <a href="./" aria-current="page">Minha conta</a>
+  </nav>
+  <div class="quem" id="quem" hidden>
+    <img id="quem-foto" alt="">
+    <span id="quem-nome"></span>
+    <button class="botao fantasma" id="sair" type="button">Sair</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- carregando -->
+  <section id="carregando" class="estado">
+    <div class="fogo" aria-hidden="true"></div>
+    <p>Acendendo as lanternas…</p>
+  </section>
+
+  <!-- entrar -->
+  <section id="entrar" class="estado" hidden>
+    <div class="fogo" aria-hidden="true"></div>
+    <h1>Sua trajetória na <em>VULPUS</em></h1>
+    <p class="lead">Entre com o Discord para ver sua conta, o vínculo com o Minecraft, seu tempo de jogo, duelos e o seu histórico, tudo num lugar só.</p>
+    <a class="botao fogo-bt" id="entrar-bt" href="#">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.3 4.4A19 19 0 0 0 15.6 3l-.6 1.2a17 17 0 0 0-6 0L8.4 3a19 19 0 0 0-4.7 1.4C.7 9 0 13.4.3 17.8a19 19 0 0 0 5.8 2.9l1.2-1.9a12 12 0 0 1-1.9-.9l.5-.4a13.5 13.5 0 0 0 12.2 0l.5.4-1.9.9 1.2 1.9a19 19 0 0 0 5.8-2.9c.4-5.1-.7-9.5-3.4-13.4ZM8.5 15.1c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.1 1.1 2.1 2.4-.9 2.4-2.1 2.4Zm7 0c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.1 1.1 2.1 2.4-.9 2.4-2.1 2.4Z"/></svg>
+      Entrar com o Discord
+    </a>
+    <p class="nota">Pedimos ao Discord só o seu nome e a sua foto. Nada de e-mail, nada de mensagens.</p>
+    <p class="aviso" id="aviso" hidden></p>
+  </section>
+
+  <!-- conta -->
+  <section id="conta" hidden>
+    <div class="ola">
+      <img id="foto" alt="">
+      <div>
+        <p class="sobre">Olá,</p>
+        <h1 id="nome"></h1>
+        <p class="etiquetas" id="etiquetas"></p>
+      </div>
+    </div>
+
+    <div class="alerta" id="restricao" hidden></div>
+
+    <div class="grade">
+      <article class="cartao">
+        <h2>Na toca</h2>
+        <div class="numeros">
+          <div><span class="valor" id="caudas"></span><span class="rotulo">Caudas</span></div>
+          <div><span class="valor" id="nivel"></span><span class="rotulo" id="rank"></span></div>
+          <div><span class="valor" id="sequencia"></span><span class="rotulo">dias seguidos no daily</span></div>
+        </div>
+        <div class="barra" aria-hidden="true"><span id="barra-xp"></span></div>
+        <p class="pequeno" id="xp-texto"></p>
+      </article>
+
+      <article class="cartao">
+        <h2>Minecraft</h2>
+        <div id="mc-sem" hidden>
+          <p>Sua conta do jogo ainda não está ligada ao Discord.</p>
+          <p class="pequeno">Entre no servidor: o jogo mostra um código; no Discord, use <code>/minecraft vincular</code>.</p>
+        </div>
+        <div id="mc-com" hidden>
+          <p class="destaque" id="mc-nick"></p>
+          <div class="numeros">
+            <div><span class="valor" id="mc-total"></span><span class="rotulo">de jogo no total</span></div>
+            <div><span class="valor" id="mc-maior"></span><span class="rotulo">maior sessão</span></div>
+          </div>
+          <p class="pequeno" id="mc-desde"></p>
+        </div>
+      </article>
+
+      <article class="cartao">
+        <h2>Duelos e PvP</h2>
+        <div class="numeros">
+          <div><span class="valor" id="duelo-elo">—</span><span class="rotulo" id="duelo-div">sem partidas rankeadas</span></div>
+          <div><span class="valor" id="duelo-vd">—</span><span class="rotulo">vitórias / derrotas</span></div>
+          <div><span class="valor" id="abates">—</span><span class="rotulo">abates PvP no mundo</span></div>
+        </div>
+        <p class="pequeno">Jogue em Atividades › Duelos. O ranking da temporada aparece depois das 5 partidas de colocação.</p>
+      </article>
+
+      <article class="cartao">
+        <h2>No Discord</h2>
+        <p class="pequeno" id="desde-discord"></p>
+        <ul class="cargos" id="cargos"></ul>
+      </article>
+    </div>
+
+    <article class="cartao largo">
+      <h2>Seu histórico de moderação</h2>
+      <p class="pequeno">Avisos, exílios e outras medidas aplicadas à sua conta. Para contestar uma decisão, abra um ticket no Discord e peça a revisão.</p>
+      <ul class="historico" id="historico"></ul>
+      <p class="vazio" id="historico-vazio" hidden>Nada por aqui. Continue assim. 🦊</p>
+    </article>
+
+    <article class="cartao largo">
+      <h2>Privacidade</h2>
+      <label class="chave">
+        <input type="checkbox" id="publico">
+        <span class="trilho" aria-hidden="true"></span>
+        <span><strong>Perfil público</strong><br><span class="pequeno">Outros jogadores podem ver suas estatísticas de jogo (nível, tempo de jogo, duelos). Punições e dados da conta nunca são públicos.</span></span>
+      </label>
+      <p class="pequeno salvo" id="salvo" hidden>Salvo.</p>
+      <div class="acoes">
+        <button class="botao fantasma" id="sair-todos" type="button">Sair de todos os aparelhos</button>
+      </div>
+    </article>
+  </section>
+</main>
+
+<footer class="rodape wrap">
+  <p>VULPUS · Equipe Anúbis · sem pay-to-win</p>
+</footer>
+</body>
+</html>
