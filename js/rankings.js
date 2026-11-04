@@ -1,4 +1,4 @@
-// Rankings: abas por tipo (nível, tempo de jogo, maior sessão, call, duelos, abates), com link direto (?tipo=).
+// Rankings: abas por tipo (nível, tempo de jogo, maior sessão, call, duelos, kills), com link direto (?tipo=).
 "use strict";
 
 (() => {
@@ -8,11 +8,11 @@
     tempo: "Tempo total no servidor de Minecraft.",
     sessao: "A maior sessão seguida no servidor de Minecraft.",
     call: "Tempo em salas de voz do Discord (com gente junto e sem estar mutado de som).",
-    duelos: "ELO do rankeado da temporada (Atividades › Duelos). Aparece quem terminou as 5 partidas de colocação.",
-    abates: "Vitórias contra outros jogadores no mundo. Minigames e duelos não contam; a mesma dupla vale no máximo 3 vezes por hora.",
+    duelos: "ELO do rankeado da temporada atual (Atividades › Duelos). Aparece quem terminou as 5 partidas de colocação. São os mesmos números do placar do jogo.",
+    abates: "Kills em outros jogadores no mundo. Morreu de queda, lava ou void até 10 s depois de apanhar? A kill é de quem bateu. Minigames e duelos não contam; a mesma dupla vale no máximo 3 vezes por hora. São os mesmos números do placar do jogo.",
   };
   const ORDEM = ["nivel", "tempo", "sessao", "call", "duelos", "abates"];
-  const ROTULO = { nivel: "Nível", tempo: "Tempo de jogo", sessao: "Maior sessão", call: "Call", duelos: "Duelos", abates: "Abates PvP" };
+  const ROTULO = { nivel: "Nível", tempo: "Tempo de jogo", sessao: "Maior sessão", call: "Call", duelos: "Duelos", abates: "Kills PvP" };
   let atual = new URLSearchParams(location.search).get("tipo") || "nivel";
   if (!ORDEM.includes(atual)) atual = "nivel";
 

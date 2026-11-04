@@ -3,7 +3,7 @@
 
 (() => {
   const { $, api, el, numero, duracao, data } = VULPUS;
-  const ROTULO = { nivel: "Nível", tempo: "Tempo de jogo", sessao: "Maior sessão", call: "Call", duelos: "Duelos", abates: "Abates" };
+  const ROTULO = { nivel: "Nível", tempo: "Tempo de jogo", sessao: "Maior sessão", call: "Call", duelos: "Duelos", abates: "Kills" };
 
   function erro(titulo, texto) {
     $("perfil-carregando").hidden = true;
