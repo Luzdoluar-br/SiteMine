@@ -1,0 +1,69 @@
+/* Parceiros (/parceiros/) e Seja parceiro (/seja-parceiro/). Listas de filete, sem cartões. */
+
+/* ---------- a rede: uma linha por servidor */
+.rede-lista { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(42, 29, 18, .3); }
+.parceiro { display: grid; grid-template-columns: 72px minmax(0, 1fr) auto; align-items: start; gap: 10px clamp(16px, 3vw, 32px); padding: 22px 4px; border-bottom: 1px solid rgba(42, 29, 18, .3); }
+.parceiro-icone { width: 72px; height: 72px; display: grid; place-items: center; background: var(--osso); border: 2px solid var(--madeira-med); border-radius: var(--raio); overflow: hidden; }
+.parceiro-icone img { width: 100%; height: 100%; object-fit: cover; }
+.parceiro-icone.sem-icone { background: var(--madeira); border-color: var(--couro); }
+.parceiro-icone.sem-icone svg { width: 44px; height: 44px; }
+.parceiro-topo { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; margin-bottom: 4px; }
+.parceiro h3 { font-size: clamp(1.4rem, 1.2rem + .8vw, 1.9rem); overflow-wrap: anywhere; }
+.parceiro-desc { margin: 0 0 6px; max-width: 64ch; overflow-wrap: anywhere; }
+.parceiro-desde { margin: 0; font-size: .95rem; color: var(--tinta-suave); }
+.parceiro .botao { align-self: center; }
+@media (max-width: 640px) {
+  .parceiro { grid-template-columns: 56px minmax(0, 1fr); padding: 18px 0; }
+  .parceiro-icone { width: 56px; height: 56px; }
+  .parceiro-icone.sem-icone svg { width: 34px; height: 34px; }
+  .parceiro .botao { grid-column: 1 / -1; }
+}
+.rede-carregando { display: grid; gap: 10px; }
+.rede-carregando .esqueleto { height: 100px; background: linear-gradient(90deg, rgba(42, 29, 18, .06) 25%, rgba(42, 29, 18, .13) 50%, rgba(42, 29, 18, .06) 75%); background-size: 200% 100%; }
+.rede-aviso { border-top: 1px solid rgba(42, 29, 18, .3); border-bottom: 1px solid rgba(42, 29, 18, .3); padding: 28px 4px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; justify-content: space-between; }
+.rede-aviso p { margin: 0; font-size: 1.15rem; }
+.rede-nota { margin: 22px 0 0; font-size: .95rem; color: var(--tinta-suave); max-width: 70ch; }
+
+/* ---------- seja parceiro */
+.ancoras { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 22px; }
+.ancoras a { font-weight: 700; text-decoration: none; color: var(--brasa); padding: 4px 0; border-bottom: 2px solid transparent; }
+.ancoras a:hover { border-bottom-color: var(--brasa); }
+.titulo-bloco { margin-bottom: 30px; max-width: 22ch; }
+
+.modalidades { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px clamp(24px, 4vw, 56px); }
+.modal { border-top: 2px solid rgba(239, 227, 203, .3); padding-top: 16px; }
+.modal-mega { border-top-color: var(--laranja); }
+.modal h3 { margin-bottom: 8px; }
+.modal-resumo { margin-bottom: 14px; }
+.modal dl { margin: 0; }
+.modal dl > div { display: flex; justify-content: space-between; gap: 6px 16px; padding: 9px 0; border-top: 1px solid rgba(239, 227, 203, .16); flex-wrap: wrap; }
+.modal dt { color: var(--suave); }
+.modal dd { margin: 0; font-weight: 700; text-align: right; }
+@media (max-width: 640px) { .modalidades { grid-template-columns: 1fr; } .modal dd { text-align: left; } }
+
+.requisitos, .faz-nao { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px clamp(24px, 4vw, 56px); }
+.requisitos h3, .faz-nao h3, .vetos h3 { font-size: 1.5rem; padding-bottom: 8px; border-bottom: 2px solid var(--laranja-tinta); margin-bottom: 4px; }
+.vetos { margin-top: 36px; }
+.vetos h3 { border-bottom-color: var(--alerta); }
+.lista-simples { list-style: none; margin: 0; padding: 0; }
+.lista-simples li { padding: 10px 0 10px 22px; border-bottom: 1px solid rgba(42, 29, 18, .2); position: relative; }
+.lista-simples li::before { content: ""; position: absolute; left: 2px; top: 1.2em; width: 9px; height: 9px; background: var(--laranja-tinta); transform: rotate(45deg); }
+.lista-simples.nao li::before { background: var(--alerta); }
+@media (max-width: 640px) { .requisitos, .faz-nao { grid-template-columns: 1fr; } }
+
+/* o caminho de cinco passos (a base é de quatro) */
+.passos-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0 22px; }
+.passos-5 p { margin: 0; }
+@media (max-width: 1100px) {
+  .passos-5 { grid-template-columns: 1fr; gap: 0; }
+  .passos-5::before { left: 22px; right: auto; top: 22px; bottom: 22px; border-top: 0; border-left: 2px dashed rgba(239, 227, 203, .3); }
+  .passos-5 > li { padding: 0 0 30px 70px; min-height: 52px; }
+}
+
+/* FAQ sobre madeira (o da entrada.css é para fundo claro) */
+.faq-escura .faq details, .faq-escura .faq details:last-child { border-color: rgba(239, 227, 203, .25); }
+.faq-escura .faq summary::after { color: var(--brasa); }
+.faq-escura .faq summary:hover { color: var(--brasa); }
+.faq-escura .faq a { color: var(--brasa); }
+.rede { min-height: 120px; }
+.parceiro-corpo { min-width: 0; }

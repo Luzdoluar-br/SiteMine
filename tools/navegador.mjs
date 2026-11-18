@@ -3,6 +3,7 @@
 //   - rolagem horizontal (algo mais largo que a tela)
 //   - altura da página; salva uma foto da página inteira de cada uma
 // Sem dependências: usa o Chrome instalado e o protocolo DevTools.
+//   --parceiros=vazio|tres|erro  responde /site/parceiros de mentira (sem o bot no ar) e o ícone do Discord com um PNG pequeno
 //   node tools/navegador.mjs [--saida=pasta] [--celular] [--so=kiza,home] [--base=http://127.0.0.1:8765]
 // Precisa de um servidor local do site (ex.: python -m http.server 8765 dentro da pasta do site).
 // ATENÇÃO: roda com a segurança entre origens desligada (a API do bot só responde para o endereço de produção, então localmente o
@@ -22,6 +23,7 @@ const PAGINAS = [
   ["inicio", "/"], ["comunidade", "/comunidade/"], ["rankings", "/rankings/"], ["mural", "/mural/"], ["jogador", "/jogador/?nick=Hartzsx1"],
   ["plataforma", "/plataforma/"], ["kiza", "/kiza/"], ["colecao", "/colecao/"], ["kitsune", "/kitsune/"], ["como-entrar", "/como-entrar/"],
   ["habilidades", "/habilidades/"], ["conta", "/conta/"], ["home", "/home/"], ["entrar", "/entrar/"],
+  ["parceiros", "/parceiros/"], ["seja-parceiro", "/seja-parceiro/"],
 ].filter(([n]) => !SO.length || SO.includes(n));
 const TELAS = [["pc", 1440, 900, false], ...(process.argv.includes("--celular") || !process.argv.includes("--so-pc") ? [["celular", 390, 844, true]] : [])];
 mkdirSync(SAIDA, { recursive: true });
@@ -89,6 +91,24 @@ try {
     if (m.method === "Network.loadingFailed" && !m.params.canceled) problemas.push(`requisição falhou: ${m.params.errorText} (${m.params.blockedReason || "sem motivo"})`);
   });
 
+  const CENARIO = arg("parceiros", "");
+  if (CENARIO) {
+    const PNG = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==";
+    const TRES = { parceiros: [
+      { nome: "Taverna do Corvo", descricao: "Comunidade brasileira de Minecraft e RPG de mesa, com eventos toda semana.", convite: "https://discord.gg/exemplo1", icone: "https://cdn.discordapp.com/icons/1/abc.png", desde: "2026-03-14", modalidade: "mega" },
+      { nome: "Clã <b>Lobo</b> & Cia com um nome bem comprido para testar a quebra de linha em telas pequenas", descricao: "Texto com <script>alert(1)</script> e uma descrição longa o bastante para passar de uma linha em qualquer tela, só para conferir que nada estoura a largura da página nem sobrepõe o botão.", convite: "https://discord.gg/exemplo2", icone: null, desde: "2026-01-02", modalidade: "mega" },
+      { nome: "Ícone de fora", descricao: "O ícone não é do Discord e tem de ser ignorado.", convite: "javascript:alert(1)", icone: "https://evil.example/x.png", desde: "2026-09-30", modalidade: "mega" },
+    ], atualizado_em: 1790000000 };
+    const resp = CENARIO === "vazio" ? { cod: 200, corpo: { parceiros: [], atualizado_em: 1790000000 } } : CENARIO === "erro" ? { cod: 500, corpo: { ok: false } } : { cod: 200, corpo: TRES };
+    await aba.envia("Fetch.enable", { patterns: [{ urlPattern: "*/site/parceiros*", requestStage: "Request" }, { urlPattern: "https://cdn.discordapp.com/*", requestStage: "Request" }] });
+    aba.ouvintes.push((m) => {
+      if (m.method !== "Fetch.requestPaused") return;
+      const cdn = m.params.request.url.startsWith("https://cdn.discordapp.com/");
+      aba.envia("Fetch.fulfillRequest", cdn
+        ? { requestId: m.params.requestId, responseCode: 200, responseHeaders: [{ name: "Content-Type", value: "image/png" }], body: PNG }
+        : { requestId: m.params.requestId, responseCode: resp.cod, responseHeaders: [{ name: "Content-Type", value: "application/json" }, { name: "Access-Control-Allow-Origin", value: "*" }, { name: "Access-Control-Allow-Headers", value: "*" }], body: Buffer.from(JSON.stringify(resp.corpo)).toString("base64") });
+    });
+  }
   for (const [tela, largura, altura, celular] of TELAS) {
     await aba.envia("Emulation.setDeviceMetricsOverride", { width: largura, height: altura, deviceScaleFactor: 1, mobile: celular });
     for (const [nome, caminho] of PAGINAS) {
@@ -113,7 +133,7 @@ try {
       const { w, iw, h, largo } = JSON.parse(medidas);
       const alturaFoto = Math.min(h, 9000);
       const foto = await aba.envia("Page.captureScreenshot", { format: "png", captureBeyondViewport: true, clip: { x: 0, y: 0, width: largura, height: alturaFoto, scale: 1 } });
-      const arquivo = join(SAIDA, `${tela}_${nome}.png`);
+      const arquivo = join(SAIDA, `${tela}_${nome}${CENARIO && nome.endsWith("parceiros") ? "_" + CENARIO : ""}.png`);
       writeFileSync(arquivo, Buffer.from(foto.data, "base64"));
       const rolagem = w > iw + 1;
       // o /entrar/ tenta abrir minecraft:// sozinho; o Chrome recusa sem clique. Esperado (no celular o jogo abre).

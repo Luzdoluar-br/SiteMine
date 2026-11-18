@@ -20,7 +20,7 @@ COMO EDITAR
 CONFERIR ANTES DE PUBLICAR
   node tools/gerar.mjs --conferir   falha se algum index.html estiver desatualizado em relação ao src/
   node tools/conferir.mjs           ids que o JS procura, links quebrados, imagem sem alt, estilo/script inline, emoji, classe sem CSS
-  node tools/navegador.mjs          abre as 14 páginas no Chrome, em tamanho de computador e de celular, e acusa erro de JS,
+  node tools/navegador.mjs          abre as 16 páginas no Chrome, em tamanho de computador e de celular, e acusa erro de JS,
                                     violação da política de conteúdo, requisição falha e rolagem horizontal. Salva uma foto de cada.
                                     (precisa de um servidor local: python -m http.server 8765, dentro desta pasta)
 
@@ -32,6 +32,8 @@ PÁGINAS E O QUE ELAS USAM (tudo ao vivo vem da API do bot, em https://botmine-p
   /jogador/          perfil público (?id= ou ?nick=)                        /painel/api/publico/jogador
   /habilidades/      Árvore de Talentos (login com Discord)                 /painel/api/publico/talentos, /painel/api/talentos[/salvar|/redistribuir]
   /plataforma/       o que a plataforma faz; lista de clãs ao vivo          /site/resumo
+  /parceiros/        Mega Parceiros ativos (ordem de entrada)               /site/parceiros  (só nome, descricao, convite, icone, desde)
+  /seja-parceiro/    parceria normal x Mega Parceria, requisitos, processo (texto, nada ao vivo)
   /kiza/  /colecao/  texto e imagens (nada ao vivo)
   /kitsune/          plano, doação e vitrine                                data/kitsune.json (gerado, ver abaixo)
   /como-entrar/      endereços, passo a passo, perguntas frequentes
@@ -40,7 +42,7 @@ PÁGINAS E O QUE ELAS USAM (tudo ao vivo vem da API do bot, em https://botmine-p
   As rotas antigas (/home, /comunidade, /habilidades, /rankings, /mural, /jogador, /conta, /entrar) continuam existindo.
 
 CSS (css/): fontes.css, base.css (cores, tipografia, topo, rodapé, peças comuns), paginas.css (composições), e um arquivo por assunto
-  (inicio, kiza, colecao, kitsune, plataforma, comunidade, conta, talentos, entrada).
+  (inicio, parceiros, kiza, colecao, kitsune, plataforma, comunidade, conta, talentos, entrada).
 JS (js/): comum.js (API, sessão e peças de lista), site.js (menu e botões de copiar) e um arquivo por página.
   Texto da API entra sempre por textContent, nunca como HTML. Emoji que vem de dados (ranks, changelog) é cortado na exibição.
 

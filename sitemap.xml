@@ -9,6 +9,8 @@
   <url><loc>https://site-production-f47b.up.railway.app/kitsune/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://site-production-f47b.up.railway.app/kiza/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://site-production-f47b.up.railway.app/mural/</loc><changefreq>daily</changefreq><priority>0.7</priority></url>
+  <url><loc>https://site-production-f47b.up.railway.app/parceiros/</loc><changefreq>daily</changefreq><priority>0.6</priority></url>
   <url><loc>https://site-production-f47b.up.railway.app/plataforma/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://site-production-f47b.up.railway.app/rankings/</loc><changefreq>hourly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://site-production-f47b.up.railway.app/seja-parceiro/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>

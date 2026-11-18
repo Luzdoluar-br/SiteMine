@@ -1,0 +1,46 @@
+<!--pagina {"rota":"parceiros","titulo":"Mega Parceiros · Vulpus","descricao":"Os servidores de Discord que fazem parte da rede de Mega Parcerias da Vulpus: divulgação recíproca entre comunidades brasileiras de Minecraft e jogos.","secao":"comunidade","sub":"parceiros","css":["base","paginas","comunidade","parceiros"],"js":["parceiros"],"prioridade":0.6,"freq":"daily"}-->
+<header class="cabeca cabeca-foto">
+  <div class="miolo cabeca-in">
+    <div>
+      <p class="sobretitulo">Comunidade</p>
+      <h1>Outras tocas, <em>mesma trilha.</em></h1>
+      <p class="lead">Os servidores de Discord que têm uma Mega Parceria com a Vulpus: nós divulgamos eles, eles divulgam a gente.</p>
+    </div>
+    <figure class="cabeca-img">
+      <img src="{{raiz}}img/cenas/ponte.webp" width="1300" height="1166" alt="Ponte de pedra sobre um riacho, com lanternas acesas e abetos em volta, numa ilha de terra ao anoitecer. Cena construída em Minecraft.">
+      <figcaption>Cena construída em Minecraft; céu e brilhos acrescentados na edição.</figcaption>
+    </figure>
+  </div>
+</header>
+{{subnav}}
+
+<section class="faixa faixa-pergaminho" aria-labelledby="redeTitulo">
+  <div class="miolo">
+    <div class="secao-titulo">
+      <h2 id="redeTitulo">A rede</h2>
+      <span class="pequeno" id="redeContagem"></span>
+    </div>
+    <div id="rede" class="rede" aria-live="polite" aria-busy="true">
+      <ul class="rede-lista" id="redeLista" aria-label="Mega Parceiros" hidden></ul>
+      <div class="rede-carregando" id="redeCarregando"><div class="esqueleto"></div><div class="esqueleto"></div><div class="esqueleto"></div></div>
+      <div class="rede-aviso" id="redeErro" hidden>
+        <p><b>Não consegui carregar agora.</b> A lista vem do servidor da Vulpus e ele não respondeu.</p>
+        <button class="botao botao-fio botao-pequeno" type="button" id="redeTentar">Tentar de novo</button>
+      </div>
+      <div class="rede-aviso" id="redeVazio" hidden>
+        <p><b>Ainda não temos Mega Parceiros.</b></p>
+      </div>
+    </div>
+    <p class="rede-nota">Só aparece aqui quem tem Mega Parceria ativa e aprovada pela equipe. O botão de cada servidor abre o convite dele no Discord, em outra aba.</p>
+  </div>
+</section>
+
+<section class="chamada faixa" aria-labelledby="sejaTitulo">
+  <div class="miolo chamada-in">
+    <div>
+      <h2 id="sejaTitulo">Tem um servidor <em>e quer conversar?</em></h2>
+      <p>Existem duas modalidades de parceria. Veja o que cada uma pede antes de abrir o ticket.</p>
+    </div>
+    <a class="botao" href="{{raiz}}seja-parceiro/">Seja parceiro <svg aria-hidden="true"><use href="#seta"/></svg></a>
+  </div>
+</section>
