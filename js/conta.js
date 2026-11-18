@@ -127,7 +127,7 @@ function preencher(d) {
   $("foto").src = d.usuario.avatar;
   $("nome").textContent = d.usuario.nome;
   const et = $("etiquetas");
-  et.replaceChildren(etiqueta(`${d.perfil.rank_emoji} ${d.perfil.rank}`, true));
+  et.replaceChildren(etiqueta(d.perfil.rank, true));
   if (d.servidor.equipe !== "Membro") et.append(etiqueta(`Equipe: ${d.servidor.equipe}`));
   if (d.minecraft.vinculado) et.append(etiqueta("Conta do jogo ligada"));
 

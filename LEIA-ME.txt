@@ -1,24 +1,63 @@
-SITE DO VULPUS (v3: "a lenda das nove caudas")
-==============================================
-Estrutura: index.html + css/style.css + js/main.js + img/ (tudo estático, sem build).
+SITE DA VULPUS (v4: reformulação completa)
+==========================================
+Site estático (HTML, CSS e JS puros). Não tem etapa de build para publicar: o que está na pasta é o que vai ao ar.
+O único "gerador" é um script pequeno que monta as páginas a partir de pedaços, para o menu e o rodapé serem iguais em todas.
 
-CONCEITO
-  A página conta a lenda da Kiza (nasceu com uma cauda, ganha uma a cada história).
-  São 9 seções e cada uma acende uma cauda no leque do canto da tela; no fim aparece "Nove caudas".
-  Noite índigo, fogo de raposa (kitsunebi) no topo, títulos em Fraunces e texto em Instrument Sans (Google Fonts).
+IDENTIDADE
+  Fantasia medieval aconchegante: madeira escura, pergaminho, laranja de raposa e azul de fim de tarde. Letras Alegreya (títulos) e
+  Alegreya Sans (texto), as duas guardadas em fonts/ (nada vem do Google). Silkscreen (pixel) só nos nomes de cor e tags de clã.
+  Sem gradientes decorativos, vidro, brilho em borda ou emoji como ícone. O único brilho do site é a "lanterna" da chamada final.
 
-CONFIGURAR (js/main.js, no topo, bloco "CONFIGURE AQUI"):
-  convite  -> link do Discord (troca todos os botões "Entrar no Discord")
-  ip/porta -> preenchido, o passo 2 de "Como entrar" ganha um botão "copiar endereço"
-  videos   -> IDs do YouTube; a seção de vídeos só aparece quando houver pelo menos um
+COMO EDITAR
+  src/paginas/*.html   o miolo de cada página (o 1º comentário <!--pagina {...}--> tem rota, título, descrição, CSS e JS da página)
+  src/parciais/        cabecalho.html, rodape.html, subnav.html (menu das páginas de comunidade) e modelo.html (a casca)
+  src/config.json      convite do Discord e os dois endereços do servidor (viram texto e atributos no HTML)
+  src/versao.json      muda quando você quer forçar todo mundo a baixar CSS e JS novos
+  Depois de editar qualquer coisa em src/:
+      node tools/gerar.mjs        escreve os index.html e o sitemap.xml
+  NÃO edite os index.html à mão: o gerador sobrescreve.
 
-TESTAR: rode um servidor local na pasta (ex.: python -m http.server 8080) e abra http://127.0.0.1:8080
-PUBLICAR: GitHub Pages (branch gh-pages) ou Cloudflare Pages (arraste esta pasta).
-A versão anterior está em ../site_v2 e a primeira em ../site_v1.
-As fontes em fonts/ (Fredoka e Silkscreen) eram da v2 e não são mais usadas.
+CONFERIR ANTES DE PUBLICAR
+  node tools/gerar.mjs --conferir   falha se algum index.html estiver desatualizado em relação ao src/
+  node tools/conferir.mjs           ids que o JS procura, links quebrados, imagem sem alt, estilo/script inline, emoji, classe sem CSS
+  node tools/navegador.mjs          abre as 14 páginas no Chrome, em tamanho de computador e de celular, e acusa erro de JS,
+                                    violação da política de conteúdo, requisição falha e rolagem horizontal. Salva uma foto de cada.
+                                    (precisa de um servidor local: python -m http.server 8765, dentro desta pasta)
 
-VITRINE KITSUNE (cores, loja decorativa e novidades)
-  Os dados vêm de site/data/kitsune.json e os ícones de site/img/decor/. Gere de novo sempre que mudar uma cor, um bloco ou o changelog do jogo:
-      cd ../BotVulpus/addon && python tools/gerar_dados_site.py   (escreve nesta pasta; depois é só commitar e dar push aqui)
-  (precisa de node e Python; lê cores.js, o catálogo da loja e textos.CHANGELOG_MC.)
-  A seção #estilos e #novidades não usam a classe .secao de propósito: assim não mexem na conta das nove caudas.
+PÁGINAS E O QUE ELAS USAM (tudo ao vivo vem da API do bot, em https://botmine-production-70b0.up.railway.app)
+  /                  início: números ao vivo e as últimas novidades        /painel/api/publico/resumo, /painel/api/publico/mural
+  /comunidade/       ao vivo, busca, pódios, enquetes (votar), novidades    /painel/api/publico/{resumo,busca,enquetes,mural}, /painel/api/enquetes/votar
+  /rankings/         seis rankings com link direto (?tipo=)                 /painel/api/publico/rankings
+  /mural/            novidades, Kiza e transparência (?tipo=transp)         /painel/api/publico/mural
+  /jogador/          perfil público (?id= ou ?nick=)                        /painel/api/publico/jogador
+  /habilidades/      Árvore de Talentos (login com Discord)                 /painel/api/publico/talentos, /painel/api/talentos[/salvar|/redistribuir]
+  /plataforma/       o que a plataforma faz; lista de clãs ao vivo          /site/resumo
+  /kiza/  /colecao/  texto e imagens (nada ao vivo)
+  /kitsune/          plano, doação e vitrine                                data/kitsune.json (gerado, ver abaixo)
+  /como-entrar/      endereços, passo a passo, perguntas frequentes
+  /entrar/           abre o Minecraft já com o servidor preenchido (?s=alt = alternativo)
+  /conta/  /home/    login com Discord, dados da pessoa, privacidade, painel pessoal    /painel/{login,callback}, /painel/api/{eu,privacidade,sair}
+  As rotas antigas (/home, /comunidade, /habilidades, /rankings, /mural, /jogador, /conta, /entrar) continuam existindo.
+
+CSS (css/): fontes.css, base.css (cores, tipografia, topo, rodapé, peças comuns), paginas.css (composições), e um arquivo por assunto
+  (inicio, kiza, colecao, kitsune, plataforma, comunidade, conta, talentos, entrada).
+JS (js/): comum.js (API, sessão e peças de lista), site.js (menu e botões de copiar) e um arquivo por página.
+  Texto da API entra sempre por textContent, nunca como HTML. Emoji que vem de dados (ranks, changelog) é cortado na exibição.
+
+POLÍTICA DE CONTEÚDO (CSP): cada página declara no <head> que só carrega script, CSS, fonte e imagem do próprio site (mais avatares do
+  Discord) e só fala com a API do bot. Por isso: nada de <style>, style="" ou <script> inline. O conferir.mjs checa isso.
+
+IMAGENS
+  img/cenas/    renders de construções feitas para o site com a ferramenta de construção da Vulpus (motor do Minecraft). Não são capturas do
+                servidor: a página diz isso. Para refazer: addon/tools/construcao/projetos/site_cenas.py no repositório BotVulpus.
+  img/vulpus/   ícones escolhidos do pacote VULPUS_Asset_Pack. Rode  python tools/preparar_imagens.py  para recriar a partir do pacote.
+                O pacote tem 240 arquivos (o README diz 200), mas só uns 99 desenhos diferentes: muitos nomes são o MESMO desenho (discord,
+                help, menu, chat, dashboard e mais 12 são o mesmo bloco de texto azul). Por isso só entram os que dizem o que o nome diz.
+  img/decor/    ícones dos blocos da loja decorativa (do jogo).   img/humor-*.webp, hero-kiza.webp, carta-*.webp: arte da Kiza e das figurinhas.
+
+VITRINE KITSUNE (cores, loja decorativa)
+  Os dados vêm de data/kitsune.json e os ícones de img/decor/. Gere de novo sempre que mudar uma cor ou um bloco do jogo:
+      cd ../BotVulpus/addon && python tools/gerar_dados_site.py     (escreve nesta pasta; depois é só commitar e dar push aqui)
+
+PUBLICAR: o Railway serve esta pasta (site-production). Dá push na branch publicada. Não precisa rodar nada no servidor.
+HISTÓRICO: a versão anterior (noite índigo, "lenda das nove caudas" como rolagem) está no git, na branch main antes da reformulação.

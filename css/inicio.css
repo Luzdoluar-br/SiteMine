@@ -1,0 +1,5 @@
+/* Página inicial: ajustes finos que só ela precisa (as composições grandes estão em paginas.css) */
+.titulo-indice { margin-bottom: 28px; max-width: 18ch; }
+.mais { margin-top: 28px; }
+.chamada .botao { flex: none; }
+.faixa-escura .mural .post { max-width: 860px; }

@@ -14,22 +14,22 @@
 
   function preencher(p) {
     document.title = `VULPUS · ${p.nome}`;
-    $("p-foto").src = p.avatar || "../img/avatar-kiza.webp";
+    $("p-foto").src = p.avatar || `${VULPUS.RAIZ}img/avatar-kiza.webp`;
     $("p-nome").textContent = p.nome;
     $("p-nick").textContent = p.minecraft && p.minecraft.nick && p.minecraft.nick !== p.nome ? `no jogo: ${p.minecraft.nick}` : "";
     const et = $("p-etiquetas");
     et.replaceChildren();
-    const etiqueta = (t, fogo) => el("span", "etiqueta" + (fogo ? " fogo-et" : ""), t);
-    if (p.nivel) et.append(etiqueta(`${p.nivel.emoji} ${p.nivel.rank}`, true));
-    if (p.kitsune) et.append(etiqueta("🦊 Kitsune", true));
+    const etiqueta = (t, fogo) => el("span", "etiqueta" + (fogo ? " fogo-et" : ""), VULPUS.semEmoji(t));
+    if (p.nivel) et.append(etiqueta(p.nivel.rank, true));
+    if (p.kitsune) et.append(etiqueta("Kitsune", true));
     if (p.equipe) et.append(etiqueta(`Equipe: ${p.equipe}`));
-    if (p.duelos) et.append(etiqueta(`⚔️ ${p.duelos.divisao}`));
+    if (p.duelos) et.append(etiqueta(`Duelos: ${p.duelos.divisao}`));
 
     const pos = $("p-posicoes");
     pos.replaceChildren(
       ...Object.entries(p.posicoes || {}).map(([tipo, n]) => {
         const a = el("a", "", `#${n} em ${ROTULO[tipo] || tipo}`);
-        a.href = `../rankings/?tipo=${tipo}`;
+        a.href = `${VULPUS.RAIZ}rankings/?tipo=${tipo}`;
         return a;
       }),
     );

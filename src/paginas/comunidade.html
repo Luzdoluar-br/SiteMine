@@ -1,0 +1,76 @@
+<!--pagina {"rota":"comunidade","titulo":"Comunidade ao vivo · Vulpus","descricao":"Quem está jogando agora na Vulpus, quem está no topo dos rankings, enquetes abertas e as novidades do servidor, direto do Minecraft e do Discord.","secao":"comunidade","sub":"vivo","css":["base","paginas","comunidade"],"js":["comunidade"],"prioridade":0.9,"freq":"hourly"}-->
+<header class="cabeca cabeca-simples">
+  <div class="miolo cabeca-in">
+    <div>
+      <p class="sobretitulo">Comunidade</p>
+      <h1>A toca está <em>viva.</em></h1>
+      <p class="lead">Quem está jogando agora, quem está no topo, o que mudou no servidor e as enquetes da comunidade. Tudo ao vivo, direto do Minecraft e do Discord.</p>
+    </div>
+  </div>
+</header>
+{{subnav}}
+
+<section class="faixa faixa-pergaminho" aria-label="Números ao vivo">
+  <div class="miolo vivo">
+    <div class="vivo-n vivo-grande">
+      <span class="num" id="online">–</span>
+      <span class="rotulo"><span class="ponto" id="ponto"></span><span id="online-rot">no servidor agora</span></span>
+      <div class="online-nomes" id="online-nomes"></div>
+    </div>
+    <div class="vivo-n"><span class="num" id="membros">–</span><span class="rotulo">membros no Discord</span></div>
+    <div class="vivo-n"><span class="num" id="ligadas">–</span><span class="rotulo">contas do jogo ligadas</span></div>
+    <div class="vivo-n"><span class="num" id="jogadores">–</span><span class="rotulo">jogadores que já passaram pela toca</span></div>
+  </div>
+</section>
+
+<section class="faixa faixa-madeira" aria-label="Procurar jogador">
+  <div class="miolo busca-sec">
+    <div>
+      <p class="sobretitulo">Perfis</p>
+      <h2>Procure alguém.</h2>
+    </div>
+    <div>
+      <div class="busca">
+        <label class="visualmente-oculto" for="busca">Procurar jogador pelo nick ou nome no Discord</label>
+        <input id="busca" type="search" placeholder="Nick do jogo ou nome no Discord" autocomplete="off">
+      </div>
+      <div class="resultados" id="resultados"></div>
+      <p class="pequeno">Quem deixou o perfil privado não aparece.</p>
+    </div>
+  </div>
+</section>
+
+<section class="faixa faixa-escura" aria-labelledby="topoTitulo">
+  <div class="miolo">
+    <div class="secao-titulo"><h2 id="topoTitulo">Quem está no topo</h2><a class="link-seta" href="{{raiz}}rankings/">Todos os rankings <svg aria-hidden="true"><use href="#seta"/></svg></a></div>
+    <div class="podios">
+      <section class="podio" aria-labelledby="pNivel"><h3 id="pNivel">Nível <a href="{{raiz}}rankings/?tipo=nivel">ver tudo</a></h3><div class="linhas" id="top-nivel"><div class="esqueleto"></div></div></section>
+      <section class="podio" aria-labelledby="pDuelos"><h3 id="pDuelos">Duelos <a href="{{raiz}}rankings/?tipo=duelos">ver tudo</a></h3><div class="linhas" id="top-duelos"><div class="esqueleto"></div></div></section>
+      <section class="podio" aria-labelledby="pKills"><h3 id="pKills">Kills PvP <a href="{{raiz}}rankings/?tipo=abates">ver tudo</a></h3><div class="linhas" id="top-abates"><div class="esqueleto"></div></div></section>
+    </div>
+  </div>
+</section>
+
+<section class="faixa faixa-pergaminho" aria-labelledby="enqTitulo">
+  <div class="miolo">
+    <div class="secao-titulo"><h2 id="enqTitulo">Enquetes</h2><span class="pequeno" id="enquetes-dica"></span></div>
+    <div class="enquetes" id="enquetes"><div class="esqueleto"></div></div>
+  </div>
+</section>
+
+<section class="faixa faixa-madeira" aria-labelledby="novTitulo">
+  <div class="miolo">
+    <div class="secao-titulo"><h2 id="novTitulo">Novidades</h2><a class="link-seta" href="{{raiz}}mural/">Mural completo <svg aria-hidden="true"><use href="#seta"/></svg></a></div>
+    <div class="mural" id="novidades"><div class="esqueleto"></div></div>
+  </div>
+</section>
+
+<section class="chamada faixa cta-conta" id="cta-conta">
+  <div class="miolo chamada-in">
+    <div>
+      <h2>Sua trajetória <em>também aparece aqui.</em></h2>
+      <p>Entre com o Discord para ver sua conta, seu tempo de jogo e o seu lugar nos rankings. Se preferir, dá para deixar o perfil privado.</p>
+    </div>
+    <a class="botao" href="{{raiz}}conta/">Minha conta</a>
+  </div>
+</section>

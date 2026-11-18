@@ -1,0 +1,36 @@
+/* Como entrar (e a página auxiliar /entrar/) */
+.titulo-bloco { margin-bottom: 30px; max-width: 20ch; }
+.enderecos { margin: 0 0 22px; border-top: 1px solid rgba(42, 29, 18, .3); }
+.endereco { display: grid; grid-template-columns: 9rem 1fr; gap: 6px 24px; padding: 24px 0; border-bottom: 1px solid rgba(42, 29, 18, .3); align-items: baseline; }
+.endereco dt { font-family: var(--f-titulo); font-weight: 800; font-size: 1.5rem; }
+.endereco dd { margin: 0; display: grid; gap: 14px; }
+.end-linha { font-size: 1.1rem; }
+.end-linha code { font-size: 1.15rem; padding: .2em .6em; }
+.end-porta { margin-left: .7em; color: var(--tinta-suave); }
+@media (max-width: 640px) { .endereco { grid-template-columns: 1fr; } .end-linha code { white-space: normal; word-break: break-all; } }
+
+.passos-longos { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.passos-longos h3 { margin-bottom: 8px; }
+@media (max-width: 900px) { .passos-longos { grid-template-columns: 1fr; } }
+
+.faq-grade { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.4fr); gap: 40px clamp(32px, 6vw, 88px); align-items: start; }
+.faq-grade h2 { margin-bottom: 14px; }
+.faq details { border-top: 1px solid rgba(42, 29, 18, .3); padding: 4px 0; }
+.faq details:last-child { border-bottom: 1px solid rgba(42, 29, 18, .3); }
+.faq summary { cursor: pointer; padding: 16px 40px 16px 0; font-family: var(--f-titulo); font-weight: 700; font-size: 1.3rem; list-style: none; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 6px; top: 50%; transform: translateY(-50%); font-family: var(--f-texto); font-weight: 400; font-size: 1.8rem; color: var(--laranja-tinta); }
+.faq details[open] summary::after { content: "−"; }
+.faq summary:hover { color: var(--laranja-tinta); }
+.faq details p { margin: 0 0 18px; max-width: 56ch; }
+@media (max-width: 860px) { .faq-grade { grid-template-columns: 1fr; } }
+
+/* /entrar/ : a página que abre o Minecraft */
+.abrir { display: grid; place-items: center; padding-block: clamp(40px, 8vw, 96px); }
+.abrir-caixa { width: min(560px, 100% - 2 * var(--gutter)); background: var(--papel); color: var(--tinta); padding: clamp(24px, 5vw, 44px); border-top: 5px solid var(--laranja); }
+.abrir-caixa h1 { font-size: clamp(2rem, 1.4rem + 2.4vw, 3rem); margin-bottom: 8px; }
+.abrir-caixa .botao { width: 100%; margin: 22px 0 18px; min-height: 56px; font-size: 1.15rem; }
+.abrir-dados { margin: 0 0 18px; padding: 14px 16px; background: rgba(42, 29, 18, .06); border-left: 3px solid var(--laranja-tinta); }
+.abrir-dados div { display: flex; gap: 10px; }
+.abrir-dados b { min-width: 4rem; }
+.abrir-caixa a:not(.botao) { color: var(--laranja-tinta); font-weight: 700; }

@@ -1,0 +1,77 @@
+<!--pagina {"rota":"habilidades","titulo":"Árvore de Talentos · Vulpus","descricao":"Cada nível de habilidade no Minecraft vira ponto de talento. Gaste no site para liberar VeinMiner, Tree Capitator, colheita em área e bônus. Ponto só vem de jogar.","secao":"plataforma","sub":"talentos","css":["base","paginas","comunidade","talentos"],"js":["habilidades"],"prioridade":0.8,"freq":"weekly"}-->
+<header class="cabeca">
+  <div class="miolo cabeca-in">
+    <div>
+      <p class="sobretitulo">Só aqui no site, e chega no jogo sozinho</p>
+      <h1>Árvore de <em>Talentos.</em></h1>
+    </div>
+    <p class="lead">Cada nível de habilidade no Minecraft vira ponto de talento. Gaste aqui para liberar o <strong>VeinMiner</strong>, o <strong>Tree Capitator</strong> e a <strong>colheita em área</strong>, e para ganhar bônus que fazem cada minuto de jogo render mais. Ponto só vem de jogar: nada se compra.</p>
+  </div>
+</header>
+{{subnav}}
+
+<section class="faixa faixa-madeira tal-sec">
+  <div class="miolo">
+    <div class="tal-topo">
+      <figure class="tal-kiza" aria-live="polite">
+        <img id="kiza-rosto" src="{{raiz}}img/humor-feliz.webp" width="130" height="144" alt="A Kiza">
+        <figcaption class="balao" id="kiza-fala">Escolhe com carinho: a árvore inteira custa bem mais do que dá para juntar.</figcaption>
+      </figure>
+    </div>
+
+    <div class="tal-aviso" id="tal-entrar" hidden>
+      <div><strong>Entre com o Discord para distribuir seus pontos.</strong><p>Sem login dá para olhar a árvore inteira; para escolher, o site precisa saber quem é você.</p></div>
+      <a class="botao" href="{{raiz}}conta/?entrar=1&amp;volta=habilidades">Entrar com Discord</a>
+    </div>
+    <div class="tal-aviso" id="tal-vincular" hidden>
+      <div><strong>Ligue sua conta do Minecraft.</strong><p>Os pontos vêm dos níveis das habilidades no jogo. No servidor, abra o menu e use <code>Vincular conta</code>; depois de jogar um pouco, seus pontos aparecem aqui.</p></div>
+    </div>
+
+    <div class="tal-painel" id="tal-painel">
+      <div class="tal-pontos">
+        <svg class="anel" viewBox="0 0 120 120" aria-hidden="true"><circle class="anel-fundo" cx="60" cy="60" r="52"/><circle class="anel-cheio" id="anel" cx="60" cy="60" r="52"/></svg>
+        <div class="tal-pontos-num"><span class="grande" id="pt-livres">–</span><span class="rotulo">pontos para usar</span></div>
+        <p class="pt-mini"><span id="pt-total">–</span> ganhos · <span id="pt-gastos">–</span> gastos</p>
+      </div>
+      <div class="tal-habs" id="tal-habs"></div>
+    </div>
+
+    <div class="abas tal-abas" role="tablist" id="tal-abas" aria-label="Ramos da árvore"></div>
+    <section class="arvore" id="arvore" aria-label="Árvore de talentos">
+      <svg class="fios" id="fios" aria-hidden="true"></svg>
+      <div class="esqueleto alto"></div>
+    </section>
+    <p class="legenda"><span class="l l-tem">tem</span><span class="l l-pode">dá para pegar</span><span class="l l-falta">falta pré-requisito</span><span class="l l-novo">escolhido agora (falta confirmar)</span></p>
+  </div>
+</section>
+
+<section class="faixa faixa-pergaminho">
+  <div class="miolo">
+    <div class="grade grade-claro">
+      <article class="cartao"><h2>Seus bônus ativos</h2><div class="tabela-rola"><table class="tabela" id="tab-ativos"><thead><tr><th>Talento</th><th>Nível</th><th>O que faz</th></tr></thead><tbody></tbody></table></div><p class="pequeno" id="ativos-vazio">Nenhum talento confirmado ainda.</p></article>
+      <article class="cartao"><h2>Como ganhar pontos</h2><div class="tabela-rola"><table class="tabela" id="tab-niveis"><thead><tr><th>Nível</th><th>Pontos de habilidade</th><th>Talento</th></tr></thead><tbody></tbody></table></div>
+        <p class="pequeno">Cada habilidade (Mineração, Lenhador, Fazendeiro, Combate e PvP) sobe sozinha fazendo a atividade no jogo. Vale o maior nível que você já alcançou: morrer não tira talento.</p></article>
+      <article class="cartao largo tal-redist">
+        <h2>Redistribuir</h2>
+        <p class="pequeno" id="redist-texto">Devolve todos os pontos para você escolher de novo. Grátis, uma vez a cada 7 dias.</p>
+        <button class="botao botao-fio" id="redistribuir" type="button" disabled>Redistribuir todos os pontos</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<div class="barra-confirma" id="confirma" hidden>
+  <span id="confirma-txt"></span>
+  <button class="botao botao-fio botao-pequeno" id="desfazer" type="button">Desfazer</button>
+  <button class="botao botao-pequeno" id="confirmar" type="button">Confirmar talentos</button>
+</div>
+<dialog class="detalhe" id="detalhe" aria-labelledby="d-nome">
+  <button class="fechar" id="d-fechar" type="button" aria-label="Fechar">×</button>
+  <div class="d-topo"><div><p class="d-ramo" id="d-ramo"></p><h2 id="d-nome"></h2></div></div>
+  <div class="tabela-rola"><table class="tabela" id="d-niveis"><thead><tr><th>Nível</th><th>Efeito</th><th>Custo (pontos)</th></tr></thead><tbody></tbody></table></div>
+  <ul class="d-req" id="d-req"></ul>
+  <p class="pequeno" id="d-nota"></p>
+  <p class="d-msg" id="d-msg"></p>
+  <div class="acoes"><button class="botao botao-fio botao-pequeno" id="d-menos" type="button">− Tirar</button><button class="botao botao-pequeno" id="d-mais" type="button">+ Adicionar nível</button></div>
+</dialog>
+<div class="toast" id="toast" role="status" hidden></div>

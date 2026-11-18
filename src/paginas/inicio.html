@@ -1,0 +1,136 @@
+<!--pagina {"rota":"","titulo":"Vulpus · servidor brasileiro de Minecraft Bedrock","descricao":"Vulpus: servidor de Minecraft Bedrock do Brasil com plataforma própria, uma IA que lembra de você e uma regra que não se dobra: nada que dá vantagem se compra.","secao":"inicio","css":["base","paginas","inicio"],"js":["inicio"],"prioridade":1.0,"freq":"weekly"}-->
+<section class="heroi">
+  <picture class="heroi-img">
+    <img src="{{raiz}}img/cenas/toca.webp" width="1920" height="1080" alt="Casa de madeira e pedra numa clareira de floresta ao entardecer, com lanternas acesas à porta. Cena construída em Minecraft." fetchpriority="high">
+  </picture>
+  <div class="miolo heroi-in">
+    <div class="heroi-texto">
+      <p class="sobretitulo">Minecraft Bedrock · Brasil</p>
+      <h1>Uma toca <em>acesa</em> na floresta de blocos.</h1>
+      <p class="lead">A Vulpus é um servidor com plataforma própria, uma IA que lembra de cada jogador e uma regra que não se dobra: nada que dá vantagem se compra.</p>
+      <div class="acoes">
+        <a class="botao" href="{{raiz}}como-entrar/">Como entrar <svg aria-hidden="true"><use href="#seta"/></svg></a>
+        <a class="link-seta" href="{{raiz}}comunidade/">Ver quem está jogando agora <svg aria-hidden="true"><use href="#seta"/></svg></a>
+      </div>
+      <dl class="heroi-dados">
+        <div>
+          <dt>Endereço</dt>
+          <dd><button class="copiar" type="button" data-copiar="{{ip}}:{{porta}}" aria-label="Copiar o endereço do servidor"><code>{{ip}}:{{porta}}</code><svg aria-hidden="true"><use href="#copiar"/></svg><span class="rotulo" data-copiar-rotulo>Copiar</span></button></dd>
+        </div>
+        <div>
+          <dt>Agora</dt>
+          <dd><span class="ponto" id="hPonto"></span><b id="hOnline">–</b> <span id="hOnlineRot">jogando</span> · <b id="hMembros">–</b> no Discord</dd>
+        </div>
+        <div>
+          <dt>Onde jogar</dt>
+          <dd>Celular, console e Windows</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="faixa faixa-pergaminho" aria-labelledby="agoraTitulo">
+  <div class="miolo agora">
+    <div class="agora-titulo">
+      <p class="sobretitulo">Agora na toca</p>
+      <h2 id="agoraTitulo">Quem está por aqui, e quem está no topo.</h2>
+      <a class="link-seta" href="{{raiz}}comunidade/">Abrir a comunidade <svg aria-hidden="true"><use href="#seta"/></svg></a>
+    </div>
+    <div>
+      <p class="agora-online"><span class="num" id="fcOnline">–</span> <span id="fcOnlineRot">jogando agora</span></p>
+      <ul class="nicks" id="fcNicks" aria-label="Quem está jogando"></ul>
+      <p class="pequeno" id="fcEnquetes"></p>
+    </div>
+    <div>
+      <div class="mini-tops">
+        <section aria-labelledby="topNivel"><h3 id="topNivel">Nível</h3><ol class="mini-top" id="fcNivel"><li class="fc-vazio">carregando…</li></ol></section>
+        <section aria-labelledby="topDuelos"><h3 id="topDuelos">Duelos</h3><ol class="mini-top" id="fcDuelos"><li class="fc-vazio">carregando…</li></ol></section>
+      </div>
+      <p class="pequeno"><a href="{{raiz}}rankings/">Todos os rankings</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="faixa faixa-madeira" aria-labelledby="principioTitulo">
+  <div class="miolo principio">
+    <div>
+      <p class="sobretitulo">O princípio</p>
+      <h2 id="principioTitulo">Aqui, ninguém <em>compra vantagem.</em></h2>
+      <p class="lead">Cada Cauda vem de uma conversa, de uma construção, de um dia em que você apareceu. Quem apoia paga o servidor, não a vitória.</p>
+      <ol class="rol">
+        <li><h3>Sem pay-to-win</h3><p>Apoio dá estilo e reconhecimento no Discord. Poder dentro do jogo, nunca.</p></li>
+        <li><h3>Feito à mão</h3><p>Bot, ponte e addons desenvolvidos para a Vulpus. Nada comprado pronto.</p></li>
+        <li><h3>Gente antes de número</h3><p>Moderação presente, regras claras e uma IA que sabe quem você é.</p></li>
+      </ol>
+    </div>
+    <figure class="principio-img">
+      <img src="{{raiz}}img/cenas/ponte.webp" width="1600" height="900" alt="Ponte de pedra em arco sobre um riacho, com lanternas penduradas e abetos ao fundo. Cena construída em Minecraft." loading="lazy">
+      <figcaption>Imagem renderizada a partir de uma construção feita para o site.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="faixa faixa-escura" aria-labelledby="ponteTitulo">
+  <div class="miolo ponte">
+    <div>
+      <p class="sobretitulo">Discord e jogo</p>
+      <h2 id="ponteTitulo">Uma conversa só, <em>nos dois lugares.</em></h2>
+      <p>O chat do servidor aparece no Discord, e o do Discord aparece no jogo. Vincule a conta uma vez e Caudas, XP e conversa passam a ser os mesmos nos dois lugares.</p>
+      <p><a class="link-seta" href="{{raiz}}plataforma/">Conhecer a plataforma <svg aria-hidden="true"><use href="#seta"/></svg></a></p>
+    </div>
+    <div>
+      <div class="conversa" role="img" aria-label="Exemplo: uma conversa que aparece igual no chat do Minecraft e no Discord">
+        <div class="conversa-mc"><h3>No jogo</h3><p><span class="n">&lt;luma&gt;</span> alguém tem ferro sobrando?</p><p class="sis">pedro entrou no jogo</p><p><span class="n">&lt;pedro&gt;</span> tenho, passa na base</p></div>
+        <div class="conversa-dc"><h3>No Discord</h3><p><b>luma</b>alguém tem ferro sobrando?</p><p class="sis">pedro entrou no jogo</p><p><b>pedro</b>tenho, passa na base</p></div>
+      </div>
+      <p class="exemplo">Exemplo ilustrativo.</p>
+    </div>
+  </div>
+</section>
+
+<section class="faixa faixa-madeira" aria-labelledby="indiceTitulo">
+  <div class="miolo">
+    <p class="sobretitulo">Para explorar</p>
+    <h2 id="indiceTitulo" class="titulo-indice">O que mais tem na toca.</h2>
+    <ul class="indice">
+      <li><a href="{{raiz}}kiza/"><span class="arte"><img src="{{raiz}}img/humor-feliz.webp" width="130" height="144" alt="" loading="lazy"></span><span><h3>Kiza</h3><p>A mascote e IA da comunidade. Entende o contexto do chat, conhece o servidor e guarda só o que você contar.</p></span><span class="ir">Conhecer <svg aria-hidden="true"><use href="#seta"/></svg></span></a></li>
+      <li><a href="{{raiz}}colecao/"><span class="arte"><img src="{{raiz}}img/carta-rara.webp" width="543" height="724" alt="" loading="lazy"></span><span><h3>Coleção</h3><p>Uma figurinha grátis por dia, ilustrações originais e um álbum para completar.</p></span><span class="ir">Ver as figurinhas <svg aria-hidden="true"><use href="#seta"/></svg></span></a></li>
+      <li><a href="{{raiz}}habilidades/"><span class="arte"><img src="{{raiz}}img/vulpus/pine_tree.webp" width="256" height="256" alt="" loading="lazy"></span><span><h3>Árvore de Talentos</h3><p>Cada nível de habilidade no jogo vira ponto para liberar VeinMiner, Tree Capitator e bônus.</p></span><span class="ir">Abrir a árvore <svg aria-hidden="true"><use href="#seta"/></svg></span></a></li>
+      <li><a href="{{raiz}}kitsune/"><span class="arte"><img src="{{raiz}}img/vulpus/badge_kitsune.webp" width="256" height="256" alt="" loading="lazy"></span><span><h3>Kitsune</h3><p>Apoie o servidor e ganhe estilo: cores no nome, enfeites e espaços no Discord. Nunca vantagem.</p></span><span class="ir">Ver o plano <svg aria-hidden="true"><use href="#seta"/></svg></span></a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="faixa faixa-pergaminho" aria-labelledby="entrarTitulo">
+  <div class="miolo">
+    <p class="sobretitulo">Como entrar</p>
+    <h2 id="entrarTitulo" class="titulo-indice">Quatro passos até a toca.</h2>
+    <ol class="passos">
+      <li><h3>Entre no Discord</h3><p>Aceite as regras e o resto da toca se abre.</p></li>
+      <li><h3>Pegue o endereço</h3><p><code>{{ip}}</code>, porta <code>{{porta}}</code>.</p></li>
+      <li><h3>Adicione no jogo</h3><p>Minecraft, <b>Jogar</b>, <b>Servidores</b>, <b>Adicionar servidor</b>.</p></li>
+      <li><h3>Vincule a conta</h3><p>Na primeira entrada aparece um código. Digite com <code>/minecraft vincular</code>.</p></li>
+    </ol>
+    <p class="acoes mais"><a class="botao" href="{{raiz}}como-entrar/">Ver o passo a passo completo</a></p>
+  </div>
+</section>
+
+<section class="faixa faixa-escura" aria-labelledby="novTitulo">
+  <div class="miolo">
+    <p class="sobretitulo">Mural</p>
+    <h2 id="novTitulo" class="titulo-indice">O que mudou por aqui.</h2>
+    <div class="mural" id="novidades"><div class="esqueleto alto"></div></div>
+    <p class="mais"><a class="link-seta" href="{{raiz}}mural/">Ver o mural completo <svg aria-hidden="true"><use href="#seta"/></svg></a></p>
+  </div>
+</section>
+
+<section class="chamada faixa">
+  <div class="miolo chamada-in">
+    <div>
+      <h2>A toca está <em>acesa.</em></h2>
+      <p>Falta só você para a próxima cauda.</p>
+    </div>
+    <a class="botao" href="{{convite}}" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#discord"/></svg>Entrar no Discord</a>
+  </div>
+</section>

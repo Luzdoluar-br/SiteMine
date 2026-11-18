@@ -3,76 +3,171 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src https://botmine-production-70b0.up.railway.app; img-src 'self' https://cdn.discordapp.com data:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; base-uri 'none'; form-action 'self'">
-<title>VULPUS · Comunidade</title>
-<meta name="description" content="Quem está jogando, rankings, enquetes e novidades da VULPUS ao vivo.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://botmine-production-70b0.up.railway.app; img-src 'self' https://cdn.discordapp.com data:; style-src 'self'; font-src 'self'; script-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'">
+<title>Comunidade ao vivo · Vulpus</title>
+<meta name="description" content="Quem está jogando agora na Vulpus, quem está no topo dos rankings, enquetes abertas e as novidades do servidor, direto do Minecraft e do Discord.">
+<meta name="theme-color" content="#17120e">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Vulpus">
+<meta property="og:title" content="Comunidade ao vivo · Vulpus">
+<meta property="og:description" content="Quem está jogando agora na Vulpus, quem está no topo dos rankings, enquetes abertas e as novidades do servidor, direto do Minecraft e do Discord.">
+<meta property="og:url" content="https://site-production-f47b.up.railway.app/comunidade/">
+<meta property="og:image" content="https://site-production-f47b.up.railway.app/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://site-production-f47b.up.railway.app/comunidade/">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&family=Instrument+Sans:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="../css/conta.css?v=20261104a">
-<link rel="stylesheet" href="../css/comunidade.css?v=20261104a">
-<script src="../js/comum.js?v=20261104a" defer></script>
-<script src="../js/comunidade.js?v=20261104a" defer></script>
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../fonts/Alegreya-normal-400_900-latin.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../fonts/AlegreyaSans-normal-400-latin.woff2">
+<link rel="stylesheet" href="../css/fontes.css?v=20261118a">
+<link rel="stylesheet" href="../css/base.css?v=20261118a">
+<link rel="stylesheet" href="../css/paginas.css?v=20261118a">
+<link rel="stylesheet" href="../css/comunidade.css?v=20261118a">
 </head>
-<body data-secao="comunidade">
-<header class="topo">
-  <a class="marca" href="../" aria-label="VULPUS, página inicial">
-    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 6l7 5h10l7-5-2 13-10 9-10-9z" fill="currentColor"/><path d="M12 17l4 3 4-3" stroke="#0b0d22" stroke-width="2" fill="none"/></svg>
-    <span>VULPUS</span><small>comunidade</small>
-  </a>
-  <nav class="links" aria-label="Seções">
-    <a href="../home/" data-secao="home">Home</a>
-    <a href="../comunidade/" data-secao="comunidade">Comunidade</a>
-    <a href="../habilidades/" data-secao="habilidades">Talentos</a>
-    <a href="../rankings/" data-secao="rankings">Rankings</a>
-    <a href="../mural/" data-secao="mural">Mural</a>
-    <a href="../conta/" data-secao="conta">Minha conta</a>
-  </nav>
-  <a class="quem" id="quem" href="../conta/" hidden><img id="quem-foto" alt=""><span id="quem-nome"></span></a>
+<body data-secao="comunidade" data-raiz="../" class="">
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<svg class="simbolos" width="0" height="0" aria-hidden="true" focusable="false">
+  <symbol id="sinal" viewBox="0 0 32 32"><path d="M2 3l9 6h10l9-6-1.5 13.5C27 22 20.5 29 16 29S5 22 3.5 16.5z" fill="#e5731c"/><path d="M2 3l6 4.5L5 14zM30 3l-6 4.5L27 14z" fill="#17120e" opacity=".55"/><path d="M8.5 17.5L16 24l7.5-6.5L16 20z" fill="#f1e6d0"/><circle cx="11.5" cy="15" r="1.3" fill="#17120e"/><circle cx="20.5" cy="15" r="1.3" fill="#17120e"/></symbol>
+  <symbol id="seta" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="copiar" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="discord" viewBox="0 0 24 24"><path fill="currentColor" d="M20.3 4.4A19 19 0 0 0 15.6 3l-.6 1.2a17 17 0 0 0-6 0L8.4 3a19 19 0 0 0-4.7 1.4C.7 9 0 13.4.3 17.8a19 19 0 0 0 5.8 2.9l1.2-1.9a12 12 0 0 1-1.9-.9l.5-.4a13.5 13.5 0 0 0 12.2 0l.5.4-1.9.9 1.2 1.9a19 19 0 0 0 5.8-2.9c.4-5.1-.7-9.5-3.4-13.4ZM8.5 15.1c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.1 1.1 2.1 2.4-.9 2.4-2.1 2.4Zm7 0c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.1 1.1 2.1 2.4-.9 2.4-2.1 2.4Z"/></symbol>
+</svg>
+<header class="topo" id="topo">
+  <div class="topo-in">
+    <a class="marca" href="../" aria-label="Vulpus, página inicial"><svg class="marca-sinal" width="30" height="30" aria-hidden="true"><use href="#sinal"/></svg><span class="marca-nome">Vulpus</span></a>
+    <nav class="menu" id="menu" aria-label="Principal">
+      <a href="../comunidade/" data-secao="comunidade">Comunidade</a>
+      <a href="../plataforma/" data-secao="plataforma">Plataforma</a>
+      <a href="../kiza/" data-secao="kiza">Kiza</a>
+      <a href="../colecao/" data-secao="colecao">Coleção</a>
+      <a href="../kitsune/" data-secao="kitsune">Kitsune</a>
+      <a href="../como-entrar/" data-secao="entrar">Como entrar</a>
+      <div class="menu-fim">
+        <a class="menu-conta" href="../conta/" data-secao="conta">Minha conta</a>
+        <a class="botao botao-pequeno" href="https://discord.com/invite/KrsuH6PJCc" target="_blank" rel="noopener">Discord</a>
+      </div>
+    </nav>
+    <a class="quem" id="quem" href="../conta/" hidden><img id="quem-foto" alt="" width="28" height="28"><span id="quem-nome"></span></a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
+  </div>
 </header>
-<main class="wrap pagina">
-  <section class="titulo-pagina">
-    <h1>A toca está <em>viva</em></h1>
-    <p>Quem está jogando agora, quem está no topo, o que mudou no servidor e as enquetes da comunidade. Tudo ao vivo, direto do Minecraft e do Discord.</p>
-  </section>
 
-  <section class="vivo" aria-label="Números ao vivo">
-    <div class="n"><span class="valor" id="online">–</span><span class="rotulo"><span class="ponto" id="ponto"></span><span id="online-rot">no servidor agora</span></span><div class="online-nomes" id="online-nomes"></div></div>
-    <div class="n"><span class="valor" id="membros">–</span><span class="rotulo">membros no Discord</span></div>
-    <div class="n"><span class="valor" id="ligadas">–</span><span class="rotulo">contas do jogo ligadas</span></div>
-    <div class="n"><span class="valor" id="jogadores">–</span><span class="rotulo">jogadores que já passaram pela toca</span></div>
-  </section>
-
-  <section aria-label="Procurar jogador">
-    <div class="busca"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M10.5 18a7.5 7.5 0 1 1 5.3-2.2L21 21"/></svg><input id="busca" type="search" placeholder="Procure um jogador pelo nick ou nome no Discord" autocomplete="off" aria-label="Procurar jogador"></div>
-    <div class="resultados" id="resultados"></div>
-  </section>
-
-  <section>
-    <div class="secao-titulo"><h2>Quem está no topo</h2><a href="../rankings/">Todos os rankings →</a></div>
-    <div class="podios">
-      <article class="podio"><h3>Nível <a href="../rankings/?tipo=nivel">ver tudo</a></h3><div class="linhas" id="top-nivel"><div class="esqueleto"></div></div></article>
-      <article class="podio"><h3>Duelos <a href="../rankings/?tipo=duelos">ver tudo</a></h3><div class="linhas" id="top-duelos"><div class="esqueleto"></div></div></article>
-      <article class="podio"><h3>Kills PvP <a href="../rankings/?tipo=abates">ver tudo</a></h3><div class="linhas" id="top-abates"><div class="esqueleto"></div></div></article>
+<main id="conteudo">
+<header class="cabeca cabeca-simples">
+  <div class="miolo cabeca-in">
+    <div>
+      <p class="sobretitulo">Comunidade</p>
+      <h1>A toca está <em>viva.</em></h1>
+      <p class="lead">Quem está jogando agora, quem está no topo, o que mudou no servidor e as enquetes da comunidade. Tudo ao vivo, direto do Minecraft e do Discord.</p>
     </div>
-  </section>
+  </div>
+</header>
+<nav class="subnav" aria-label="Comunidade">
+  <div class="miolo subnav-in">
+    <a href="../comunidade/" data-sub="vivo" aria-current="page">Ao vivo</a>
+    <a href="../rankings/" data-sub="rankings">Rankings</a>
+    <a href="../mural/" data-sub="mural">Mural</a>
+    <a href="../habilidades/" data-sub="talentos">Talentos</a>
+  </div>
+</nav>
 
-  <section>
-    <div class="secao-titulo"><h2>Enquetes</h2><span class="pequeno" id="enquetes-dica"></span></div>
+<section class="faixa faixa-pergaminho" aria-label="Números ao vivo">
+  <div class="miolo vivo">
+    <div class="vivo-n vivo-grande">
+      <span class="num" id="online">–</span>
+      <span class="rotulo"><span class="ponto" id="ponto"></span><span id="online-rot">no servidor agora</span></span>
+      <div class="online-nomes" id="online-nomes"></div>
+    </div>
+    <div class="vivo-n"><span class="num" id="membros">–</span><span class="rotulo">membros no Discord</span></div>
+    <div class="vivo-n"><span class="num" id="ligadas">–</span><span class="rotulo">contas do jogo ligadas</span></div>
+    <div class="vivo-n"><span class="num" id="jogadores">–</span><span class="rotulo">jogadores que já passaram pela toca</span></div>
+  </div>
+</section>
+
+<section class="faixa faixa-madeira" aria-label="Procurar jogador">
+  <div class="miolo busca-sec">
+    <div>
+      <p class="sobretitulo">Perfis</p>
+      <h2>Procure alguém.</h2>
+    </div>
+    <div>
+      <div class="busca">
+        <label class="visualmente-oculto" for="busca">Procurar jogador pelo nick ou nome no Discord</label>
+        <input id="busca" type="search" placeholder="Nick do jogo ou nome no Discord" autocomplete="off">
+      </div>
+      <div class="resultados" id="resultados"></div>
+      <p class="pequeno">Quem deixou o perfil privado não aparece.</p>
+    </div>
+  </div>
+</section>
+
+<section class="faixa faixa-escura" aria-labelledby="topoTitulo">
+  <div class="miolo">
+    <div class="secao-titulo"><h2 id="topoTitulo">Quem está no topo</h2><a class="link-seta" href="../rankings/">Todos os rankings <svg aria-hidden="true"><use href="#seta"/></svg></a></div>
+    <div class="podios">
+      <section class="podio" aria-labelledby="pNivel"><h3 id="pNivel">Nível <a href="../rankings/?tipo=nivel">ver tudo</a></h3><div class="linhas" id="top-nivel"><div class="esqueleto"></div></div></section>
+      <section class="podio" aria-labelledby="pDuelos"><h3 id="pDuelos">Duelos <a href="../rankings/?tipo=duelos">ver tudo</a></h3><div class="linhas" id="top-duelos"><div class="esqueleto"></div></div></section>
+      <section class="podio" aria-labelledby="pKills"><h3 id="pKills">Kills PvP <a href="../rankings/?tipo=abates">ver tudo</a></h3><div class="linhas" id="top-abates"><div class="esqueleto"></div></div></section>
+    </div>
+  </div>
+</section>
+
+<section class="faixa faixa-pergaminho" aria-labelledby="enqTitulo">
+  <div class="miolo">
+    <div class="secao-titulo"><h2 id="enqTitulo">Enquetes</h2><span class="pequeno" id="enquetes-dica"></span></div>
     <div class="enquetes" id="enquetes"><div class="esqueleto"></div></div>
-  </section>
+  </div>
+</section>
 
-  <section>
-    <div class="secao-titulo"><h2>Novidades</h2><a href="../mural/">Mural completo →</a></div>
+<section class="faixa faixa-madeira" aria-labelledby="novTitulo">
+  <div class="miolo">
+    <div class="secao-titulo"><h2 id="novTitulo">Novidades</h2><a class="link-seta" href="../mural/">Mural completo <svg aria-hidden="true"><use href="#seta"/></svg></a></div>
     <div class="mural" id="novidades"><div class="esqueleto"></div></div>
-  </section>
+  </div>
+</section>
 
-  <section class="cta-conta" id="cta-conta">
-    <p><strong>Sua trajetória também aparece aqui.</strong> Entre com o Discord para ver sua conta, seu tempo de jogo e o seu lugar nos rankings. Se preferir, dá para deixar seu perfil privado.</p>
-    <a class="botao fogo-bt" href="../conta/">Minha conta</a>
-  </section>
+<section class="chamada faixa cta-conta" id="cta-conta">
+  <div class="miolo chamada-in">
+    <div>
+      <h2>Sua trajetória <em>também aparece aqui.</em></h2>
+      <p>Entre com o Discord para ver sua conta, seu tempo de jogo e o seu lugar nos rankings. Se preferir, dá para deixar o perfil privado.</p>
+    </div>
+    <a class="botao" href="../conta/">Minha conta</a>
+  </div>
+</section>
 </main>
-<footer class="rodape wrap"><p>VULPUS · Equipe Anúbis · sem pay-to-win · dados reais do servidor e do Discord</p></footer>
+<footer class="rodape">
+  <div class="rodape-in">
+    <div class="rodape-marca">
+      <a class="marca" href="../"><svg class="marca-sinal" width="30" height="30" aria-hidden="true"><use href="#sinal"/></svg><span class="marca-nome">Vulpus</span></a>
+      <p>Servidor de Minecraft Bedrock e comunidade brasileira, mantidos pela equipe Anúbis.</p>
+      <p class="rodape-ip"><span>Endereço</span> <code>plus-01.bedhosting.com.br</code> <span>porta</span> <code>27151</code></p>
+    </div>
+    <nav aria-label="Rodapé: o site">
+      <h2>O site</h2>
+      <a href="../comunidade/">Comunidade</a>
+      <a href="../rankings/">Rankings</a>
+      <a href="../mural/">Mural</a>
+      <a href="../habilidades/">Talentos</a>
+      <a href="../plataforma/">Plataforma</a>
+      <a href="../home/">Meu painel</a>
+    </nav>
+    <nav aria-label="Rodapé: participar">
+      <h2>Participar</h2>
+      <a href="https://discord.com/invite/KrsuH6PJCc" target="_blank" rel="noopener">Discord</a>
+      <a href="../como-entrar/">Como entrar</a>
+      <a href="../kitsune/">Kitsune e doações</a>
+      <a href="../kiza/">Kiza</a>
+      <a href="../colecao/">Coleção</a>
+    </nav>
+  </div>
+  <p class="rodape-legal">A Vulpus não é afiliada, aprovada ou patrocinada pela Mojang Studios nem pela Microsoft. Minecraft é marca da Mojang. Kiza Misuchi é personagem original da Vulpus.</p>
+</footer>
+
+<script src="../js/comum.js?v=20261118a" defer></script>
+<script src="../js/site.js?v=20261118a" defer></script>
+<script src="../js/comunidade.js?v=20261118a" defer></script>
 </body>
 </html>

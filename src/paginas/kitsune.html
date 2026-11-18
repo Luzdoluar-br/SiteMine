@@ -1,0 +1,63 @@
+<!--pagina {"rota":"kitsune","titulo":"Kitsune · apoie a Vulpus e ganhe estilo, não poder","descricao":"O programa de apoio da Vulpus: R$ 15 por mês via PIX, selo e cargo Kitsune, cores no nome, loja decorativa e espaços no Discord. Nunca vantagem no jogo.","secao":"kitsune","css":["base","paginas","kitsune"],"js":["kitsune"],"prioridade":0.8,"freq":"monthly"}-->
+<header class="cabeca">
+  <div class="miolo cabeca-in">
+    <div>
+      <p class="sobretitulo">Kitsune</p>
+      <h1>Apoie a toca. <em>Ganhe estilo, não poder.</em></h1>
+    </div>
+    <p class="lead">O Kitsune é o programa de apoio da Vulpus. Quem apoia paga o servidor e ganha reconhecimento e visual. Dentro do jogo, ninguém tem vantagem por isso.</p>
+  </div>
+</header>
+
+<section class="faixa faixa-pergaminho" aria-labelledby="planoTitulo">
+  <div class="miolo plano">
+    <div>
+      <p class="sobretitulo">O plano</p>
+      <h2 id="planoTitulo" class="visualmente-oculto">Plano Kitsune</h2>
+      <p class="preco"><span class="rs">R$</span><span class="num">15</span><span class="mes">por mês</span></p>
+      <p>Você escolhe 1, 3, 6 ou 12 meses e paga por PIX, direto no Discord, com <code>/kitsune</code>. Pagou, o selo e o cargo chegam sozinhos.</p>
+    </div>
+    <div>
+      <h3 class="plano-sub">O que vem com ele</h3>
+      <ul class="beneficios">
+        <li>Selo e cargo Kitsune, dentro e fora do jogo</li>
+        <li>Toca Kitsune: chat e sala de voz só sua</li>
+        <li>Votações exclusivas e mural dos Kitsunes</li>
+        <li>Raposa ao lado do nome nos placares</li>
+        <li>Cores para o nome e a tag do clã, e cores que se mexem a partir do nível 20</li>
+        <li>Loja decorativa no Cantinho Kitsune, com blocos pagos em Caudas</li>
+      </ul>
+      <p class="nunca"><b>Nunca:</b> vantagem no jogo, itens comprados ou caixa-surpresa paga.</p>
+    </div>
+  </div>
+</section>
+
+<section class="faixa faixa-madeira" aria-labelledby="doarTitulo">
+  <div class="miolo duas">
+    <div>
+      <p class="sobretitulo">Doações</p>
+      <h2 id="doarTitulo">Prefere só <em>ajudar?</em></h2>
+    </div>
+    <div class="leitura">
+      <p class="lead">O <code>/doar</code> aceita qualquer valor a partir de R$ 5, com metas públicas, mural de apoiadores e opção de doar de forma anônima.</p>
+    </div>
+  </div>
+</section>
+
+<section class="faixa faixa-escura" id="vitrine" aria-labelledby="vitTitulo">
+  <div class="miolo">
+    <p class="sobretitulo">Vitrine</p>
+    <h2 id="vitTitulo" class="titulo-vit">Cores e enfeites, <em>só visual.</em></h2>
+    <p class="vit-intro">Nome colorido, tag do clã e blocos de decoração. Nenhuma vantagem no jogo.</p>
+    <div class="abas" role="tablist" aria-label="Escolha o que ver">
+      <button class="aba" type="button" role="tab" id="abaCores" aria-controls="painelCores" aria-selected="true" data-aba="cores">Cores do nome</button>
+      <button class="aba" type="button" role="tab" id="abaAnim" aria-controls="painelAnim" aria-selected="false" data-aba="anim" tabindex="-1">Cores animadas</button>
+      <button class="aba" type="button" role="tab" id="abaDecor" aria-controls="painelDecor" aria-selected="false" data-aba="decor" tabindex="-1">Loja decorativa</button>
+    </div>
+    <div class="vit-painel" id="painelCores" role="tabpanel" aria-labelledby="abaCores"><div class="esqueleto alto"></div></div>
+    <div class="vit-painel" id="painelAnim" role="tabpanel" aria-labelledby="abaAnim" hidden></div>
+    <div class="vit-painel" id="painelDecor" role="tabpanel" aria-labelledby="abaDecor" hidden></div>
+    <noscript><p>Ative o JavaScript para ver a vitrine de cores e enfeites.</p></noscript>
+    <p class="vit-rodape" id="vitRodape" hidden></p>
+  </div>
+</section>

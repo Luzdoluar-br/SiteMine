@@ -1,0 +1,103 @@
+<!--pagina {"rota":"conta","titulo":"Minha conta · Vulpus","descricao":"Entre com o Discord para ver seu nível, o vínculo com o Minecraft, seu tempo de jogo, duelos, histórico e privacidade.","secao":"conta","css":["base","paginas","comunidade","conta"],"js":["conta"],"indexar":false}-->
+<div class="faixa faixa-madeira conta-sec">
+  <div class="miolo">
+    <!-- carregando -->
+    <section id="carregando" class="estado">
+      <div class="fogo" aria-hidden="true"></div>
+      <p>Acendendo as lanternas…</p>
+    </section>
+
+    <!-- entrar -->
+    <section id="entrar" class="entrar-conta" hidden>
+      <p class="sobretitulo">Minha conta</p>
+      <h1>Sua trajetória na <em>Vulpus.</em></h1>
+      <p class="lead">Entre com o Discord para ver sua conta, o vínculo com o Minecraft, seu tempo de jogo, duelos e o seu histórico, tudo num lugar só.</p>
+      <p class="acoes"><a class="botao" id="entrar-bt" href="#"><svg aria-hidden="true"><use href="#discord"/></svg>Entrar com o Discord</a></p>
+      <p class="pequeno">Pedimos ao Discord só o seu nome e a sua foto. Nada de e-mail, nada de mensagens.</p>
+      <p class="aviso" id="aviso" hidden></p>
+    </section>
+
+    <!-- conta -->
+    <section id="conta" hidden>
+      <div class="ola">
+        <img class="av-g" id="foto" alt="" width="96" height="96">
+        <div>
+          <p class="sobretitulo">Olá,</p>
+          <h1 id="nome"></h1>
+          <p class="etiquetas" id="etiquetas"></p>
+        </div>
+        <div class="ola-acoes">
+          <a class="link-seta" href="{{raiz}}home/">Meu painel <svg aria-hidden="true"><use href="#seta"/></svg></a>
+          <button class="botao botao-fio botao-pequeno" id="sair" type="button">Sair</button>
+        </div>
+      </div>
+
+      <div class="alerta" id="restricao" hidden></div>
+
+      <div class="grade">
+        <article class="cartao">
+          <h2>Na toca</h2>
+          <div class="numeros">
+            <div><span class="valor" id="caudas"></span><span class="rotulo">Caudas</span></div>
+            <div><span class="valor" id="nivel"></span><span class="rotulo" id="rank"></span></div>
+            <div><span class="valor" id="sequencia"></span><span class="rotulo">dias seguidos no daily</span></div>
+          </div>
+          <div class="barra" aria-hidden="true"><span id="barra-xp"></span></div>
+          <p class="pequeno" id="xp-texto"></p>
+        </article>
+
+        <article class="cartao">
+          <h2>Minecraft</h2>
+          <div id="mc-sem" hidden>
+            <p>Sua conta do jogo ainda não está ligada ao Discord.</p>
+            <p class="pequeno">Entre no servidor: o jogo mostra um código; no Discord, use <code>/minecraft vincular</code>.</p>
+          </div>
+          <div id="mc-com" hidden>
+            <p class="destaque" id="mc-nick"></p>
+            <div class="numeros">
+              <div><span class="valor" id="mc-total"></span><span class="rotulo">de jogo no total</span></div>
+              <div><span class="valor" id="mc-maior"></span><span class="rotulo">maior sessão</span></div>
+            </div>
+            <p class="pequeno" id="mc-desde"></p>
+          </div>
+        </article>
+
+        <article class="cartao">
+          <h2>Duelos e PvP</h2>
+          <div class="numeros">
+            <div><span class="valor" id="duelo-elo">—</span><span class="rotulo" id="duelo-div">sem partidas rankeadas</span></div>
+            <div><span class="valor" id="duelo-vd">—</span><span class="rotulo">vitórias / derrotas</span></div>
+            <div><span class="valor" id="abates">—</span><span class="rotulo">kills PvP no mundo</span></div>
+          </div>
+          <p class="pequeno">Jogue em Atividades, Duelos. O ranking da temporada aparece depois das 5 partidas de colocação.</p>
+        </article>
+
+        <article class="cartao">
+          <h2>No Discord</h2>
+          <p class="pequeno" id="desde-discord"></p>
+          <ul class="cargos" id="cargos"></ul>
+        </article>
+      </div>
+
+      <article class="cartao largo">
+        <h2>Seu histórico de moderação</h2>
+        <p class="pequeno">Avisos, exílios e outras medidas aplicadas à sua conta. Para contestar uma decisão, abra um ticket no Discord e peça a revisão.</p>
+        <ul class="historico" id="historico"></ul>
+        <p class="vazio" id="historico-vazio" hidden>Nada por aqui. Continue assim.</p>
+      </article>
+
+      <article class="cartao largo">
+        <h2>Privacidade</h2>
+        <label class="chave">
+          <input type="checkbox" id="publico">
+          <span class="trilho" aria-hidden="true"></span>
+          <span><strong>Perfil público</strong><br><span class="pequeno">Outros jogadores podem ver suas estatísticas de jogo (nível, tempo de jogo, duelos). Punições e dados da conta nunca são públicos.</span></span>
+        </label>
+        <p class="pequeno salvo" id="salvo" hidden>Salvo.</p>
+        <div class="acoes">
+          <button class="botao botao-fio botao-pequeno" id="sair-todos" type="button">Sair de todos os aparelhos</button>
+        </div>
+      </article>
+    </section>
+  </div>
+</div>

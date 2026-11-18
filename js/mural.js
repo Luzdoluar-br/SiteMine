@@ -4,7 +4,8 @@
 (() => {
   const { $, api, post, vazio } = VULPUS;
   let dados = null;
-  let filtro = "tudo";
+  let filtro = new URLSearchParams(location.search).get("tipo") || "tudo"; // ?tipo=transp abre direto nas transparências
+  if (!["tudo", "jogo", "bot", "transp"].includes(filtro)) filtro = "tudo";
 
   function desenhar() {
     const alvo = $("mural");
@@ -19,6 +20,7 @@
 
   document.addEventListener("DOMContentLoaded", async () => {
     for (const b of document.querySelectorAll(".aba")) {
+      b.setAttribute("aria-selected", String(b.dataset.filtro === filtro));
       b.addEventListener("click", () => {
         filtro = b.dataset.filtro;
         for (const o of document.querySelectorAll(".aba")) o.setAttribute("aria-selected", String(o === b));

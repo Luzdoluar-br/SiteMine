@@ -1,0 +1,32 @@
+/* Kitsune: plano, doação e a vitrine de cores e enfeites */
+.plano { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.2fr); gap: 40px clamp(32px, 6vw, 96px); align-items: start; }
+.preco { display: flex; align-items: baseline; gap: 8px; margin: 0 0 18px; font-family: var(--f-titulo); }
+.preco .rs { font-size: 1.8rem; font-weight: 700; }
+.preco .num { font-size: clamp(5rem, 3rem + 7vw, 8rem); color: var(--laranja-tinta); }
+.preco .mes { font-family: var(--f-texto); font-size: 1.2rem; font-weight: 500; color: var(--tinta-suave); }
+.plano-sub { font-family: var(--f-texto); font-size: .8rem; font-weight: 700; letter-spacing: .17em; text-transform: uppercase; color: var(--tinta-suave); margin-bottom: 4px; }
+.beneficios { list-style: none; margin: 0 0 26px; padding: 0; }
+.beneficios li { padding: 14px 0 14px 34px; border-bottom: 1px solid rgba(42, 29, 18, .25); position: relative; font-size: 1.12rem; }
+.beneficios li:first-child { border-top: 1px solid rgba(42, 29, 18, .25); }
+.beneficios li::before { content: ""; position: absolute; left: 4px; top: 1.15em; width: 14px; height: 8px; border-left: 3px solid var(--laranja-tinta); border-bottom: 3px solid var(--laranja-tinta); transform: rotate(-45deg); }
+.nunca { margin: 0; padding: 14px 18px; border-left: 4px solid var(--alerta); background: rgba(194, 65, 45, .08); font-size: 1.08rem; }
+@media (max-width: 860px) { .plano { grid-template-columns: 1fr; } }
+
+/* vitrine */
+.titulo-vit { margin-bottom: 10px; }
+.vit-intro { margin-bottom: 26px; color: var(--suave); }
+.vit-painel[hidden] { display: none; }
+.vit-fam { margin-bottom: 38px; }
+.vit-fam h3 { font-family: var(--f-texto); font-size: .8rem; font-weight: 700; letter-spacing: .17em; text-transform: uppercase; color: var(--brasa); margin-bottom: 12px; }
+.vit-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); border-top: 1px solid rgba(239, 227, 203, .18); border-left: 1px solid rgba(239, 227, 203, .18); }
+.vit-cel { padding: 16px 16px 14px; border-right: 1px solid rgba(239, 227, 203, .18); border-bottom: 1px solid rgba(239, 227, 203, .18); display: grid; gap: 6px; background: #0e0b08; }
+.vit-nome { font-family: var(--f-pixel); font-size: 1.05rem; letter-spacing: .02em; line-height: 1.2; min-height: 1.3em; overflow-wrap: anywhere; }
+.vit-rotulo { font-size: .85rem; color: var(--suave); font-weight: 500; }
+.vit-rodape { margin-top: 18px; color: var(--suave); font-size: 1rem; max-width: 70ch; }
+
+.decor { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0 clamp(20px, 3vw, 44px); }
+.decor li { display: grid; grid-template-columns: 64px 1fr; gap: 4px 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid rgba(239, 227, 203, .18); }
+.decor img { width: 64px; height: 64px; object-fit: contain; image-rendering: pixelated; grid-row: span 3; background: rgba(239, 227, 203, .05); padding: 4px; }
+.decor h4 { font-size: 1.12rem; margin: 0; }
+.decor .preco-d { font-weight: 700; color: var(--brasa); font-size: .95rem; }
+.decor p { margin: 0; color: var(--suave); font-size: .95rem; line-height: 1.35; }

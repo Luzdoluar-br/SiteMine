@@ -1,0 +1,71 @@
+<!--pagina {"rota":"como-entrar","titulo":"Como entrar na Vulpus · endereço, passo a passo e dúvidas","descricao":"Endereço e porta do servidor Vulpus, o passo a passo para entrar pelo celular, console ou Windows, como vincular a conta e as perguntas mais comuns.","secao":"entrar","css":["base","paginas","entrada"],"js":[],"prioridade":0.9,"freq":"monthly"}-->
+<header class="cabeca">
+  <div class="miolo cabeca-in">
+    <div>
+      <p class="sobretitulo">Como entrar</p>
+      <h1>Quatro passos <em>até a toca.</em></h1>
+    </div>
+    <p class="lead">A Vulpus roda no Minecraft Bedrock: celular, console e Windows. Você precisa do Discord para pegar o endereço e vincular sua conta.</p>
+  </div>
+</header>
+
+<section class="faixa faixa-pergaminho" aria-labelledby="endTitulo">
+  <div class="miolo">
+    <p class="sobretitulo">O endereço</p>
+    <h2 id="endTitulo" class="titulo-bloco">Endereço e porta.</h2>
+    <dl class="enderecos">
+      <div class="endereco">
+        <dt>Principal</dt>
+        <dd>
+          <span class="end-linha"><code>{{ip}}</code> <span class="end-porta">porta <code>{{porta}}</code></span></span>
+          <span class="acoes">
+            <button class="botao botao-pequeno" type="button" data-copiar="{{ip}}:{{porta}}"><svg aria-hidden="true"><use href="#copiar"/></svg><span data-copiar-rotulo>Copiar endereço</span></button>
+            <a class="link-seta" href="{{raiz}}entrar/">Abrir no Minecraft <svg aria-hidden="true"><use href="#seta"/></svg></a>
+          </span>
+        </dd>
+      </div>
+      <div class="endereco">
+        <dt>Alternativo</dt>
+        <dd>
+          <span class="end-linha"><code>{{ip_alt}}</code> <span class="end-porta">porta <code>{{porta_alt}}</code></span></span>
+          <span class="acoes">
+            <button class="botao botao-fio botao-pequeno" type="button" data-copiar="{{ip_alt}}:{{porta_alt}}"><svg aria-hidden="true"><use href="#copiar"/></svg><span data-copiar-rotulo>Copiar endereço</span></button>
+            <a class="link-seta" href="{{raiz}}entrar/?s=alt">Abrir no Minecraft <svg aria-hidden="true"><use href="#seta"/></svg></a>
+          </span>
+        </dd>
+      </div>
+    </dl>
+    <p class="pequeno">O endereço também está no canal <b>ip-e-porta</b> do Discord, junto de quem está online agora.</p>
+  </div>
+</section>
+
+<section class="faixa faixa-madeira" aria-labelledby="passosTitulo">
+  <div class="miolo">
+    <p class="sobretitulo">O passo a passo</p>
+    <h2 id="passosTitulo" class="titulo-bloco">Do Discord ao primeiro bloco.</h2>
+    <ol class="passos passos-longos">
+      <li><h3>Entre no Discord</h3><p>Aceite as regras e o resto da toca se abre. É lá que ficam o endereço, os tickets e a Kiza.</p><p><a class="botao botao-pequeno" href="{{convite}}" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#discord"/></svg>Entrar no Discord</a></p></li>
+      <li><h3>Pegue o endereço</h3><p>IP e porta estão acima e no canal <b>ip-e-porta</b>, que também mostra quem está online agora.</p></li>
+      <li><h3>Adicione no jogo</h3><p>No Minecraft: <b>Jogar</b>, <b>Servidores</b>, <b>Adicionar servidor</b>. Cole o nome, o endereço e a porta.</p><p class="pequeno">No celular e no Windows, o botão “Abrir no Minecraft” acima já preenche tudo.</p></li>
+      <li><h3>Vincule a conta</h3><p>Na primeira entrada a tela fica preta com um código. No Discord, digite <code>/minecraft vincular</code> e o código.</p><p class="pequeno">Sem o vínculo, o jogo não sabe quem você é: Caudas, XP e conversa só valem nos dois lugares depois dele.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="faixa faixa-pergaminho" aria-labelledby="faqTitulo">
+  <div class="miolo faq-grade">
+    <div>
+      <p class="sobretitulo">Dúvidas</p>
+      <h2 id="faqTitulo">O que mais perguntam.</h2>
+      <p>Não achou a sua? Abra um ticket no Discord: a equipe responde por lá.</p>
+    </div>
+    <div class="faq">
+      <details><summary>Em quais aparelhos dá para jogar?</summary><p>No Minecraft Bedrock: celular, console e Windows.</p></details>
+      <details><summary>Ser Kitsune dá alguma vantagem no jogo?</summary><p>Não. O Kitsune dá selo, cargo e espaços exclusivos no Discord. A vantagem no jogo é de quem joga.</p></details>
+      <details><summary>Por que preciso vincular a conta?</summary><p>Para Caudas, XP e conversa serem os mesmos no Discord e no servidor. Sem vínculo, o jogo não sabe quem você é.</p></details>
+      <details><summary>Como funciona o pagamento?</summary><p>Por PIX, direto no Discord com <code>/kitsune</code> ou <code>/doar</code>. Confirmado o pagamento, tudo chega automaticamente.</p></details>
+      <details><summary>O que a Kiza guarda sobre mim?</summary><p>Só fatos duradouros que você mesmo contar, como um apelido ou o nome do seu pet. Nada de dados sensíveis. <code>/memoria esquecer</code> apaga tudo.</p></details>
+      <details><summary>Como falo com a staff?</summary><p>Abra um ticket no Discord. A equipe responde por lá.</p></details>
+    </div>
+  </div>
+</section>

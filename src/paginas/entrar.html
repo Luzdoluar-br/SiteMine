@@ -1,0 +1,16 @@
+<!--pagina {"rota":"entrar","titulo":"Entrar na Vulpus · abrir no Minecraft","descricao":"Abre o Minecraft já com o servidor da Vulpus preenchido.","secao":"entrar","css":["base","paginas","entrada"],"js":["entrar"],"indexar":false}-->
+<section class="abrir">
+  <div class="abrir-caixa" id="abrirCaixa" data-nome-principal="{{nome_servidor}}" data-ip-principal="{{ip}}" data-porta-principal="{{porta}}" data-nome-alt="{{nome_alt}}" data-ip-alt="{{ip_alt}}" data-porta-alt="{{porta_alt}}">
+    <p class="sobretitulo" id="abrirRotulo">Servidor principal</p>
+    <h1>Abrindo o Minecraft…</h1>
+    <p>Se o jogo perguntar se quer adicionar o servidor, é só aceitar.</p>
+    <a class="botao" id="abrir" href="#">Abrir no Minecraft</a>
+    <div class="abrir-dados">
+      <div><b>IP</b> <code id="abrirIp"></code></div>
+      <div><b>Porta</b> <code id="abrirPorta"></code></div>
+    </div>
+    <p><a id="abrirTrocar" href="#"></a></p>
+    <p class="pequeno">Se nada abrir, adicione na mão: Jogar, Servidores, Adicionar servidor. Na primeira vez a tela fica preta com um código; use <b>/minecraft vincular</b> no Discord. Mais detalhes em <a href="{{raiz}}como-entrar/">Como entrar</a>.</p>
+    <noscript><p>Ative o JavaScript para abrir o Minecraft por aqui, ou use o endereço <code>{{ip}}</code> porta <code>{{porta}}</code>.</p></noscript>
+  </div>
+</section>

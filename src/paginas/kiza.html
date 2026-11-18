@@ -1,0 +1,122 @@
+<!--pagina {"rota":"kiza","titulo":"Kiza Misuchi · a IA e mascote da Vulpus","descricao":"Conheça a Kiza, mascote e IA da Vulpus: entende o contexto do chat, conhece o servidor, guarda só o que você contar e esquece quando você pedir.","secao":"kiza","css":["base","paginas","kiza"],"js":["kiza"],"prioridade":0.8,"freq":"monthly"}-->
+<header class="faixa faixa-noite kiza-topo">
+  <div class="miolo kiza-topo-in">
+    <div class="kiza-texto">
+      <p class="sobretitulo">A mascote</p>
+      <h1>Kiza <em>Misuchi</em></h1>
+      <p class="lead">Mascote e alma da toca. Conversa com quem é Kitsune, entende o contexto do chat, conhece o servidor de ponta a ponta para ajudar no Minecraft e guarda o que você contar, até você pedir para esquecer.</p>
+      <div class="ficha">
+        <div class="ficha-rosto"><img id="retrato" src="{{raiz}}img/humor-normal.webp" width="130" height="144" alt="Rosto da Kiza: normal"></div>
+        <div>
+          <p class="ficha-nome">Kiza Misuchi</p>
+          <p class="ficha-sub">18 anos · uma cauda · humor: <b id="humorNome">normal</b></p>
+          <div class="humores" role="group" aria-label="Humores da Kiza">
+            <button type="button" data-h="normal" aria-pressed="true" aria-label="Normal"><img src="{{raiz}}img/humor-normal.webp" width="130" height="144" alt=""></button>
+            <button type="button" data-h="feliz" aria-pressed="false" aria-label="Feliz"><img src="{{raiz}}img/humor-feliz.webp" width="130" height="144" alt="" loading="lazy"></button>
+            <button type="button" data-h="piscando" aria-pressed="false" aria-label="Piscando"><img src="{{raiz}}img/humor-piscando.webp" width="130" height="144" alt="" loading="lazy"></button>
+            <button type="button" data-h="surpresa" aria-pressed="false" aria-label="Surpresa"><img src="{{raiz}}img/humor-surpresa.webp" width="130" height="144" alt="" loading="lazy"></button>
+            <button type="button" data-h="envergonhada" aria-pressed="false" aria-label="Envergonhada"><img src="{{raiz}}img/humor-envergonhada.webp" width="130" height="144" alt="" loading="lazy"></button>
+            <button type="button" data-h="lado" aria-pressed="false" aria-label="Desconfiada"><img src="{{raiz}}img/humor-lado.webp" width="130" height="144" alt="" loading="lazy"></button>
+            <button type="button" data-h="bravo" aria-pressed="false" aria-label="Brava"><img src="{{raiz}}img/humor-bravo.webp" width="130" height="144" alt="" loading="lazy"></button>
+            <button type="button" data-h="triste" aria-pressed="false" aria-label="Triste"><img src="{{raiz}}img/humor-triste.webp" width="130" height="144" alt="" loading="lazy"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <figure class="kiza-arte">
+      <img src="{{raiz}}img/hero-kiza.webp" width="900" height="724" alt="Kiza Misuchi, uma raposa de cabelo branco e olhos azuis, numa floresta à noite." fetchpriority="high">
+    </figure>
+  </div>
+</header>
+
+<section class="faixa faixa-madeira" aria-labelledby="fazTitulo">
+  <div class="miolo duas">
+    <div>
+      <p class="sobretitulo">O que ela faz</p>
+      <h2 id="fazTitulo">Uma IA <em>que lembra de você.</em></h2>
+    </div>
+    <ol class="rol rol-simples">
+      <li><h3>Conversa com quem é Kitsune.</h3></li>
+      <li><h3>Entende o contexto do chat.</h3></li>
+      <li><h3>Conhece o servidor de ponta a ponta, para ajudar no Minecraft.</h3></li>
+      <li><h3>Guarda o que você contar, até você pedir para esquecer.</h3></li>
+    </ol>
+  </div>
+</section>
+
+<section class="faixa faixa-escura" aria-labelledby="chatTitulo">
+  <div class="miolo chat-grade">
+    <div>
+      <p class="sobretitulo">Um exemplo</p>
+      <h2 id="chatTitulo">Pergunte para ela.</h2>
+      <p>Escolha uma pergunta e veja como a conversa vai. São exemplos escritos pela equipe para mostrar o jeito dela; no Discord ela responde de verdade.</p>
+    </div>
+    <div class="chat" aria-label="Conversa de exemplo com a Kiza">
+      <div class="chat-topo"><span class="hash">#</span>toca-geral</div>
+      <div class="chat-msgs" id="chatMsgs" aria-live="polite">
+        <div class="cm"><div class="av-l">L</div><div><b>luma</b><p>kiza, me indica um bioma bonito pra construir</p></div></div>
+        <div class="cm"><div class="av-l av-k"><img src="{{raiz}}img/humor-feliz.webp" width="40" height="40" alt=""></div><div><b class="k">Kiza <span class="tag">APP</span></b><p>bosque de cerejeiras. tudo rosa, e a madeira combina com quase qualquer telhado</p></div></div>
+        <div class="cm"><div class="av-l av-k"><img src="{{raiz}}img/humor-piscando.webp" width="40" height="40" alt=""></div><div><b class="k">Kiza <span class="tag">APP</span></b><p>e você? pode perguntar, eu não mordo. quase nunca.</p></div></div>
+      </div>
+      <div class="digitando" id="digitando"><i></i><i></i><i></i><span>Kiza está digitando</span></div>
+      <div class="chat-perguntas">
+        <p id="chatDica">Pergunte para ela</p>
+        <div class="chips" id="chips">
+          <button type="button" data-p="0">onde acho axolote?</button>
+          <button type="button" data-p="1">lembra do meu gato?</button>
+          <button type="button" data-p="2">como libero o VeinMiner?</button>
+          <button type="button" data-p="3">você é uma IA?</button>
+          <button type="button" data-p="4">qual sua cor favorita?</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faixa faixa-papel" aria-labelledby="memTitulo">
+  <div class="miolo duas">
+    <div>
+      <p class="sobretitulo">Memória e privacidade</p>
+      <h2 id="memTitulo">A memória <em>é sua.</em></h2>
+    </div>
+    <div class="leitura">
+      <p class="lead">A Kiza só guarda fatos duradouros que você mesmo contar, como um apelido ou o nome do seu pet. Nada de dados sensíveis.</p>
+      <p>Quer que ela esqueça? Use <code>/memoria esquecer</code> no Discord e ela apaga tudo o que sabe sobre você.</p>
+    </div>
+  </div>
+</section>
+
+<section class="faixa faixa-pergaminho" aria-labelledby="lendaTitulo">
+  <div class="miolo">
+    <p class="sobretitulo">A lenda</p>
+    <h2 id="lendaTitulo" class="titulo-lenda">Toda kitsune tem nove caudas. <em>Kiza nasceu com uma.</em></h2>
+    <div class="lenda-grade">
+    <div class="lenda">
+      <article class="capitulo">
+        <p class="romano" aria-hidden="true">I</p>
+        <div><h3>A raposa de uma cauda só</h3><p>Dizem que toda kitsune ganha uma cauda nova a cada grande história que vive. Kiza Misuchi nasceu com uma só, e odiava isso. As outras raposas tinham nove, brilhantes, e ela tinha... uma. Branquinha. Meio despenteada.</p></div>
+      </article>
+      <article class="capitulo">
+        <p class="romano" aria-hidden="true">II</p>
+        <div><h3>A floresta de blocos</h3><p>Cansada de esperar histórias caírem do céu, Kiza andou até achar uma floresta estranha, feita de blocos. Lá, as pessoas construíam casas, castelos e coisas que nem tinham nome. E cada coisa criada contava uma história.</p></div>
+      </article>
+      <article class="capitulo">
+        <p class="romano" aria-hidden="true">III</p>
+        <div><h3>A toca</h3><p>Kiza cavou uma toca no meio da floresta e a chamou de <strong>Vulpus</strong>. Não para guardar tesouros, mas para guardar <strong>gente</strong>. Quem chegasse e criasse algo junto deixava um pouquinho de história por lá.</p></div>
+      </article>
+      <article class="capitulo">
+        <p class="romano" aria-hidden="true">IV</p>
+        <div><h3>As Caudas</h3><p>Cada história contada na toca vira uma <strong>Cauda</strong>. É por isso que você ganha Caudas conversando, jogando e aparecendo. Kiza diz que não liga, mas conta todas, uma por uma, toda noite.</p></div>
+      </article>
+      <article class="capitulo">
+        <p class="romano" aria-hidden="true">V</p>
+        <div><h3>As pérolas</h3><p>Os momentos mais bonitos da toca viram <strong>pérolas</strong> e ficam guardados para sempre. Se a Kiza um dia ganhar suas nove caudas, vai ser por causa de quem está lendo isto. Ela nunca vai admitir em voz alta, claro.</p></div>
+      </article>
+    </div>
+    <figure class="lenda-arte">
+      <img src="{{raiz}}img/kiza-kitsune.webp" width="720" height="579" alt="Ilustração de Kiza Misuchi." loading="lazy">
+      <figcaption>Ilustração original da Vulpus.</figcaption>
+    </figure>
+    </div>
+  </div>
+</section>

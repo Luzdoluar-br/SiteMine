@@ -1,0 +1,71 @@
+/* Página da Kiza */
+.rol-simples > li { grid-template-columns: 3.1rem 1fr; padding: 22px 0; align-items: baseline; }
+.rol-simples > li::before { grid-row: auto; }
+.rol-simples h3 { font-size: clamp(1.35rem, 1.1rem + .9vw, 1.9rem); font-weight: 600; margin: 0; }
+
+/* topo: texto e ficha à esquerda, arte à direita */
+.kiza-topo { padding-block: clamp(40px, 6vw, 80px) 0; overflow: hidden; }
+.kiza-topo-in { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px clamp(24px, 5vw, 72px); align-items: end; }
+.kiza-texto { padding-bottom: clamp(40px, 6vw, 80px); }
+.kiza-texto h1 { margin-bottom: 20px; }
+.kiza-texto .lead { margin-bottom: 34px; }
+.kiza-arte { margin: 0; align-self: end; }
+.kiza-arte img { width: 100%; max-height: 640px; object-fit: contain; object-position: bottom; }
+.ficha { display: grid; grid-template-columns: 112px 1fr; gap: 22px; align-items: start; padding-top: 24px; border-top: 1px solid rgba(239, 227, 203, .25); }
+.ficha-rosto { width: 112px; height: 124px; background: var(--noite-2); border: 1px solid rgba(239, 227, 203, .25); display: grid; place-items: center; overflow: hidden; }
+.ficha-rosto img { width: 100%; height: 100%; object-fit: cover; transition: opacity .14s; }
+.ficha-nome { font-family: var(--f-titulo); font-weight: 800; font-size: 1.5rem; margin: 0; line-height: 1.1; }
+.ficha-sub { margin: 4px 0 14px; color: var(--suave); }
+.ficha-sub b { color: var(--brasa); }
+.humores { display: flex; flex-wrap: wrap; gap: 6px; }
+.humores button { width: 48px; height: 52px; padding: 0; border: 1px solid rgba(239, 227, 203, .25); background: var(--noite-2); overflow: hidden; border-radius: 2px; opacity: .72; transition: opacity .15s, border-color .15s; }
+.humores button:hover { opacity: 1; }
+.humores button[aria-pressed="true"] { opacity: 1; border-color: var(--brasa); box-shadow: inset 0 -3px 0 var(--laranja); }
+.humores img { width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 860px) { .kiza-topo-in { grid-template-columns: 1fr; } .kiza-arte { order: -1; } .kiza-arte img { max-height: 380px; } .kiza-texto { padding-bottom: 40px; } }
+@media (max-width: 460px) { .ficha { grid-template-columns: 84px 1fr; gap: 14px; } .ficha-rosto { width: 84px; height: 94px; } }
+
+/* conversa de exemplo */
+.chat-grade { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.3fr); gap: 36px clamp(32px, 6vw, 88px); align-items: center; }
+.chat-grade h2 { margin-bottom: 16px; }
+.chat { background: #1c1f26; border: 1px solid rgba(239, 227, 203, .2); color: #e7e3da; }
+.chat-topo { padding: 12px 18px; border-bottom: 1px solid rgba(255, 255, 255, .08); font-weight: 700; font-size: .98rem; color: #cfcbc2; }
+.chat-topo .hash { color: #8a8f99; margin-right: .35em; font-weight: 400; }
+.chat-msgs { padding: 8px 18px 4px; height: 340px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; scrollbar-width: thin; }
+.cm { display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: start; padding-top: 10px; }
+.cm b { font-size: .98rem; }
+.cm b.k { color: var(--brasa); }
+.cm p { margin: 2px 0 0; line-height: 1.4; }
+.cm .tag { background: #4b5bd6; color: #fff; font-size: .62rem; font-weight: 700; padding: .12em .45em; border-radius: 2px; margin-left: .4em; vertical-align: .15em; letter-spacing: .06em; }
+.av-l { width: 40px; height: 40px; border-radius: 50%; background: var(--azul); display: grid; place-items: center; font-weight: 700; overflow: hidden; }
+.av-l.av-k { background: var(--noite-2); }
+.av-l img { width: 100%; height: 100%; object-fit: cover; }
+.digitando { display: none; align-items: center; gap: 5px; padding: 4px 18px 10px; color: #9a9ea8; font-size: .86rem; }
+.digitando.on { display: flex; }
+.digitando i { width: 6px; height: 6px; border-radius: 50%; background: #9a9ea8; animation: pulo 1s infinite; }
+.digitando i:nth-child(2) { animation-delay: .15s; }
+.digitando i:nth-child(3) { animation-delay: .3s; }
+.digitando span { margin-left: 6px; }
+@keyframes pulo { 0%, 60%, 100% { transform: translateY(0); opacity: .5; } 30% { transform: translateY(-4px); opacity: 1; } }
+.chat-perguntas { padding: 14px 18px 18px; border-top: 1px solid rgba(255, 255, 255, .08); }
+.chat-perguntas p { margin: 0 0 10px; font-size: .78rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: #9a9ea8; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips button { background: transparent; border: 1px solid rgba(239, 227, 203, .4); border-radius: 2px; padding: 8px 14px; font-weight: 500; color: var(--creme); }
+.chips button:hover:not(:disabled) { border-color: var(--brasa); color: var(--brasa); }
+.chips button:disabled { opacity: .45; cursor: wait; }
+@media (max-width: 860px) { .chat-grade { grid-template-columns: 1fr; } .chat-msgs { height: 300px; } }
+
+/* a lenda: texto corrido, numeral grande na margem */
+.titulo-lenda { max-width: 20ch; margin-bottom: 40px; }
+.lenda-grade { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, .8fr); gap: 32px clamp(32px, 6vw, 88px); align-items: start; }
+.lenda-arte { margin: 0; position: sticky; top: calc(var(--topo-h) + 24px); }
+.lenda-arte img { width: 100%; border: 6px solid #fffaf0; box-shadow: 0 14px 30px rgba(42, 29, 18, .3); }
+.lenda-arte figcaption { margin-top: 12px; font-size: .92rem; color: var(--tinta-suave); }
+@media (max-width: 900px) { .lenda-grade { grid-template-columns: 1fr; } .lenda-arte { position: static; max-width: 420px; order: -1; } }
+.lenda { display: grid; gap: 0; }
+.capitulo { display: grid; grid-template-columns: clamp(72px, 12vw, 130px) 1fr; gap: 8px 22px; padding: 30px 0; border-top: 1px solid rgba(42, 29, 18, .28); }
+.capitulo:last-child { border-bottom: 1px solid rgba(42, 29, 18, .28); }
+.capitulo .romano { font-family: var(--f-titulo); font-weight: 800; font-style: italic; font-size: clamp(3.4rem, 2rem + 5vw, 6rem); line-height: .9; color: var(--laranja-tinta); margin: 0; text-align: center; }
+.capitulo h3 { margin-bottom: 8px; }
+.capitulo p { margin: 0; font-size: 1.2rem; line-height: 1.55; max-width: 56ch; }
+@media (max-width: 560px) { .capitulo { grid-template-columns: 1fr; } .capitulo .romano { text-align: left; font-size: 3.4rem; } }

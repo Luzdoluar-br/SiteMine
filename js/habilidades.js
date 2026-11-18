@@ -10,6 +10,10 @@
     espera: "Ainda não dá para redistribuir.", muitos_pedidos: "Muitos pedidos seguidos. Espere um minuto.", pedido_invalido: "Pedido inválido.",
   };
 
+  // as cores dos ramos vêm do servidor, mas o site usa a paleta dele (nada de roxo ou azul neon): uma cor por ramo, escolhida aqui
+  const COR_RAMO = { min: "#8fb7d6", len: "#f59a3b", faz: "#9bbf7a", com: "#e0674f", pvp: "#d9c28a", toca: "#e5b36a" };
+  const corDe = (id, padrao = "#f59a3b") => COR_RAMO[id] || padrao;
+
   let arvore = null; // { ramos, nos, niveis_hab, marcos, ... }
   let conta = null; // resposta de /painel/api/talentos (null = sem login)
   let rascunho = {};
@@ -51,7 +55,7 @@
   // ------------------------------------------------------------------ Kiza
   function kiza(texto, humor = "feliz") {
     const img = $("kiza-rosto");
-    img.src = `../img/humor-${humor}.webp`;
+    img.src = `${VULPUS.RAIZ}img/humor-${humor}.webp`;
     img.classList.remove("pula");
     void img.offsetWidth;
     img.classList.add("pula");
@@ -100,12 +104,11 @@
   function desenharHabilidades() {
     const alvo = $("tal-habs");
     alvo.replaceChildren();
-    const cores = { min: "#7fd3ff", len: "#ffb661", faz: "#9be37a", com: "#ff8a7a", pvp: "#e7a6ff" };
     arvore.habilidades.forEach((h, i) => {
       const n = conta ? conta.niveis[h.id] || 0 : 0;
       const c = el("div", "hab");
       c.style.setProperty("--i", i);
-      c.style.setProperty("--cor", cores[h.id]);
+      c.style.setProperty("--cor", corDe(h.id));
       const topo = el("div", "hab-topo");
       topo.append(el("b", "", h.nome), el("span", "nv", `Nv ${n}`));
       const barra = el("div", "barra");
@@ -123,7 +126,7 @@
     const b = el("button", "no");
     b.type = "button";
     b.dataset.id = no.id;
-    b.style.setProperty("--cor", ramo.cor);
+    b.style.setProperty("--cor", corDe(ramo.id, ramo.cor));
     if (n >= no.max) b.classList.add("cheio");
     if (n > 0) b.classList.add("tem");
     if (n > c0) b.classList.add("novo");
@@ -131,8 +134,8 @@
     else if (n === 0 && !requisitosOk(no)) b.classList.add("falta");
     const pips = el("span", "pips");
     for (let i = 1; i <= no.max; i++) pips.append(el("i", i <= c0 ? "on" : i <= n ? "novo" : ""));
-    const prox = n < no.max ? `${no.custos[n]} ✦` : "máximo";
-    b.append(el("span", "ic", no.emoji), el("span", "nm", no.nome), pips, el("span", "cst", prox));
+    const prox = n < no.max ? `${no.custos[n]} ${no.custos[n] === 1 ? "ponto" : "pontos"}` : "máximo";
+    b.append(el("span", "nm", no.nome), pips, el("span", "cst", prox));
     b.setAttribute("aria-label", `${no.nome}, nível ${n} de ${no.max}. ${n < no.max ? `Próximo custa ${no.custos[n]} pontos.` : "No máximo."}`);
     b.addEventListener("click", () => abrir(no.id));
     const mais = el("span", "mais", "+");
@@ -155,17 +158,17 @@
     arvore.ramos.forEach((ramo, i) => {
       const nos = arvore.nos.filter((n) => n.ramo === ramo.id);
       const sec = el("section", `ramo${ramo.id === ramoAtivo ? " ativo" : ""}`);
-      sec.style.setProperty("--cor", ramo.cor);
+      sec.style.setProperty("--cor", corDe(ramo.id, ramo.cor));
       sec.style.setProperty("--i", i);
       sec.dataset.ramo = ramo.id;
       const topo = el("header", "ramo-topo");
       const img = el("img");
-      img.src = `../img/decor/${IMAGEM_RAMO[ramo.id]}.png`;
+      img.src = `${VULPUS.RAIZ}img/decor/${IMAGEM_RAMO[ramo.id]}.png`;
       img.alt = "";
       img.width = 52;
       img.height = 52;
       const gasto = custo(Object.fromEntries(nos.map((n) => [n.id, nivel(rascunho, n.id)])));
-      topo.append(img, el("h3", "", `${ramo.emoji} ${ramo.nome}`), el("p", "", ramo.lema), el("span", "gasto", `${gasto} ✦ investidos`));
+      topo.append(img, el("h3", "", ramo.nome), el("p", "", ramo.lema), el("span", "gasto", `${gasto} ${gasto === 1 ? "ponto investido" : "pontos investidos"}`));
       sec.append(topo);
       const linhas = [...new Set(nos.map((n) => n.linha))].sort((a, b) => a - b);
       for (const l of linhas) {
@@ -174,7 +177,7 @@
         sec.append(fileira);
       }
       alvo.append(sec);
-      const aba = el("button", "aba", `${ramo.emoji} ${ramo.nome}`);
+      const aba = el("button", "aba", ramo.nome);
       aba.type = "button";
       aba.setAttribute("role", "tab");
       aba.setAttribute("aria-selected", String(ramo.id === ramoAtivo));
@@ -231,7 +234,7 @@
       const n = nivel(esc, no.id);
       if (!n) continue;
       const tr = el("tr");
-      tr.append(el("td", "", `${no.emoji} ${no.nome}`), el("td", "", `${n}/${no.max}`), el("td", "", efeitoDe(no, n)));
+      tr.append(el("td", "", no.nome), el("td", "", `${n}/${no.max}`), el("td", "", efeitoDe(no, n)));
       corpo.append(tr);
     }
     $("ativos-vazio").hidden = corpo.children.length > 0;
@@ -240,7 +243,7 @@
     for (let n = 1; n <= arvore.nivel_max; n++) {
       const tr = el("tr");
       const extra = arvore.marcos.includes(n);
-      tr.append(el("td", "", `Nível ${n}`), el("td", "", numero(arvore.niveis_hab[n])), el("td", extra ? "marco" : "", extra ? "+2 ✦" : "+1 ✦"));
+      tr.append(el("td", "", `Nível ${n}`), el("td", "", numero(arvore.niveis_hab[n])), el("td", extra ? "marco" : "", extra ? "+2 pontos" : "+1 ponto"));
       tn.append(tr);
     }
   }
@@ -280,47 +283,33 @@
     const no = porId[id];
     const ramo = arvore.ramos.find((r) => r.id === no.ramo);
     const d = $("detalhe");
-    d.style.setProperty("--cor", ramo.cor);
-    $("d-emoji").textContent = no.emoji;
-    $("d-ramo").textContent = `${ramo.nome} · nível ${nivel(rascunho, id)} de ${no.max}`;
+    d.style.setProperty("--cor", corDe(ramo.id, ramo.cor));
+        $("d-ramo").textContent = `${ramo.nome} · nível ${nivel(rascunho, id)} de ${no.max}`;
     $("d-nome").textContent = no.nome;
     const corpo = $("d-niveis").tBodies[0];
     corpo.replaceChildren();
     for (let n = 1; n <= no.max; n++) {
       const tr = el("tr", n === nivel(rascunho, id) ? "atual" : "");
-      tr.append(el("td", "", `${n}`), el("td", "", efeitoDe(no, n)), el("td", "", `${no.custos[n - 1]} ✦`));
+      tr.append(el("td", "", `${n}`), el("td", "", efeitoDe(no, n)), el("td", "", `${no.custos[n - 1]}`));
       corpo.append(tr);
     }
     const req = $("d-req");
     req.replaceChildren();
     for (const [r, m] of no.requer) {
       const ok = nivel(rascunho, r) >= m;
-      req.append(el("li", ok ? "ok" : "nao", `${ok ? "✓" : "✗"} Precisa de ${porId[r].nome} no nível ${m}`));
+      req.append(el("li", ok ? "ok" : "nao", `${ok ? "Cumprido" : "Falta"}: precisa de ${porId[r].nome} no nível ${m}`));
     }
     $("d-nota").textContent = no.nota || "";
     $("d-nota").hidden = !no.nota;
     $("d-msg").textContent = podeMais(no) ? "" : motivoNao(no);
     $("d-mais").disabled = !podeMais(no);
-    $("d-mais").textContent = nivel(rascunho, id) < no.max ? `+ Adicionar nível (${no.custos[nivel(rascunho, id)]} ✦)` : "No máximo";
+    $("d-mais").textContent = nivel(rascunho, id) < no.max ? `+ Adicionar nível (${no.custos[nivel(rascunho, id)]})` : "No máximo";
     $("d-menos").hidden = !podeMenos(no);
   }
 
   // ------------------------------------------------------------------ ações
-  function faiscas(alvo, cor) {
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches || !alvo) return;
-    const r = alvo.getBoundingClientRect();
-    for (let i = 0; i < 14; i++) {
-      const f = el("i", "faisca");
-      const ang = (Math.PI * 2 * i) / 14 + Math.random() * 0.4;
-      const dist = 40 + Math.random() * 50;
-      f.style.left = `${r.left + r.width / 2}px`;
-      f.style.top = `${r.top + r.height / 2}px`;
-      f.style.setProperty("--dx", `${Math.cos(ang) * dist}px`);
-      f.style.setProperty("--dy", `${Math.sin(ang) * dist}px`);
-      f.style.setProperty("--c", cor);
-      document.body.append(f);
-      setTimeout(() => f.remove(), 900);
-    }
+  function faiscas() {
+    // sem efeito: a árvore muda de estado (borda, bolinhas, custo) e isso basta
   }
 
   function adicionar(id) {
@@ -333,7 +322,6 @@
     desenharTudo(false);
     const b = document.querySelector(`.no[data-id="${id}"]`);
     if (b) {
-      b.classList.add("estoura");
       faiscas(b, getComputedStyle(b).getPropertyValue("--cor"));
     }
     kiza(`${no.nome} no nível ${rascunho[id]}! Sobra(m) ${livres()}. Confirma lá embaixo quando terminar.`, "feliz");

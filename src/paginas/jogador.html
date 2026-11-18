@@ -1,0 +1,27 @@
+<!--pagina {"rota":"jogador","titulo":"Perfil de jogador · Vulpus","descricao":"Perfil público de um jogador da Vulpus: nível, tempo de jogo, duelos e posição nos rankings.","secao":"comunidade","sub":"vivo","css":["base","paginas","comunidade"],"js":["jogador"],"indexar":false}-->
+{{subnav}}
+<div class="faixa faixa-madeira pagina-lista">
+  <div class="miolo">
+    <section id="perfil-carregando" class="estado"><div class="fogo" aria-hidden="true"></div><p>Procurando pela toca…</p></section>
+    <section id="perfil-erro" class="estado" hidden><h1 id="erro-titulo">Não encontrei esse jogador</h1><p class="lead" id="erro-texto"></p><a class="botao" href="{{raiz}}comunidade/">Voltar para a Comunidade</a></section>
+    <section id="perfil" hidden>
+      <div class="perfil-topo">
+        <img class="av" id="p-foto" alt="" width="124" height="124">
+        <div>
+          <h1 id="p-nome"></h1>
+          <p class="nick" id="p-nick"></p>
+          <p class="etiquetas" id="p-etiquetas"></p>
+        </div>
+      </div>
+      <div class="posicoes" id="p-posicoes"></div>
+      <div class="grade">
+        <article class="cartao" id="c-nivel" hidden><h2>Na toca</h2><div class="numeros"><div><span class="valor" id="p-nivel"></span><span class="rotulo" id="p-rank"></span></div><div><span class="valor" id="p-xp"></span><span class="rotulo">XP</span></div><div><span class="valor" id="p-call"></span><span class="rotulo">em call</span></div></div><div class="barra" aria-hidden="true"><span id="p-barra"></span></div></article>
+        <article class="cartao" id="c-mc" hidden><h2>Minecraft</h2><div class="numeros"><div><span class="valor" id="p-tempo"></span><span class="rotulo">de jogo no total</span></div><div><span class="valor" id="p-sessao"></span><span class="rotulo">maior sessão</span></div></div></article>
+        <article class="cartao" id="c-duelos" hidden><h2>Duelos</h2><div class="numeros"><div><span class="valor" id="p-elo"></span><span class="rotulo" id="p-div"></span></div><div><span class="valor" id="p-vd"></span><span class="rotulo">vitórias / derrotas</span></div></div></article>
+        <article class="cartao" id="c-pvp" hidden><h2>PvP no mundo</h2><div class="numeros"><div><span class="valor" id="p-kills"></span><span class="rotulo">kills</span></div><div><span class="valor" id="p-mortes"></span><span class="rotulo">mortes em PvP</span></div></div></article>
+      </div>
+      <p class="pequeno" id="p-desde"></p>
+      <button class="botao botao-fio compartilhar" id="copiar" type="button">Copiar link do perfil</button>
+    </section>
+  </div>
+</div>

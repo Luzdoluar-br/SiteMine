@@ -2,6 +2,8 @@
 // mínimo e SEGURO (negrito e código viram elementos; nunca se monta HTML com texto vindo de fora).
 "use strict";
 
+// caminho até a raiz do site (as páginas ficam em pastas): vem do atributo data-raiz do <body>
+const VULPUS_RAIZ = document.body.dataset.raiz || "./";
 const VULPUS = (() => {
   const API = "https://botmine-production-70b0.up.railway.app";
   const $ = (id) => document.getElementById(id);
@@ -40,7 +42,8 @@ const VULPUS = (() => {
   /** "**negrito**" e "`código`" viram <strong> e <code>; o resto é texto puro. Quebras de linha viram parágrafos. */
   function textoRico(alvo, texto) {
     alvo.replaceChildren();
-    for (const linha of String(texto || "").split(/\n+/)) {
+    for (const bruta of String(texto || "").split(/\n+/)) {
+      const linha = bruta.replace(EMOJI_NO_INICIO, ""); // o changelog do jogo abre cada item com um emoji: aqui ele sai
       if (!linha.trim()) continue;
       const p = el("p");
       for (const pedaco of linha.split(/(\*\*[^*]+\*\*|`[^`]+`)/)) {
@@ -52,6 +55,10 @@ const VULPUS = (() => {
       alvo.append(p);
     }
   }
+
+  /** Tira o emoji do começo de um texto vindo da API (o emoji que vem na frente do nome do rank sai). O site não usa emoji como ícone. */
+  const EMOJI_NO_INICIO = /^[\p{Extended_Pictographic}️‍\s]+/u;
+  const semEmoji = (t) => String(t || "").replace(EMOJI_NO_INICIO, "").trim();
 
   const numero = (n) => Number(n || 0).toLocaleString("pt-BR");
   const data = (s) => new Date(s * 1000).toLocaleDateString("pt-BR", { day: "2-digit", month: "short", year: "numeric" });
@@ -67,7 +74,7 @@ const VULPUS = (() => {
     const img = el("img", classe);
     img.alt = "";
     img.loading = "lazy";
-    img.src = url || "../img/avatar-kiza.webp";
+    img.src = url || VULPUS_RAIZ + "img/avatar-kiza.webp";
     if (!url) img.classList.add("sem-foto");
     img.title = nome || "";
     return img;
@@ -75,15 +82,15 @@ const VULPUS = (() => {
 
   /** Link para o perfil público (id do Discord ou nick do jogo). */
   function linkPerfil(item) {
-    if (item.id) return `../jogador/?id=${encodeURIComponent(item.id)}`;
-    if (item.nick) return `../jogador/?nick=${encodeURIComponent(item.nick)}`;
+    if (item.id) return `${VULPUS_RAIZ}jogador/?id=${encodeURIComponent(item.id)}`;
+    if (item.nick) return `${VULPUS_RAIZ}jogador/?nick=${encodeURIComponent(item.nick)}`;
     return "";
   }
 
   /** Marca o link da seção atual no menu e mostra o nome de quem está logado (se estiver). */
   async function menu() {
     const aqui = document.body.dataset.secao;
-    for (const a of document.querySelectorAll(".links a")) if (a.dataset.secao === aqui) a.setAttribute("aria-current", "page");
+    for (const a of document.querySelectorAll(".menu a[data-secao]")) if (a.dataset.secao === aqui) a.setAttribute("aria-current", "page");
     if (!sessao() || !$("quem")) return;
     try {
       const { r, d } = await api("/painel/api/eu");
@@ -102,12 +109,12 @@ const VULPUS = (() => {
     const href = linkPerfil(it);
     const linha = el(href ? "a" : "div", `linha p${it.pos}`);
     if (href) linha.href = href;
-    const pos = el("span", "pos", it.pos <= 3 ? ["🥇", "🥈", "🥉"][it.pos - 1] : it.pos);
+    const pos = el("span", "pos", it.pos);
     const quem = el("span", "quem-l");
     const nome = el("span", "nome", it.nome);
-    if (it.kitsune) nome.append(el("span", "kit", "🦊"));
+    if (it.kitsune) nome.append(el("span", "kit", "Kitsune"));
     quem.append(nome);
-    if (it.detalhe || (it.nick && it.nick !== it.nome)) quem.append(el("span", "det", it.detalhe || it.nick));
+    if (it.detalhe || (it.nick && it.nick !== it.nome)) quem.append(el("span", "det", semEmoji(it.detalhe) || it.nick));
     linha.append(pos, avatar(it.avatar, it.nome), quem, el("span", "val", it.valor));
     return linha;
   }
@@ -122,7 +129,7 @@ const VULPUS = (() => {
     meta.append(el("span", `selo ${tipo}`, tipo === "jogo" ? "Minecraft" : tipo === "bot" ? `Kiza ${item.versao || ""}` : `Transparência · ${item.categoria}`));
     if (item.data) meta.append(el("span", "", typeof item.data === "number" ? data(item.data) : item.data));
     if (tipo === "transp" && item.situacao && item.situacao !== "Publicada") meta.append(el("span", "selo", item.situacao));
-    const titulo = el("h3", "", String(item.titulo || "").replace(/^\S+\s+Minecraft\s+·\s+[\d/]+:\s*/, ""));
+    const titulo = el("h3", "", semEmoji(String(item.titulo || "").replace(/^\S+\s+Minecraft\s+·\s+[\d/]+:\s*/, "")));
     const corpo = el("div", "corpo");
     if (tipo === "jogo") textoRico(corpo, item.texto);
     else if (tipo === "bot") {
@@ -163,5 +170,5 @@ const VULPUS = (() => {
   }
 
   document.addEventListener("DOMContentLoaded", menu);
-  return { API, $, api, el, textoRico, numero, data, duracao, avatar, linkPerfil, sessao, linhaRanking, post, vazio };
+  return { API, RAIZ: VULPUS_RAIZ, $, api, el, textoRico, numero, data, duracao, avatar, linkPerfil, sessao, linhaRanking, post, vazio, semEmoji };
 })();
