@@ -103,7 +103,8 @@ try {
         const foto = await aba.envia("Page.captureScreenshot", { format: "png" });
         writeFileSync(join(SAIDA, "celular_menu-aberto.png"), Buffer.from(foto.data, "base64"));
         console.log(`         menu do celular: ${aberto}`);
-        await aba.envia("Input.dispatchKeyEvent", { type: "keyDown", key: "Escape", code: "Escape", windowsVirtualKeyCode: 27 });
+        // evento disparado na própria janela: não depende de o navegador de teste estar com o foco (isso deixava o teste instável)
+        await aba.envia("Runtime.evaluate", { expression: 'window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }))' });
         await dorme(300);
         const fechou = (await aba.envia("Runtime.evaluate", { returnByValue: true, expression: 'document.getElementById("menu").classList.contains("aberto") ? "NÃO fechou" : "fechou com Esc"' })).result.value;
         console.log(`         ${fechou}`);
@@ -121,6 +122,38 @@ try {
       if (rolagem || bad.length) falhas++;
       console.log(`${marca.padEnd(8)} ${tela.padEnd(7)} ${nome.padEnd(12)} altura ${String(h).padStart(5)}${rolagem ? `  ROLAGEM HORIZONTAL (${w} > ${iw}; ${largo.join(", ")})` : ""}`);
       for (const p of bad) console.log(`           - ${p}`);
+    }
+  }
+  if (process.argv.includes("--login")) {
+    // pessoa logada de mentira: guarda uma sessão falsa e responde, no próprio navegador, as duas rotas pessoais
+    const EU = { ok: true, usuario: { nome: "Luma Teste", avatar: "" }, perfil: { rank: "Raposa Andarilha", nivel: 12, caudas: 1840, sequencia_daily: 6, xp_no_nivel: 340, xp_para_proximo: 900 }, servidor: { equipe: "Membro", desde: 1790000000, cargos: [{ nome: "Kitsune", cor: "#e5731c" }, { nome: "Membro", cor: "" }] }, minecraft: { vinculado: true, nick: "LumaTeste", tempo_total_s: 190000, maior_sessao_s: 14000, desde: 1790000000 }, duelos: { elo: 1042, divisao: "Bronze II", v: 4, d: 3 }, abates: { kills: 5, mortes: 2 }, restricao: null, punicoes: [{ tipo: "warn", numero: 1, quando: 1792000000, duracao_s: 0, ativo: false, motivo: "Exemplo de aviso antigo, já encerrado" }], privacidade: { publico: true } };
+    const TAL = { ok: true, vinculado: true, niveis: { min: 5, len: 3, faz: 2, com: 4, pvp: 1 }, pontos: { total: 9, livres: 7, gastos: 2 }, escolhas: { min_vein: 1 }, redistribuir_em: 0 };
+    await aba.envia("Fetch.enable", { patterns: [{ urlPattern: "*/painel/api/*", requestStage: "Request" }] });
+    aba.ouvintes.push((m) => {
+      if (m.method !== "Fetch.requestPaused") return;
+      const u = m.params.request.url;
+      const corpo = u.includes("/painel/api/publico/") ? null : u.includes("/painel/api/eu") ? EU : u.includes("/painel/api/talentos") ? TAL : null;
+      if (!corpo) return void aba.envia("Fetch.continueRequest", { requestId: m.params.requestId });
+      aba.envia("Fetch.fulfillRequest", { requestId: m.params.requestId, responseCode: 200, responseHeaders: [{ name: "Content-Type", value: "application/json" }, { name: "Access-Control-Allow-Origin", value: "*" }, { name: "Access-Control-Allow-Headers", value: "*" }], body: Buffer.from(JSON.stringify(corpo)).toString("base64") });
+    });
+    await aba.envia("Page.navigate", { url: BASE + "/" });
+    await dorme(1200);
+    await aba.envia("Runtime.evaluate", { expression: 'localStorage.setItem("vulpus_sessao", "sessao-de-teste-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")' });
+    for (const [tela, largura, altura, celular] of TELAS) {
+      await aba.envia("Emulation.setDeviceMetricsOverride", { width: largura, height: altura, deviceScaleFactor: 1, mobile: celular });
+      for (const [nome, caminho] of [["conta", "/conta/"], ["home", "/home/"], ["habilidades", "/habilidades/"]]) {
+        problemas = [];
+        await aba.envia("Page.navigate", { url: BASE + caminho });
+        await dorme(3500);
+        const h = (await aba.envia("Runtime.evaluate", { returnByValue: true, expression: "Math.max(document.documentElement.scrollHeight, document.body.scrollHeight)" })).result.value;
+        const rol = (await aba.envia("Runtime.evaluate", { returnByValue: true, expression: "document.documentElement.scrollWidth > innerWidth + 1" })).result.value;
+        const foto = await aba.envia("Page.captureScreenshot", { format: "png", captureBeyondViewport: true, clip: { x: 0, y: 0, width: largura, height: Math.min(h, 9000), scale: 1 } });
+        writeFileSync(join(SAIDA, `login_${tela}_${nome}.png`), Buffer.from(foto.data, "base64"));
+        const bad = [...new Set(problemas)].filter((p) => !p.includes("minecraft://"));
+        if (rol || bad.length) falhas++;
+        console.log(`${(rol || bad.length ? "ATENÇÃO" : "ok").padEnd(8)} login ${tela.padEnd(7)} ${nome.padEnd(12)} altura ${String(h).padStart(5)}${rol ? "  ROLAGEM HORIZONTAL" : ""}`);
+        for (const p of bad) console.log(`           - ${p}`);
+      }
     }
   }
   console.log(`\nfotos em ${SAIDA}`);

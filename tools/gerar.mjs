@@ -69,7 +69,7 @@ for (const arquivo of paginas) {
     .replaceAll("{{descricao}}", escapar(meta.descricao))
     .replaceAll("{{url}}", url) // aparece duas vezes (og:url e canonical): replace() trocava só a primeira
     .replaceAll("{{og}}", `${SITE}/${og}`)
-    .replace("{{robots}}", meta.indexar === false ? `<meta name="robots" content="noindex">\n` : "")
+    .replace("{{robots}}", (meta.indexar === false ? `<meta name="robots" content="noindex">\n` : "") + (meta.jsonld ? `<script type="application/ld+json">${JSON.stringify(meta.jsonld)}</script>\n` : ""))
     .replace("{{css}}", css)
     .replace("{{js}}", js)
     .replace("{{secao}}", meta.secao || "")

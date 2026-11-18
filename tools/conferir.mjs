@@ -4,6 +4,7 @@
 //  3. <img> sem alt, estilo inline e script inline (a política de conteúdo bloqueia os dois)
 //  4. classes usadas no HTML e no JS que nenhum CSS define (aviso, não erro: algumas são só ganchos de comportamento)
 //  5. emoji no texto das páginas (o site não usa emoji como ícone)
+//  6. títulos: cada página tem h1 e nenhum título pula de nível (h2 direto para h4)
 import { readFileSync, readdirSync, existsSync, statSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -66,6 +67,11 @@ for (const arquivo of paginas) {
   for (const m of html.matchAll(/\sclass="([^"]+)"/g)) {
     for (const c of m[1].split(/\s+/)) if (c && !classesCss.has(c) && !GANCHOS.has(c)) avisos.push(`${nome}: classe sem CSS: .${c}`);
   }
+
+  // 6. títulos
+  const niveis = [...html.replace(/<script[\s\S]*?<\/script>/g, "").matchAll(/<h([1-6])[\s>]/g)].map((m) => Number(m[1]));
+  if (!niveis.includes(1)) erros.push(`${nome}: sem <h1>`);
+  for (let i = 1; i < niveis.length; i++) if (niveis[i] > niveis[i - 1] + 1) erros.push(`${nome}: título pula de h${niveis[i - 1]} para h${niveis[i]}`);
 
   // 5. emoji
   const texto = html.replace(/<script[\s\S]*?<\/script>/g, "").replace(/<style[\s\S]*?<\/style>/g, "");
