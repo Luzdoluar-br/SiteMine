@@ -1,0 +1,34 @@
+<!--pagina {"rota":"parceiros/portal","titulo":"Portal do parceiro · Vulpus","descricao":"Peça parceria com a Vulpus pelo site: preencha o pedido, escolha as imagens, convide a Kiza e acompanhe a resposta. O rascunho fica salvo.","secao":"comunidade","sub":"parceiros","css":["base","paginas","parceiros","editor","portal"],"js":["entrada-portal","portal"],"indexar":false}-->
+<div class="faixa faixa-madeira portal-sec">
+  <div class="miolo">
+    <section id="p-carregando" class="estado"><div class="fogo" aria-hidden="true"></div><p>Acendendo as lanternas…</p></section>
+
+    <section id="p-entrar" hidden>
+      <p class="sobretitulo">Portal do parceiro</p>
+      <h1>Parceria sem <em>sair do site.</em></h1>
+      <p class="lead">Entre com o Discord, escolha o seu servidor e preencha o pedido em poucos passos. O que você escrever fica salvo: pode fechar a página e continuar depois.</p>
+      <p class="acoes"><button type="button" class="botao" id="p-entrar-bt"><svg aria-hidden="true"><use href="#discord"/></svg>Entrar com o Discord</button></p>
+      <p class="pequeno">Pedimos ao Discord só o seu nome, a sua foto e a lista dos servidores que você gerencia. Nada de e-mail, nada de mensagens. Quem decide a parceria é uma pessoa da equipe, sempre.</p>
+      <p class="aviso" id="p-aviso" hidden></p>
+    </section>
+
+    <section id="p-lista" hidden>
+      <header class="portal-topo">
+        <div><p class="sobretitulo">Portal do parceiro</p><h1 id="p-ola">Seus servidores</h1></div>
+        <button type="button" class="botao botao-fio botao-pequeno" id="p-sair">Sair</button>
+      </header>
+      <p class="lead" id="p-lista-texto">Escolha o servidor que vai ser parceiro.</p>
+      <ul class="servidores" id="p-servidores"></ul>
+      <p class="pequeno" id="p-vazio" hidden>Não achei servidores onde você tenha a permissão <b>Gerenciar Servidor</b>. Se você acabou de receber a permissão, saia e entre de novo.</p>
+    </section>
+
+    <section id="p-servidor" hidden>
+      <p><button type="button" class="link-voltar" id="p-voltar">&larr; Meus servidores</button></p>
+      <header class="portal-topo">
+        <div><p class="sobretitulo" id="p-srv-sobre">Parceria</p><h1 id="p-srv-nome"></h1></div>
+        <p class="salvo" id="p-salvo" role="status" aria-live="polite"></p>
+      </header>
+      <div id="p-conteudo"></div>
+    </section>
+  </div>
+</div>

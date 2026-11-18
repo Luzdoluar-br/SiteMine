@@ -27,7 +27,7 @@ const subnav = ler("src", "parciais", "subnav.html");
 const CSP = [
   "default-src 'self'",
   `connect-src 'self' ${API}`, // 'self' é necessário: a vitrine Kitsune lê data/kitsune.json do próprio site
-  "img-src 'self' https://cdn.discordapp.com data:",
+  `img-src 'self' https://cdn.discordapp.com ${API} data:`, // ${API}: imagens que o parceiro envia pelo portal (banner e logo), servidas pela API
   "style-src 'self'",
   "font-src 'self'",
   "script-src 'self'",

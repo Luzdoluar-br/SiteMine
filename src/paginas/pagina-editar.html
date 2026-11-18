@@ -1,0 +1,77 @@
+<!--pagina {"rota":"pagina/editar","titulo":"Editar minha página · Vulpus","descricao":"Monte a sua página na Vulpus: tema, fonte, cores, links e blocos. Para parceiros e Kitsunes.","secao":"comunidade","css":["base","paginas","pagina","editor"],"js":["entrada-portal","pagina","editor"],"indexar":false}-->
+<div class="faixa faixa-madeira editor-sec">
+  <div class="miolo">
+    <section id="e-carregando" class="estado"><div class="fogo" aria-hidden="true"></div><p>Abrindo o editor…</p></section>
+
+    <section id="e-entrar" hidden>
+      <p class="sobretitulo">Minha página</p>
+      <h1>Monte a <em>sua página.</em></h1>
+      <p class="lead">Parceiros da Vulpus e Kitsunes podem ter uma página própria, com link para compartilhar. Entre com o Discord para começar.</p>
+      <p class="acoes"><button type="button" class="botao" id="e-entrar-bt"><svg aria-hidden="true"><use href="#discord"/></svg>Entrar com o Discord</button></p>
+      <p class="pequeno">Pedimos ao Discord só o seu nome, a sua foto e a lista dos servidores que você gerencia.</p>
+      <p class="aviso" id="e-aviso" hidden></p>
+    </section>
+
+    <section id="e-escolher" hidden>
+      <p class="sobretitulo">Minha página</p>
+      <h1>Qual <em>página?</em></h1>
+      <ul class="escolhas" id="e-escolhas"></ul>
+      <p class="pequeno" id="e-escolher-vazio" hidden>Você ainda não pode ter uma página: ela é um benefício do programa Kitsune e das parcerias aprovadas.</p>
+    </section>
+
+    <section id="e-editor" hidden>
+      <header class="editor-topo">
+        <div>
+          <p class="sobretitulo" id="e-tipo">Minha página</p>
+          <h1 id="e-titulo-pg">Editar</h1>
+        </div>
+        <p class="salvo" id="e-salvo" role="status" aria-live="polite"></p>
+      </header>
+      <p class="aviso" id="e-bloqueio" hidden></p>
+      <div class="editor-grade">
+        <form class="editor-form" id="e-form" novalidate autocomplete="off">
+          <fieldset>
+            <legend>Endereço</legend>
+            <label for="f-slug">Endereço da página</label>
+            <div class="slug-linha"><span aria-hidden="true">/p/?u=</span><input id="f-slug" maxlength="30" spellcheck="false" autocapitalize="off"></div>
+            <p class="dica" id="f-slug-msg" role="status"></p>
+          </fieldset>
+          <fieldset>
+            <legend>Aparência</legend>
+            <div class="grupo" role="radiogroup" aria-labelledby="l-tema"><span id="l-tema" class="rotulo">Tema</span><div class="opcoes" id="f-temas"></div></div>
+            <div class="grupo" role="radiogroup" aria-labelledby="l-fonte"><span id="l-fonte" class="rotulo">Fonte</span><div class="opcoes" id="f-fontes"></div></div>
+            <label for="f-cor">Cor de destaque</label>
+            <input type="color" id="f-cor" value="#e5731c">
+            <label for="f-fundo">Imagem de fundo</label>
+            <select id="f-fundo"></select>
+          </fieldset>
+          <fieldset>
+            <legend>Cabeçalho</legend>
+            <label for="f-titulo">Título <span class="contador" id="c-titulo"></span></label>
+            <input id="f-titulo" maxlength="60">
+            <label for="f-bio">Apresentação curta <span class="contador" id="c-bio"></span></label>
+            <textarea id="f-bio" maxlength="300" rows="3"></textarea>
+          </fieldset>
+          <fieldset>
+            <legend>Blocos</legend>
+            <ol class="blocos-lista" id="f-blocos"></ol>
+            <div class="add-bloco">
+              <label for="f-novo">Adicionar bloco</label>
+              <div class="add-linha"><select id="f-novo"></select><button type="button" class="botao botao-pequeno" id="f-novo-bt">Adicionar</button></div>
+              <p class="dica" id="f-blocos-msg" role="status"></p>
+            </div>
+          </fieldset>
+          <div class="publicar-area">
+            <p class="estado-pub" id="e-estado-pub"></p>
+            <button type="button" class="botao" id="e-publicar">Publicar</button>
+            <a class="link-seta" id="e-ver" href="#" target="_blank" rel="noopener" hidden>Abrir a página</a>
+          </div>
+        </form>
+        <aside class="editor-previa" aria-labelledby="pv-titulo">
+          <h2 id="pv-titulo">Pré-visualização</h2>
+          <div class="previa-moldura"><div id="e-previa"></div></div>
+        </aside>
+      </div>
+    </section>
+  </div>
+</div>

@@ -34,6 +34,12 @@ PÁGINAS E O QUE ELAS USAM (tudo ao vivo vem da API do bot, em https://botmine-p
   /plataforma/       o que a plataforma faz; lista de clãs ao vivo          /site/resumo
   /parceiros/        Mega Parceiros ativos (ordem de entrada)               /site/parceiros  (só nome, descricao, convite, icone, desde)
   /seja-parceiro/    parceria normal x Mega Parceria, requisitos, processo (texto, nada ao vivo)
+  /parceiros/portal/ PORTAL DO PARCEIRO: login Discord (portal=1), assistente em 5 etapas com rascunho salvo, upload de imagem,
+                     checagem ao vivo, envio e painel (renovar, pausar, editar o cartão, números)   /painel/api/parceiros/*
+  /pagina/editar/    editor de página personalizada (parceiro e Kitsune): tema, fonte, cor, fundo, blocos, publicar  /painel/api/pagina/*
+  /p/?u=slug         página pública personalizada (js/pagina.js é o MESMO renderizador do editor); denúncia sem login  /site/pagina/<slug>
+  Contrato da API: ../BotVulpus/docs/API_PARCERIAS.md.  Teste em navegador: node tools/teste_portal.mjs (API simulada, PC e celular).
+  A CSP libera imagens da origem da API (banner e logo que o parceiro envia). Fontes self-hosted novas: Fredoka e Nunito.
   /kiza/  /colecao/  texto e imagens (nada ao vivo)
   /kitsune/          plano, doação e vitrine                                data/kitsune.json (gerado, ver abaixo)
   /como-entrar/      endereços, passo a passo, perguntas frequentes

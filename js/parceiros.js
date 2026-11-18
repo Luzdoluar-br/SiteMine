@@ -65,6 +65,13 @@
     if (p.descricao) corpo.append(el("p", "parceiro-desc", p.descricao));
     const m = mesAno(p.desde);
     if (m) corpo.append(el("p", "parceiro-desde", `Na rede desde ${m}`));
+    if (/^[a-z0-9-]{3,30}$/.test(String(p.pagina || ""))) {
+      const pg = el("p", "parceiro-desde");
+      const l = el("a", "link-seta", "Ver a página do servidor");
+      l.href = `${VULPUS.RAIZ}p/?u=${encodeURIComponent(p.pagina)}`;
+      pg.append(l);
+      corpo.append(pg);
+    }
     li.append(corpo);
     const url = conviteOk(p.convite);
     if (url) {

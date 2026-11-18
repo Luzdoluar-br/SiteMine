@@ -1,0 +1,46 @@
+/* Editor de página personalizada (/pagina/editar/). Formulário em fileiras de filete; a pré-visualização usa o CSS de pagina.css. */
+.editor-sec { padding-block: clamp(32px, 5vw, 64px); }
+.editor-topo { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 8px 24px; margin-bottom: 20px; }
+.salvo { margin: 0; color: var(--suave); font-size: .98rem; min-height: 1.4em; }
+.editor-grade { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 44px); align-items: start; }
+.editor-form fieldset { border: 0; border-top: 1px solid rgba(239, 227, 203, .25); margin: 0 0 22px; padding: 14px 0 0; min-width: 0; }
+.editor-form legend { padding: 0 10px 0 0; font-family: var(--f-titulo); font-size: 1.35rem; font-weight: 700; color: var(--brasa); }
+.editor-form label, .editor-form .rotulo { display: block; margin: 12px 0 4px; font-weight: 700; }
+.editor-form input:not([type="radio"]):not([type="checkbox"]):not([type="color"]), .editor-form select, .editor-form textarea { width: 100%; padding: 9px 11px; font: inherit; color: var(--tinta); background: var(--papel); border: 2px solid var(--couro); border-radius: var(--raio); }
+.editor-form input[type="color"] { width: 64px; height: 42px; padding: 2px; background: var(--papel); border: 2px solid var(--couro); border-radius: var(--raio); }
+.editor-form textarea { resize: vertical; }
+.editor-form input:focus-visible, .editor-form select:focus-visible, .editor-form textarea:focus-visible { outline: 3px solid var(--brasa); outline-offset: 2px; }
+.editor-form :disabled { opacity: .6; cursor: not-allowed; }
+.slug-linha { display: flex; align-items: center; gap: 6px; }
+.slug-linha span { color: var(--suave); white-space: nowrap; font-family: var(--f-pixel); font-size: .8rem; }
+.dica { margin: 4px 0 0; color: var(--suave); font-size: .98rem; min-height: 1.3em; }
+.dica.erro { color: #ffb4a3; }
+.contador { float: right; font-weight: 400; color: var(--suave); font-size: .92rem; }
+.opcoes { display: flex; flex-wrap: wrap; gap: 8px; }
+.opcao { display: inline-flex; align-items: center; gap: 8px; margin: 0 !important; padding: 7px 12px; border: 2px solid rgba(239, 227, 203, .3); border-radius: var(--raio); font-weight: 400 !important; cursor: pointer; }
+.opcao:has(input:checked) { border-color: var(--brasa); background: rgba(229, 115, 28, .16); }
+.opcao:has(input:focus-visible) { outline: 3px solid var(--brasa); outline-offset: 2px; }
+.blocos-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.bloco-form { border: 1px solid rgba(239, 227, 203, .25); border-left: 5px solid var(--laranja); padding: 10px 14px 14px; }
+.bloco-topo { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px; }
+.bloco-acoes { display: flex; gap: 6px; flex-wrap: wrap; }
+.mini { min-height: 34px; padding: 4px 10px; font: inherit; font-size: .92rem; color: var(--creme); background: transparent; border: 1px solid rgba(239, 227, 203, .45); border-radius: var(--raio); cursor: pointer; }
+.mini:hover:not(:disabled) { background: rgba(239, 227, 203, .12); }
+.mini.perigo { color: #ffb4a3; border-color: rgba(255, 180, 163, .5); }
+.link-linha { display: grid; grid-template-columns: 1fr 1.6fr 0.8fr auto; gap: 8px; align-items: end; margin-bottom: 8px; }
+.galeria-opcoes { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.add-linha { display: flex; gap: 8px; }
+.add-linha select { flex: 1; }
+.publicar-area { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; border-top: 1px solid rgba(239, 227, 203, .25); padding-top: 18px; }
+.estado-pub { margin: 0; flex: 1 1 100%; color: var(--suave); }
+.editor-previa { position: sticky; top: calc(var(--topo-h) + 16px); }
+.editor-previa h2 { font-size: 1.35rem; margin-bottom: 8px; }
+.previa-moldura { border: 3px solid var(--couro); max-height: 78vh; overflow: auto; background: var(--carvao); }
+.escolhas { list-style: none; padding: 0; margin: 0 0 20px; display: grid; gap: 8px; max-width: 520px; }
+.aviso { padding: 10px 14px; border-left: 5px solid var(--brasa); background: rgba(245, 154, 59, .12); margin: 0 0 16px; }
+@media (max-width: 960px) { .editor-grade { grid-template-columns: 1fr; } .editor-previa { position: static; } .previa-moldura { max-height: none; } .link-linha { grid-template-columns: 1fr; } }
+.estado { text-align: center; padding: 60px 0; color: var(--suave); }
+.estado .fogo { width: 22px; height: 30px; margin: 0 auto 14px; background: var(--laranja); clip-path: polygon(50% 0, 85% 45%, 70% 100%, 30% 100%, 15% 45%); animation: chama 1.4s ease-in-out infinite alternate; }
+@keyframes chama { from { transform: scaleY(.92); } to { transform: scaleY(1.06); } }
+.bloco-corpo { margin-top: 8px; }
+.links-lista { display: block; }

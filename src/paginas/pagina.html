@@ -1,0 +1,22 @@
+<!--pagina {"rota":"p","titulo":"Página · Vulpus","descricao":"Página personalizada de um parceiro ou de um Kitsune da Vulpus.","secao":"comunidade","css":["base","paginas","pagina"],"js":["pagina","p"],"indexar":false}-->
+<div class="pagina-area">
+  <h1 class="so-leitor" id="h1-estado">Página personalizada</h1>
+  <p id="estado" class="estado-pg" role="status">Acendendo a lanterna…</p>
+  <div id="pagina" hidden></div>
+  <div class="pagina-denuncia" id="denunciaArea" hidden>
+    <button type="button" class="link-denuncia" id="denunciaAbrir">Denunciar esta página</button>
+  </div>
+</div>
+<dialog id="denunciaDialogo" class="dialogo" aria-labelledby="denunciaTitulo">
+  <form method="dialog" id="denunciaForm">
+    <h2 id="denunciaTitulo">Denunciar esta página</h2>
+    <p>Conte em poucas palavras o que há de errado. A equipe da Vulpus vai olhar.</p>
+    <label for="denunciaMotivo">O que aconteceu</label>
+    <textarea id="denunciaMotivo" maxlength="200" rows="3" required></textarea>
+    <p class="msg-form" id="denunciaMsg" role="status"></p>
+    <div class="acoes">
+      <button type="button" class="botao botao-fio botao-pequeno" id="denunciaCancelar">Cancelar</button>
+      <button type="submit" class="botao botao-pequeno" id="denunciaEnviar">Enviar denúncia</button>
+    </div>
+  </form>
+</dialog>

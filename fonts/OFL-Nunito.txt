@@ -1,0 +1,4 @@
+Nunito e Fredoka sao distribuidas sob a SIL Open Font License 1.1 (https://openfontlicense.org).
+Nunito: Copyright 2014 The Nunito Project Authors (https://github.com/googlefonts/nunito).
+Fredoka: ver OFL-Fredoka.txt.
+Os arquivos .woff2 sao os subconjuntos latin e latin-ext do Google Fonts, servidos a partir deste site (sem chamada a terceiros).
