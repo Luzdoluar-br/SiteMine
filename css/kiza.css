@@ -69,3 +69,7 @@
 .capitulo h3 { margin-bottom: 8px; }
 .capitulo p { margin: 0; font-size: 1.2rem; line-height: 1.55; max-width: 56ch; }
 @media (max-width: 560px) { .capitulo { grid-template-columns: 1fr; } .capitulo .romano { text-align: left; font-size: 3.4rem; } }
+
+.kiza-arte figcaption { font-size: .8rem; color: var(--suave); padding: 8px 0 14px; }
+.kiza-arte figcaption a { color: var(--brasa); }
+.lenda-arte img { max-height: 640px; object-fit: contain; background: #fffaf0; }

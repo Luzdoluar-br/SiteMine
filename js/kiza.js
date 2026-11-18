@@ -36,7 +36,7 @@
     { p: "onde acho axolote?", h: "piscando", r: ["nas cavernas exuberantes. procura uma árvore de azaleia na superfície, a caverna costuma estar logo embaixo", "leva um balde de água. é com ele que você pega"] },
     { p: "lembra do meu gato?", h: "feliz", r: ["o pipoca! ele ainda derruba tudo da mesa ou finalmente tomou jeito?"] },
     { p: "como libero o VeinMiner?", h: "feliz", r: ["entra no site com o discord e abre a árvore de talentos. o veinminer custa 2 pontos, e cada nível de habilidade te dá 1", "depois é só agachar com a picareta no minério. o veio inteiro vem junto"] },
-    { p: "você é uma IA?", h: "lado", r: ["sou a kiza, o bot-mascote da toca. então sim, mas com opinião própria", "e não vou fingir que sou gente de carne e osso. tenho uma cauda só, mas tenho ética"] },
+    { p: "você é uma IA?", h: "lado", r: ["sou a kiza, o bot-mascote da toca. então sim, mas com opinião própria", "ganhei uma forma humana pra socializar melhor com vocês, mas por dentro continuo sendo a kiza"] },
     { p: "qual sua cor favorita?", h: "envergonhada", r: ["roxo. aquela cor do céu logo depois que o sol vai embora"] },
   ];
   const msgs = $("chatMsgs");
