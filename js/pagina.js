@@ -18,6 +18,22 @@ const PAGINA = (() => {
     loja: "M4 8h16l-1 12H5zM8 8a4 4 0 0 1 8 0",
     doacao: "M12 20s-7-4.500-7-10a4 4 0 0 1 7-2.500A4 4 0 0 1 19 10c0 5.500-7 10-7 10z",
     outro: "M10 14a4 4 0 0 0 5.700 0l3-3a4 4 0 0 0-5.700-5.700l-1 1M14 10a4 4 0 0 0-5.700 0l-3 3A4 4 0 0 0 11 18.700l1-1",
+    telegram: "M21 4 3 11l6 2 2 6 3-4 5 4zM9 13l8-6",
+    spotify: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM6.500 9.500c3.500-1 7.500-.7 11 1.200M7 13c3-.8 6.300-.5 9 1M7.800 16.200c2.300-.6 4.700-.4 6.700.6",
+    roblox: "M7 4l13 3-3 13L4 17zM10.500 10.500l3 .8-.8 3-3-.8z",
+    bluesky: "M12 11C10.500 8 7 5 5 5s0 5 1 7c1 1.800 3 2.200 4.800 1.700-3 .8-4.500 2.500-3 4.300 2 2.200 4.500-.8 5.200-3 .7 2.200 3.200 5.200 5.200 3 1.500-1.800 0-3.500-3-4.300 1.800.5 3.800.1 4.800-1.700 1-2 3-7 1-7s-5.500 3-7 6z",
+    playstation: "M9 4v15l3 1V8c3 .8 5 2 5 4 0 1.600-1 2.400-3 2.600M4 17c2 1 5 1.200 8 .5",
+    xbox: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM8 8l8 9M16 8l-8 9",
+    lastfm: "M4 7c2 0 3 1 4 3l2 5c1 2 2.500 3 4.500 3 2.500 0 3.500-1.500 3.500-3s-1-2.500-3-3M10 10c1.500 1 3 1 4.500 0",
+    patreon: "M15 4a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM5 4v16",
+    steam: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM7 13.500l3 1.200M14.500 8.500a2 2 0 1 0 0 4 2 2 0 0 0 0-4z",
+    kofi: "M4 8h12v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4zM16 9h2a2 2 0 0 1 0 5h-2",
+    reddit: "M12 9c4 0 7 2 7 5s-3 5-7 5-7-2-7-5 3-5 7-5zM14 4l1 5M9 13v.01M15 13v.01M9.500 16.500c1.500 1 3.500 1 5 0",
+    minecraft: "M12 3l8 4.500v9L12 21l-8-4.500v-9zM4 7.500l8 4.500 8-4.500M12 12v9",
+    play: "M8 5v14l11-7z",
+    ant: "M18 5v14M16 5 6 12l10 7z",
+    prox: "M6 5v14M8 5l10 7-10 7z",
+    olho: "M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12zM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z",
   };
 
   const el = (tag, classe, texto) => {
@@ -35,7 +51,7 @@ const PAGINA = (() => {
       return "";
     }
   };
-  const imgOk = (u) => /^https:\/\/(cdn\.discordapp\.com|site-production-f47b\.up\.railway\.app)\//.test(String(u || "")) || /^(\.\.?\/)*img\//.test(String(u || ""));
+  const imgOk = (u) => /^https:\/\/(cdn\.discordapp\.com|site-production-f47b\.up\.railway\.app)\//.test(String(u || "")) || (typeof VULPUS !== "undefined" && String(u || "").startsWith(`${VULPUS.API}/`)) || /^(\.\.?\/)*img\//.test(String(u || ""));
 
   function icone(nome) {
     const s = document.createElementNS(NS, "svg");
@@ -182,6 +198,7 @@ const PAGINA = (() => {
    */
   function renderizar(raiz, d, ctx = {}) {
     d = d || {};
+    if (d.v2 && typeof PAGINA2 !== "undefined") return PAGINA2.renderizar(raiz, d, ctx); // página no formato novo (v2)
     raiz.replaceChildren();
     for (const c of [...raiz.classList]) if (c.startsWith("tema-") || c.startsWith("fonte-")) raiz.classList.remove(c);
     raiz.classList.add("pagina", `tema-${TEMAS.includes(d.tema) ? d.tema : "madeira"}`, `fonte-${FONTES.includes(d.fonte) ? d.fonte : "alegreya"}`);
@@ -208,5 +225,5 @@ const PAGINA = (() => {
     return raiz;
   }
 
-  return { renderizar, TEMAS, FONTES, ICONES: Object.keys(ICONES), urlHttps };
+  return { renderizar, TEMAS, FONTES, ICONES: Object.keys(ICONES), urlHttps, el, icone, paragrafos, bloco };
 })();

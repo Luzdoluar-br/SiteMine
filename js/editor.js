@@ -13,6 +13,8 @@
   let tipo = params.get("tipo") || "";
   let guildId = params.get("guild_id") || "";
   let galeria = { fundos: [], temas: [], fontes: [], icones: [], limites: { blocos: 12, links: 20 } };
+  let recursos = null;
+  let modeloPrevia = null; // página temporária vinda de "pré-visualizar modelo": só a pré-visualização muda, nada é salvo
   let galeriaMapa = {};
   let estado = { slug: "", status: "nenhuma", pagina: null, pode: false, publicada: false, bloqueio: "" };
   let pg = { tema: "madeira", fonte: "alegreya", cor: "#e5731c", fundo: null, titulo: "", bio: "", blocos: [] };
@@ -32,14 +34,18 @@
 
   // ------------------------------------------------------------------ pré-visualização
   function previa() {
-    const dados = { ...pg, fundo: pg.fundo ? galeriaMapa[pg.fundo] || null : null, blocos: pg.blocos.map((b) => (b.tipo === "galeria" ? { ...b, itens: b.itens.map((i) => ({ id: i, url: galeriaMapa[i] })) } : b)) };
-    PAGINA.renderizar($("e-previa"), dados, { galeria: galeriaMapa, titulo_padrao: "Minha página" });
+    const base = modeloPrevia || pg;
+    const dados = { ...base, fundo: base.fundo ? galeriaMapa[base.fundo] || null : null, blocos: base.blocos.map((b) => (b.tipo === "galeria" ? { ...b, itens: b.itens.map((i) => ({ id: i, url: galeriaMapa[i] })) } : b)) };
+    if (base.v2 && (typeof EDITOR2 !== "undefined")) dados.v2 = EDITOR2.v2Previa(base.v2);
+    else delete dados.v2;
+    PAGINA.renderizar($("e-previa"), dados, { galeria: galeriaMapa, titulo_padrao: "Minha página", modo: "editor" });
   }
 
   // ------------------------------------------------------------------ salvar (debounce)
-  function alterou() {
+  function alterou(daHistoria) {
     if (!estado.pode) return;
     previa();
+    if ((typeof EDITOR2 !== "undefined") && !daHistoria) EDITOR2.registrar();
     $("e-salvo").textContent = "Alterações não salvas…";
     clearTimeout(tempoSalvar);
     tempoSalvar = setTimeout(salvar, 900);
@@ -48,7 +54,17 @@
   function marcarErros(erros) {
     const msgs = Object.entries(erros || {}).map(([k, v]) => v);
     if (erros && erros.slug) dica("f-slug-msg", erros.slug, true);
-    dica("f-blocos-msg", msgs.filter((m) => m !== (erros || {}).slug).join(" "), true);
+    dica("f-blocos-msg", msgs.filter((m) => m !== (erros || {}).slug && !/^v2\./.test(Object.keys(erros).find((k) => erros[k] === m) || "")).join(" "), true);
+    const v2 = Object.entries(erros || {}).filter(([k]) => k.startsWith("v2."));
+    const caixa = $("e-erros");
+    caixa.hidden = !v2.length;
+    caixa.replaceChildren();
+    if (v2.length) {
+      caixa.append(el("strong", "", "Corrija para salvar:"));
+      const ul = el("ul");
+      for (const [k, v] of v2) ul.append(el("li", "", `${(typeof EDITOR2 !== "undefined") ? EDITOR2.rotuloErro(k) : k}: ${v}`));
+      caixa.append(ul);
+    }
   }
 
   async function salvar() {
@@ -326,6 +342,7 @@
     estado = { slug: d.slug || "", status: d.status, pagina: d.pagina, pode: !!d.pode_editar, publicada: !!d.publicada, bloqueio: d.motivo_bloqueio || "" };
     const base = d.pagina || {};
     pg = { tema: base.tema || "madeira", fonte: base.fonte || "alegreya", cor: base.cor || "#e5731c", fundo: base.fundo || null, titulo: base.titulo || "", bio: base.bio || "", blocos: JSON.parse(JSON.stringify(base.blocos || [])) };
+    if (recursos && recursos.v2_padrao) pg.v2 = JSON.parse(JSON.stringify(base.v2 || recursos.v2_padrao));
     $("f-slug").value = d.slug || d.slug_sugerido || "";
     $("e-tipo").textContent = tipo === "parceiro" ? "Página do parceiro" : "Página de Kitsune";
     $("e-bloqueio").hidden = !(d.motivo_bloqueio);
@@ -339,15 +356,17 @@
     desenharBlocos();
     for (const campoForm of $("e-form").querySelectorAll("input, select, textarea, button")) campoForm.disabled = !estado.pode;
     atualizarPublicar();
-    previa();
     mostrar("e-editor");
+    if ((typeof EDITOR2 !== "undefined") && recursos) EDITOR2.iniciar(host(d));
+    previa();
     if (!d.slug) $("e-salvo").textContent = "Página nova: preencha e ela salva sozinha.";
   }
 
   async function abrir() {
     const q = new URLSearchParams({ tipo, ...(tipo === "parceiro" ? { guild_id: guildId } : {}) });
-    const [gal, minha] = await Promise.all([E.chamar("GET", "/painel/api/pagina/galeria"), E.chamar("GET", `/painel/api/pagina/minha?${q}`)]);
+    const [gal, minha, rec] = await Promise.all([E.chamar("GET", "/painel/api/pagina/galeria"), E.chamar("GET", `/painel/api/pagina/minha?${q}`), E.chamar("GET", "/painel/api/pagina/recursos")]);
     if (gal.r.status === 401 || minha.r.status === 401) return mostrar("e-entrar");
+    recursos = rec.r.ok ? rec.d : null;
     if (!gal.r.ok || !minha.r.ok) {
       mostrar("e-carregando");
       $("e-carregando").querySelector("p").textContent = (minha.d && minha.d.mensagem) || "Não consegui abrir o editor agora. Tente de novo em instantes.";
@@ -381,6 +400,24 @@
     }
     $("e-escolher-vazio").hidden = itens.length > 0;
     mostrar("e-escolher");
+  }
+
+  // ponte com o editor v2 (js/editor2.js): ele mexe em pg.v2 e avisa por alterou()
+  function host(d) {
+    return {
+      E, $, el, dica, tipo, guildId, recursos, galeriaMapa,
+      pg: () => pg,
+      trocarPg: (novo) => { for (const k of Object.keys(pg)) delete pg[k]; Object.assign(pg, novo); preencherAparencia(); desenharBlocos(); $("f-slug").value = $("f-slug").value; },
+      alterou, previa: () => previa(),
+      slug: () => estado.slug,
+      publicada: () => estado.status === "publicada",
+      pode: () => estado.pode,
+      salvarAgora: async () => { clearTimeout(tempoSalvar); await salvar(); },
+      definirModeloPrevia: (p) => { modeloPrevia = p; previa(); },
+      status: () => estado.status,
+      pagina: d && d.pagina,
+      publico: !!(d && d.publico),
+    };
   }
 
   // ------------------------------------------------------------------ ligações

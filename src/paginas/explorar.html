@@ -1,0 +1,41 @@
+<!--pagina {"rota":"explorar","titulo":"Explorar páginas · Vulpus","descricao":"Descubra as páginas pessoais de Kitsunes e parceiros da Vulpus: busque, filtre, favorite e se inspire.","secao":"comunidade","sub":"explorar","css":["base","paginas","comunidade","explorar"],"js":["explorar"],"prioridade":0.5,"freq":"daily"}-->
+<header class="cabeca">
+  <div class="miolo cabeca-in">
+    <div>
+      <p class="sobretitulo">Comunidade</p>
+      <h1>Explore <em>páginas.</em></h1>
+      <p class="lead">As páginas que Kitsunes e parceiros da Vulpus montaram e escolheram mostrar aqui. Procure, favorite e se inspire. Quer a sua? <a href="../pagina/editar/">Monte a sua página</a>.</p>
+    </div>
+  </div>
+</header>
+{{subnav}}
+
+<section class="faixa faixa-pergaminho" aria-labelledby="exTitulo">
+  <div class="miolo">
+    <h2 class="so-leitor" id="exTitulo">Páginas</h2>
+    <form class="ex-filtros" id="exForm" role="search">
+      <label for="exBusca">Buscar</label>
+      <input id="exBusca" type="search" maxlength="40" placeholder="nome, bio ou endereço">
+      <label for="exOrdem">Ordem</label>
+      <select id="exOrdem">
+        <option value="novas">Mais novas</option>
+        <option value="destaques">Destaques da equipe</option>
+        <option value="aleatorio">Aleatório</option>
+      </select>
+      <label for="exTipo">Tipo</label>
+      <select id="exTipo">
+        <option value="">Todas</option>
+        <option value="kitsune">Kitsunes</option>
+        <option value="parceiro">Parceiros</option>
+      </select>
+      <button class="botao botao-pequeno" type="submit">Buscar</button>
+    </form>
+    <p class="pequeno" id="exMsg" role="status" aria-live="polite">Carregando…</p>
+    <ul class="ex-grade" id="exGrade"></ul>
+    <p class="acoes"><button class="botao botao-fio botao-pequeno" type="button" id="exMais" hidden>Ver mais</button></p>
+    <section class="ex-favoritas" id="exFavSec" hidden aria-labelledby="exFavTitulo">
+      <h2 id="exFavTitulo">Suas favoritas</h2>
+      <ul class="ex-grade" id="exFav"></ul>
+    </section>
+  </div>
+</section>

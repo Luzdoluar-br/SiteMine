@@ -1,6 +1,6 @@
-<!--pagina {"rota":"pagina/editar","titulo":"Editar minha página · Vulpus","descricao":"Monte a sua página na Vulpus: tema, fonte, cores, links e blocos. Para parceiros e Kitsunes.","secao":"comunidade","css":["base","paginas","pagina","editor"],"js":["entrada-portal","pagina","editor"],"indexar":false}-->
+<!--pagina {"rota":"pagina/editar","titulo":"Editar minha página · Vulpus","descricao":"Monte a sua página na Vulpus: layouts, visual, links, música, widgets, mídia, modelos e análises. Para parceiros e Kitsunes.","secao":"comunidade","css":["base","paginas","pagina","pagina2","editor","editor2"],"js":["entrada-portal","pagina","pagina2","editor2","editor"],"indexar":false}-->
 <div class="faixa faixa-madeira editor-sec">
-  <div class="miolo">
+  <div class="miolo miolo-largo">
     <section id="e-carregando" class="estado"><div class="fogo" aria-hidden="true"></div><p>Abrindo o editor…</p></section>
 
     <section id="e-entrar" hidden>
@@ -28,39 +28,59 @@
         <p class="salvo" id="e-salvo" role="status" aria-live="polite"></p>
       </header>
       <p class="aviso" id="e-bloqueio" hidden></p>
+      <div class="aviso aviso-erros" id="e-erros" role="alert" hidden></div>
       <div class="editor-grade">
         <form class="editor-form" id="e-form" novalidate autocomplete="off">
-          <fieldset>
-            <legend>Endereço</legend>
-            <label for="f-slug">Endereço da página</label>
-            <div class="slug-linha"><span aria-hidden="true">/p/?u=</span><input id="f-slug" maxlength="30" spellcheck="false" autocapitalize="off"></div>
-            <p class="dica" id="f-slug-msg" role="status"></p>
-          </fieldset>
-          <fieldset>
-            <legend>Aparência</legend>
-            <div class="grupo" role="radiogroup" aria-labelledby="l-tema"><span id="l-tema" class="rotulo">Tema</span><div class="opcoes" id="f-temas"></div></div>
-            <div class="grupo" role="radiogroup" aria-labelledby="l-fonte"><span id="l-fonte" class="rotulo">Fonte</span><div class="opcoes" id="f-fontes"></div></div>
-            <label for="f-cor">Cor de destaque</label>
-            <input type="color" id="f-cor" value="#e5731c">
-            <label for="f-fundo">Imagem de fundo</label>
-            <select id="f-fundo"></select>
-          </fieldset>
-          <fieldset>
-            <legend>Cabeçalho</legend>
-            <label for="f-titulo">Título <span class="contador" id="c-titulo"></span></label>
-            <input id="f-titulo" maxlength="60">
-            <label for="f-bio">Apresentação curta <span class="contador" id="c-bio"></span></label>
-            <textarea id="f-bio" maxlength="300" rows="3"></textarea>
-          </fieldset>
-          <fieldset>
-            <legend>Blocos</legend>
-            <ol class="blocos-lista" id="f-blocos"></ol>
-            <div class="add-bloco">
-              <label for="f-novo">Adicionar bloco</label>
-              <div class="add-linha"><select id="f-novo"></select><button type="button" class="botao botao-pequeno" id="f-novo-bt">Adicionar</button></div>
-              <p class="dica" id="f-blocos-msg" role="status"></p>
-            </div>
-          </fieldset>
+          <div class="editor-abas" id="e-abas" role="tablist" aria-label="Partes da página"></div>
+
+          <div class="e-painel" data-painel="basico" data-rotulo="Básico">
+            <fieldset>
+              <legend>Aparência (tema)</legend>
+              <div class="grupo" role="radiogroup" aria-labelledby="l-tema"><span id="l-tema" class="rotulo">Tema</span><div class="opcoes" id="f-temas"></div></div>
+              <div class="grupo" role="radiogroup" aria-labelledby="l-fonte"><span id="l-fonte" class="rotulo">Fonte</span><div class="opcoes" id="f-fontes"></div></div>
+              <label for="f-cor">Cor de destaque</label>
+              <input type="color" id="f-cor" value="#e5731c">
+              <label for="f-fundo">Imagem de fundo</label>
+              <select id="f-fundo"></select>
+              <p class="dica">Nas páginas no formato novo, o fundo, as cores e a fonte da aba “Layout e visual” valem no lugar destes.</p>
+            </fieldset>
+            <fieldset>
+              <legend>Cabeçalho</legend>
+              <label for="f-titulo">Título <span class="contador" id="c-titulo"></span></label>
+              <input id="f-titulo" maxlength="60">
+              <label for="f-bio">Apresentação curta <span class="contador" id="c-bio"></span></label>
+              <textarea id="f-bio" maxlength="300" rows="3"></textarea>
+            </fieldset>
+            <fieldset>
+              <legend>Blocos</legend>
+              <ol class="blocos-lista" id="f-blocos"></ol>
+              <div class="add-bloco">
+                <label for="f-novo">Adicionar bloco</label>
+                <div class="add-linha"><select id="f-novo"></select><button type="button" class="botao botao-pequeno" id="f-novo-bt">Adicionar</button></div>
+                <p class="dica" id="f-blocos-msg" role="status"></p>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="e-painel" data-painel="visual" data-rotulo="Layout e visual" id="p-visual" hidden></div>
+          <div class="e-painel" data-painel="links" data-rotulo="Links" id="p-links" hidden></div>
+          <div class="e-painel" data-painel="musica" data-rotulo="Música e digitação" id="p-musica" hidden></div>
+          <div class="e-painel" data-painel="widgets" data-rotulo="Widgets e abas" id="p-widgets" hidden></div>
+          <div class="e-painel" data-painel="midia" data-rotulo="Mídia" id="p-midia" hidden></div>
+          <div class="e-painel" data-painel="selos" data-rotulo="Selos" id="p-selos" hidden></div>
+          <div class="e-painel" data-painel="modelos" data-rotulo="Modelos" id="p-modelos" hidden></div>
+          <div class="e-painel" data-painel="analises" data-rotulo="Análises" id="p-analises" hidden></div>
+
+          <div class="e-painel" data-painel="endereco" data-rotulo="Endereço e SEO" hidden>
+            <fieldset>
+              <legend>Endereço</legend>
+              <label for="f-slug">Endereço da página</label>
+              <div class="slug-linha"><span aria-hidden="true">/p/?u=</span><input id="f-slug" maxlength="30" spellcheck="false" autocapitalize="off"></div>
+              <p class="dica" id="f-slug-msg" role="status"></p>
+            </fieldset>
+            <div id="p-endereco"></div>
+          </div>
+
           <div class="publicar-area">
             <p class="estado-pub" id="e-estado-pub"></p>
             <button type="button" class="botao" id="e-publicar">Publicar</button>
@@ -68,8 +88,20 @@
           </div>
         </form>
         <aside class="editor-previa" aria-labelledby="pv-titulo">
-          <h2 id="pv-titulo">Pré-visualização</h2>
-          <div class="previa-moldura"><div id="e-previa"></div></div>
+          <div class="previa-topo">
+            <h2 id="pv-titulo">Pré-visualização</h2>
+            <div class="previa-ferramentas" role="toolbar" aria-label="Ferramentas da pré-visualização">
+              <button type="button" class="mini" id="b-desfazer" disabled aria-label="Desfazer (Ctrl+Z)">↶ Desfazer</button>
+              <button type="button" class="mini" id="b-refazer" disabled aria-label="Refazer (Ctrl+Y)">↷ Refazer</button>
+              <span class="previa-disp" role="group" aria-label="Tamanho da tela">
+                <button type="button" class="mini" data-disp="celular" aria-pressed="false">Celular</button>
+                <button type="button" class="mini" data-disp="tablet" aria-pressed="false">Tablet</button>
+                <button type="button" class="mini" data-disp="computador" aria-pressed="true">Computador</button>
+              </span>
+            </div>
+          </div>
+          <p class="aviso aviso-modelo" id="e-previa-modelo" hidden></p>
+          <div class="previa-moldura" id="e-moldura"><div id="e-previa"></div></div>
         </aside>
       </div>
     </section>

@@ -38,6 +38,9 @@ PÁGINAS E O QUE ELAS USAM (tudo ao vivo vem da API do bot, em https://botmine-p
                      checagem ao vivo, envio e painel (renovar, pausar, editar o cartão, números)   /painel/api/parceiros/*
   /pagina/editar/    editor de página personalizada (parceiro e Kitsune): tema, fonte, cor, fundo, blocos, publicar  /painel/api/pagina/*
   /p/?u=slug         página pública personalizada (js/pagina.js é o MESMO renderizador do editor); denúncia sem login  /site/pagina/<slug>
+  (páginas v2: js/pagina2.js renderiza layouts, efeitos, player, widgets, mural; js/editor2.js é o editor de 10 abas; css/pagina2.css e css/editor2.css)
+  /explorar/         vitrine pública de páginas (js/explorar.js)  /site/explorar
+  tools/teste_paginas.mjs  teste em Chrome de verdade do editor e das páginas v2 contra a API real local (ver cabeçalho do arquivo)
   Contrato da API: ../BotVulpus/docs/API_PARCERIAS.md.  Teste em navegador: node tools/teste_portal.mjs (API simulada, PC e celular).
   A CSP libera imagens da origem da API (banner e logo que o parceiro envia). Fontes self-hosted novas: Fredoka e Nunito.
   /kiza/  /colecao/  texto e imagens (nada ao vivo)

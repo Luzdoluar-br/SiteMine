@@ -81,3 +81,8 @@
 .msg-form { min-height: 1.4em; margin: 8px 0 0; color: var(--brasa); }
 .so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .cartao-discord, .cartao-mc { border-top-width: 5px; }
+
+.pagina-acoes { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 18px; background: var(--carvao); padding: 14px var(--gutter) 28px; }
+a.link-denuncia { color: var(--suave); display: inline-flex; align-items: center; min-height: 40px; }
+.link-denuncia[aria-pressed="true"] { color: var(--brasa); }
+#qrImg { display: block; margin: 12px auto; background: #fff; padding: 8px; border-radius: 6px; }

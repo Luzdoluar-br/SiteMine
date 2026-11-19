@@ -1,12 +1,26 @@
-<!--pagina {"rota":"p","titulo":"Página · Vulpus","descricao":"Página personalizada de um parceiro ou de um Kitsune da Vulpus.","secao":"comunidade","css":["base","paginas","pagina"],"js":["pagina","p"],"indexar":false}-->
+<!--pagina {"rota":"p","titulo":"Página · Vulpus","descricao":"Página personalizada de um parceiro ou de um Kitsune da Vulpus.","secao":"comunidade","css":["base","paginas","pagina","pagina2"],"js":["pagina","pagina2","p"],"indexar":false}-->
 <div class="pagina-area">
   <h1 class="so-leitor" id="h1-estado">Página personalizada</h1>
   <p id="estado" class="estado-pg" role="status">Acendendo a lanterna…</p>
   <div id="pagina" hidden></div>
-  <div class="pagina-denuncia" id="denunciaArea" hidden>
+  <div class="pagina-acoes" id="acoesArea" hidden>
+    <button type="button" class="link-denuncia" id="copiarLink">Copiar link</button>
+    <button type="button" class="link-denuncia" id="qrAbrir">QR code</button>
+    <button type="button" class="link-denuncia" id="favoritar" hidden aria-pressed="false">Favoritar</button>
+    <a class="link-denuncia" href="../explorar/">Explorar páginas</a>
     <button type="button" class="link-denuncia" id="denunciaAbrir">Denunciar esta página</button>
+    <span class="so-leitor" id="acoesMsg" role="status"></span>
   </div>
 </div>
+<dialog id="qrDialogo" class="dialogo" aria-labelledby="qrTitulo">
+  <h2 id="qrTitulo">QR code da página</h2>
+  <p>Aponte a câmera para abrir a página. Use em cartões, adesivos ou telas.</p>
+  <img id="qrImg" alt="QR code que abre esta página" width="220" height="220">
+  <div class="acoes">
+    <a class="botao botao-fio botao-pequeno" id="qrBaixar" href="#" download="qr-pagina.png" rel="noopener">Baixar PNG</a>
+    <button type="button" class="botao botao-pequeno" id="qrFechar">Fechar</button>
+  </div>
+</dialog>
 <dialog id="denunciaDialogo" class="dialogo" aria-labelledby="denunciaTitulo">
   <form method="dialog" id="denunciaForm">
     <h2 id="denunciaTitulo">Denunciar esta página</h2>
