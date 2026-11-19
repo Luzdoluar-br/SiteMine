@@ -21,7 +21,7 @@
 .pg2.borda-brilho .pg-cartao { box-shadow: 0 0 0 1px var(--pg-borda-cor), 0 0 24px var(--pg-acento), 0 0 60px color-mix(in srgb, var(--pg-acento) 40%, transparent); }
 .pg2.borda-animada .pg-cartao { border-color: transparent; background: linear-gradient(var(--pg-cartao-bg), var(--pg-cartao-bg)) padding-box, conic-gradient(from var(--pg-ang), var(--pg-acento), var(--pg-acento2), var(--pg-acento)) border-box; animation: pg-gira 6s linear infinite; }
 @keyframes pg-gira { to { --pg-ang: 360deg; } }
-.pg2 .pg-banner { display: block; width: calc(100% + 2 * clamp(18px, 4vw, 32px)); margin: calc(-1 * clamp(18px, 4vw, 32px)) calc(-1 * clamp(18px, 4vw, 32px)) 18px; height: var(--pg-banner); object-fit: cover; }
+.pg2 .pg-banner { display: block; width: calc(100% + 2 * clamp(18px, 4vw, 32px)); margin: calc(-1 * clamp(18px, 4vw, 32px)) calc(-1 * clamp(18px, 4vw, 32px)) 18px; height: var(--pg-banner); max-width: none; object-fit: cover; }
 
 /* perfil */
 .pg2 .pg-perfil { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; }
@@ -110,7 +110,7 @@
 .pg2 .pg-bolinha.st-online { background: #3ba55d; }
 .pg2 .pg-bolinha.st-idle { background: #faa61a; }
 .pg2 .pg-bolinha.st-dnd { background: #ed4245; }
-.pg2 .pg-skill { display: grid; grid-template-columns: 1fr 1.4fr; gap: 10px; align-items: center; margin-bottom: 6px; }
+.pg2 .pg-skill { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 10px; align-items: center; margin-bottom: 6px; }
 .pg2 .pg-skill-barra { height: 8px; border-radius: 99px; background: var(--pg-linha); overflow: hidden; }
 .pg2 .pg-skill-barra i { display: block; height: 100%; background: linear-gradient(90deg, var(--pg-acento), var(--pg-acento2)); border-radius: 99px; }
 .pg2 .pg-mural-lista li { padding: 8px 0; border-bottom: 1px dashed var(--pg-linha); }
@@ -224,3 +224,5 @@
 .pg2 .pg-status { display: flex; align-items: center; gap: 6px; }
 .pg2 .pg-textos { display: grid; gap: 8px; min-width: 0; justify-items: inherit; }
 .pg2 .pg-selo-e { line-height: 1; }
+
+.pg2 .pg-skill span { overflow-wrap: anywhere; line-height: 1.25; }

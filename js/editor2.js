@@ -679,10 +679,65 @@ const EDITOR2 = (() => {
     const ord = selecao("Ordenar", [["novos", "Mais novos"], ["usos", "Mais usados"], ["favoritos", "Mais favoritados"], ["aleatorio", "Aleatório"]], "novos", (x) => { filtros.ordem = x; carregar(); });
     c.append(grupo("Escolha o que importar", aviso("Marque só as partes que quer trazer do modelo. Textos, links, músicas, widgets e mídias seus nunca são apagados."), corpoPartes),
       grupo("Vitrine de modelos", el("div", "add-linha"), campo("Buscar", busca), lista, st, el("div", "add-linha")),
-      grupo("Criar modelo", campo("Nome", nome), campo("Descrição", desc), campo("Tags", tags), campo("Visibilidade", vis), criar));
+      grupo("Criar modelo", campo("Nome", nome), campo("Descrição", desc), campo("Tags", tags), campo("Visibilidade", vis), criar), blocoJson());
     c.querySelectorAll(".add-linha")[0].append(esc, ord);
     c.querySelectorAll(".add-linha")[1].append(porId, abrirId);
     carregar();
+  }
+
+  // ------------------------------------------------------------------ backup, importação e exportação (JSON)
+  function mesclar(base, novo) {
+    const obj = (x) => x && typeof x === "object" && !Array.isArray(x);
+    if (!obj(novo)) return copia(novo);
+    const out = obj(base) ? { ...base } : {};
+    for (const k of Object.keys(novo)) out[k] = obj(base && base[k]) && obj(novo[k]) ? mesclar(base[k], novo[k]) : copia(novo[k]);
+    return out;
+  }
+  async function importarJson(textoJson, st) {
+    let dados;
+    try { dados = JSON.parse(textoJson); } catch { return msg(st, "Isso não é um JSON válido.", true); }
+    if (!dados || typeof dados !== "object" || Array.isArray(dados)) return msg(st, "O JSON precisa ser um objeto (o que o botão Exportar gera).", true);
+    const vis = (dados.v2 && dados.v2.visual) || {};
+    for (const parte of ["banner", "fundo"]) {
+      const m = vis[parte] && vis[parte].midia;
+      if (m && typeof m === "object" && m.b64) { // imagem embutida no JSON: envia para a sua mídia e troca pelo id
+        msg(st, `Enviando ${m.nome || parte}…`);
+        let bytes;
+        try { bytes = Uint8Array.from(atob(m.b64), (c) => c.charCodeAt(0)); } catch { return msg(st, "Imagem embutida inválida.", true); }
+        const res = await enviar(new File([bytes], m.nome || `${parte}.webp`, { type: m.mime || "image/webp" }), m.tipo || "imagem");
+        if (!res.r.ok) return msg(st, res.d.mensagem || "Não consegui enviar uma imagem do arquivo.", true);
+        vis[parte].midia = res.d.id;
+      } else if (m && typeof m === "object") delete vis[parte].midia;
+    }
+    const atual = copia(H.pg());
+    const novo = mesclar(atual, dados);
+    // só entra o que o arquivo traz: avatar, links e o resto da página que ele não menciona continuam como estão
+    if (dados.v2 && Array.isArray(dados.v2.widgets)) {
+      const tipos = new Set(dados.v2.widgets.map((w) => w.tipo));
+      novo.v2.widgets = [...((atual.v2 && atual.v2.widgets) || []).filter((w) => !tipos.has(w.tipo)), ...dados.v2.widgets];
+    }
+    H.trocarPg(novo);
+    reconstruir();
+    H.alterou();
+    msg(st, "Importado! Confira a pré-visualização e clique em Publicar. (Desfazer volta ao que estava antes.)");
+  }
+  function blocoJson() {
+    const st = el("p", "dica");
+    st.setAttribute("role", "status");
+    const area = el("textarea");
+    area.rows = 5; area.placeholder = "Cole aqui o JSON da página (ou escolha o arquivo abaixo)";
+    const arq = el("input");
+    arq.type = "file"; arq.accept = ".json,application/json";
+    arq.addEventListener("change", async () => { const f = arq.files[0]; arq.value = ""; if (f) area.value = await f.text(); });
+    const imp = botao("Importar para a minha página", () => importarJson(area.value, st), "botao botao-pequeno");
+    const exp = botao("Exportar a página (JSON)", () => {
+      const blob = new Blob([JSON.stringify(H.pg(), null, 1)], { type: "application/json" });
+      const a = el("a");
+      a.href = URL.createObjectURL(blob); a.download = `pagina-${H.slug() || "minha"}.json`;
+      document.body.append(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    });
+    return grupo("Importar e exportar (JSON)", aviso("Importar mistura com a sua página: só muda o que o arquivo traz. A foto de perfil, links e o que o arquivo não menciona continuam. As mídias exportadas são só da sua conta."), campo("JSON", area), campo("Ou arquivo", arq), imp, exp, st);
   }
 
   // ------------------------------------------------------------------ endereços e SEO

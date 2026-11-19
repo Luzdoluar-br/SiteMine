@@ -3,7 +3,7 @@
 //   node tools/teste_paginas.mjs [--saida=pasta] [--base=http://127.0.0.1:8765]
 // Roda com a segurança entre origens desligada (só para teste, como tools/navegador.mjs).
 import { spawn } from "node:child_process";
-import { mkdirSync, mkdtempSync, writeFileSync, existsSync } from "node:fs";
+import { mkdirSync, mkdtempSync, writeFileSync, existsSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
@@ -253,6 +253,39 @@ try {
     }
   }
   await telaPC();
+
+  // importar o JSON da página do Kope (com banner e fundo embutidos) numa página que já tem conteúdo: a mistura não pode apagar o avatar nem os links
+  await aba.js(`localStorage.setItem("vulpus_sessao", "tokQA")`);
+  await telaPC();
+  await ir(`${BASE}/pagina/editar/?tipo=kitsune`, 3000);
+  const antesAv = await aba.js(`!!document.querySelector("#e-previa .pg-avatar")`);
+  await aba_editor("modelos");
+  await esperar(`document.querySelector("#p-modelos textarea")`);
+  const jsonKope = readFileSync("C:/Users/Desktop/Downloads/KOPE_PAGINA/kope_pagina.json", "utf8");
+  await aba.js(`(() => { const a = document.querySelector("#p-modelos textarea"); a.value = ${JSON.stringify(jsonKope)}; })()`);
+  await aba.js(`[...document.querySelectorAll("#p-modelos button")].find((b) => b.textContent === "Importar para a minha página").click()`);
+  await esperar(`document.querySelector("#e-previa .pg-nome")?.textContent.includes("Kope")`, 15000);
+  await dorme(2500);
+  const imp = await aba.js(`({ nome: document.querySelector("#e-previa .pg-nome")?.textContent, layout: [...document.querySelector("#e-previa").classList].find((c) => c.startsWith("layout-")), abas: [...document.querySelectorAll("#e-previa .pg-aba")].map((x) => x.textContent), avatar: !!document.querySelector("#e-previa .pg-avatar"), banner: !!document.querySelector("#e-previa .pg-banner"), fundo: document.querySelector("#e-previa .pg-fundo")?.style.backgroundImage.includes("/site/midia/"), links: document.querySelectorAll("#e-previa .pg-link").length, widgets: [...document.querySelectorAll("#e-previa .pg-widget")].map((w) => w.className.split(" ")[1]), blocos: document.querySelectorAll("#e-previa .bloco").length, digit: document.querySelector("#e-previa .pg-digitando")?.getAttribute("aria-label") })`);
+  console.log("  importado:", JSON.stringify(imp));
+  confere(imp.nome === "Hey, I'm Kope! :3" && imp.layout === "layout-elegante" && imp.abas.join() === "About me,My universe" && imp.banner && imp.fundo && imp.blocos >= 5, "importar JSON: título, layout, abas, banner, fundo e blocos entraram");
+  confere(imp.avatar === antesAv && imp.links === 3, "importar JSON: avatar e links que já existiam continuaram");
+  confere(["w-relogio", "w-discord_presenca", "w-minecraft", "w-projetos", "w-habilidades", "w-visitas"].every((c) => imp.widgets.includes(c)) && imp.widgets.some((c) => c === "w-github"), "importar JSON: widgets novos entraram e o GitHub que já existia ficou");
+  await foto("kope-editor", "pc");
+  await dorme(1500);
+  await clicar("#e-publicar");
+  await dorme(2000);
+  await aba.js(`localStorage.removeItem("vulpus_sessao")`);
+  await ir(`${BASE}/p/?u=ze-raposa`, 3500);
+  await aba.js(`document.querySelectorAll(".pg-aba")[1]?.click()`);
+  await dorme(1200);
+  await foto("kope-publica-aba2", "pc");
+  await aba.js(`document.querySelectorAll(".pg-aba")[0]?.click()`);
+  await dorme(800);
+  await foto("kope-publica", "pc");
+  await telaCel();
+  await ir(`${BASE}/p/?u=ze-raposa`, 3000);
+  await foto("kope-publica", "celular");
 
   // explorar e nova aba do editor em celular
   await api(`/painel/api/pagina/visibilidade`, { method: "PUT", body: JSON.stringify({ tipo: "kitsune", publico: true }) });
