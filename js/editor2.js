@@ -215,6 +215,7 @@ const EDITOR2 = (() => {
 
     const av = vis.avatar;
     c.append(grupo("Avatar e banner", seletorMidia("Avatar", ["imagem", "gif"], av.midia, (x) => { av.midia = x; }), selecao("Forma", [["circulo", "Círculo"], ["arredondado", "Arredondado"], ["quadrado", "Quadrado"]], av.forma, (x) => { av.forma = x; }),
+      selecao("Moldura do avatar", [["nenhuma", "Nenhuma"], ["aurora", "Aurora (anel de cores girando)"], ["perolas", "Pérolas e brilhos"], ["coquette", "Laço e renda (coquette)"], ["orbita", "Órbita de estrelas"]], av.moldura || "nenhuma", (x) => { av.moldura = x; }, "Pérolas, Laço e Órbita usam sempre o formato círculo; a Aurora respeita a forma escolhida."),
       numero("Tamanho do avatar", av.tamanho, 64, 200, 4, (x) => { av.tamanho = x; }, " px"), marcar("Borda no avatar", av.borda, (x) => { av.borda = x; }),
       seletorMidia("Banner (topo do cartão)", ["imagem", "gif"], vis.banner.midia, (x) => { vis.banner.midia = x; }), numero("Altura do banner", vis.banner.altura, 80, 320, 10, (x) => { vis.banner.altura = x; }, " px")));
 

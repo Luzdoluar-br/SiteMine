@@ -30,6 +30,51 @@
 .pg2 .pg-avatar.forma-circulo { border-radius: 50%; }
 .pg2 .pg-avatar.forma-arredondado { border-radius: 22%; }
 .pg2 .pg-avatar.forma-quadrado { border-radius: 4px; }
+/* molduras do avatar */
+.pg2 .pg-av-wrap { position: relative; flex: none; width: calc(var(--pg-avatar) / .76); height: calc(var(--pg-avatar) / .76); display: grid; place-items: center; margin: calc(var(--pg-avatar) * -.08) 0; }
+.pg2 .pg-av-wrap .pg-avatar { position: relative; z-index: 2; width: var(--pg-avatar); height: var(--pg-avatar); }
+.pg2 .mold-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; z-index: 3; pointer-events: none; }
+.pg2 .mold-anel { position: absolute; border-radius: inherit; pointer-events: none; }
+.pg2 .pg-av-wrap.forma-circulo { border-radius: 50%; }
+.pg2 .pg-av-wrap.forma-arredondado { border-radius: 22%; }
+.pg2 .pg-av-wrap.forma-quadrado { border-radius: 4px; }
+/* aurora */
+.pg2 .mold-aurora .mold-anel { inset: 7%; z-index: 1; background: conic-gradient(from var(--pg-ang), var(--pg-acento), var(--pg-acento2), #fff, var(--pg-acento2), var(--pg-acento)); animation: pg-gira 5s linear infinite; }
+.pg2 .mold-aurora .mold-halo { position: absolute; inset: 5%; border-radius: inherit; background: conic-gradient(from var(--pg-ang), var(--pg-acento), var(--pg-acento2), var(--pg-acento)); filter: blur(14px); opacity: .55; animation: pg-gira 5s linear infinite, pg-pulsa 3.4s ease-in-out infinite; }
+.pg2 .mold-aurora .pg-avatar { border: 4px solid var(--pg-cartao-bg, #101827); box-sizing: border-box; box-shadow: none; }
+@keyframes pg-pulsa { 50% { opacity: .85; transform: scale(1.06); } }
+/* pérolas */
+.pg2 .mold-perolas .mold-anel { inset: 10.5%; border-radius: 50%; border: 2px solid color-mix(in srgb, var(--pg-acento2) 70%, #fff); box-shadow: 0 0 0 1px color-mix(in srgb, var(--pg-acento) 60%, transparent), 0 0 18px color-mix(in srgb, var(--pg-acento) 55%, transparent); }
+.pg2 .mold-perolas .pg-avatar, .pg2 .mold-coquette .pg-avatar, .pg2 .mold-orbita .pg-avatar { box-shadow: 0 6px 18px rgba(0, 0, 0, .28); }
+.pg2 .mp-0 { stop-color: #fff; }
+.pg2 .mp-1 { stop-color: color-mix(in srgb, var(--pg-acento) 22%, #fff); }
+.pg2 .mp-2 { stop-color: color-mix(in srgb, var(--pg-acento2) 70%, #c9a0b5); }
+.pg2 .perola { filter: drop-shadow(0 .6px .8px rgba(0, 0, 0, .35)); animation: pg-perola 4.8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes pg-perola { 50% { transform: scale(1.12); } }
+.pg2 .m-brilho { fill: #fff; filter: drop-shadow(0 0 2px var(--pg-acento)); transform-box: fill-box; transform-origin: center; animation: pg-brilha 2.6s ease-in-out infinite; }
+@keyframes pg-brilha { 0%, 100% { opacity: .25; transform: scale(.55) rotate(0); } 50% { opacity: 1; transform: scale(1.15) rotate(45deg); } }
+/* coquette */
+.pg2 .mold-coquette .mold-anel { inset: 11%; border-radius: 50%; border: 3px solid var(--pg-acento); box-shadow: 0 0 0 3px color-mix(in srgb, var(--pg-cartao-bg, #fff) 85%, transparent), 0 0 0 4.5px var(--pg-acento2), 0 0 16px color-mix(in srgb, var(--pg-acento) 45%, transparent); }
+.pg2 .renda { fill: #fffafc; stroke: var(--pg-acento); stroke-width: .55; }
+.pg2 .renda-fio { fill: none; stroke: var(--pg-acento2); stroke-width: .6; stroke-dasharray: 1.2 1.6; }
+.pg2 .ml-0 { stop-color: color-mix(in srgb, var(--pg-acento) 55%, #fff); }
+.pg2 .ml-1 { stop-color: var(--pg-acento); }
+.pg2 .laco, .pg2 .laco-no { stroke: color-mix(in srgb, var(--pg-acento) 60%, #7a3d5c); stroke-width: .7; stroke-linejoin: round; filter: drop-shadow(0 1px 1.2px rgba(0, 0, 0, .3)); }
+.pg2 .laco-cauda { fill: color-mix(in srgb, var(--pg-acento) 85%, #b05a85); stroke: color-mix(in srgb, var(--pg-acento) 55%, #7a3d5c); stroke-width: .6; stroke-linejoin: round; }
+.pg2 .laco-brilho { fill: none; stroke: #fff; stroke-width: 1; stroke-linecap: round; opacity: .75; }
+.pg2 .m-coracao { fill: var(--pg-acento); stroke: #fff; stroke-width: .9; paint-order: stroke; transform-box: fill-box; transform-origin: center; animation: pg-bate 2.8s ease-in-out infinite; filter: drop-shadow(0 0 2px color-mix(in srgb, var(--pg-acento) 60%, transparent)); }
+@keyframes pg-bate { 0%, 100% { transform: scale(.88); } 50% { transform: scale(1.12) translateY(-1.5px); } }
+/* órbita */
+.pg2 .mold-orbita .mold-anel { inset: 10.5%; border-radius: 50%; border: 2px solid color-mix(in srgb, var(--pg-acento) 35%, transparent); box-shadow: inset 0 0 18px color-mix(in srgb, var(--pg-acento2) 30%, transparent), 0 0 22px color-mix(in srgb, var(--pg-acento) 30%, transparent); }
+.pg2 .orb-trilha { fill: none; stroke: var(--pg-acento2); stroke-width: .9; stroke-dasharray: .1 2.4; stroke-linecap: round; opacity: 1; }
+.pg2 .orb-trilha2 { fill: none; stroke: var(--pg-acento); stroke-width: .5; opacity: .6; }
+.pg2 .orb { transform-box: view-box; transform-origin: 50% 50%; }
+.pg2 .orb-a { animation: pg-orbita 11s linear infinite; }
+.pg2 .orb-b { animation: pg-orbita 17s linear infinite reverse; }
+@keyframes pg-orbita { to { transform: rotate(360deg); } }
+.pg2 .orb-e1 { fill: var(--pg-acento); filter: drop-shadow(0 0 2.2px var(--pg-acento)); }
+.pg2 .orb-e2 { fill: var(--pg-acento2); filter: drop-shadow(0 0 2.2px var(--pg-acento2)); }
+.pg2 .orb-e3 { fill: #fff; filter: drop-shadow(0 0 2px var(--pg-acento)); }
 .pg2 .pg-nome { font-size: clamp(1.9rem, 1.2rem + 3vw, 2.9rem); font-weight: 800; overflow-wrap: anywhere; }
 .pg2.nome-grad .pg-nome { background: linear-gradient(90deg, var(--pg-acento), var(--pg-acento2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .pg2 .pg-bio, .pg2 .pg-digitando { margin: 0; color: var(--pg-suave); font-size: 1.08em; min-height: 1.5em; }

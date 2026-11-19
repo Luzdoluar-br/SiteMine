@@ -6,6 +6,49 @@
 const PAGINA2 = (() => {
   const P = PAGINA;
   const { el, icone, paragrafos } = P;
+  // molduras do avatar: peças SVG fixas montadas por código (nada de HTML livre)
+  const NS = "http://www.w3.org/2000/svg";
+  let molduraN = 0;
+  function sv(tag, attrs, pai) { const e = document.createElementNS(NS, tag); for (const k of Object.keys(attrs || {})) e.setAttribute(k, attrs[k]); if (pai) pai.append(e); return e; }
+  function estrela(pai, cx, cy, r, cls) { const k = r * 0.26; return sv("path", { class: cls, d: `M${cx} ${cy - r}Q${cx + k} ${cy - k} ${cx + r} ${cy}Q${cx + k} ${cy + k} ${cx} ${cy + r}Q${cx - k} ${cy + k} ${cx - r} ${cy}Q${cx - k} ${cy - k} ${cx} ${cy - r}Z` }, pai); }
+  function coracao(pai, x, y, s, cls) { return sv("path", { class: cls, transform: `translate(${x} ${y}) scale(${s})`, d: "M0 -1.4C-1.6 -4.2 -5.6 -3 -5.6 .2C-5.6 3 -1.8 5 0 7C1.8 5 5.6 3 5.6 .2C5.6 -3 1.6 -4.2 0 -1.4Z" }, pai); }
+  function molduraAvatar(w, tipo) {
+    if (tipo === "aurora") { w.append(el("div", "mold-halo"), el("div", "mold-anel")); return; }
+    w.append(el("div", "mold-anel"));
+    const id = `pgav${++molduraN}`;
+    const s = sv("svg", { viewBox: "0 0 100 100", class: "mold-svg", "aria-hidden": "true", focusable: "false" });
+    const defs = sv("defs", {}, s);
+    const rg = sv("radialGradient", { id: `${id}p`, cx: "35%", cy: "30%", r: "75%" }, defs);
+    sv("stop", { offset: "0", class: "mp-0" }, rg); sv("stop", { offset: ".5", class: "mp-1" }, rg); sv("stop", { offset: "1", class: "mp-2" }, rg);
+    const lg = sv("linearGradient", { id: `${id}l`, x1: "0", y1: "0", x2: "1", y2: "1" }, defs);
+    sv("stop", { offset: "0", class: "ml-0" }, lg); sv("stop", { offset: "1", class: "ml-1" }, lg);
+    const ponto = (a, r) => [50 + Math.cos(a) * r, 50 + Math.sin(a) * r];
+    if (tipo === "perolas") {
+      for (let k = 0; k < 22; k++) { const [x, y] = ponto((k / 22) * Math.PI * 2 - Math.PI / 2, 43.5); const c = sv("circle", { cx: x.toFixed(2), cy: y.toFixed(2), r: k % 2 ? 2.7 : 3.4, fill: `url(#${id}p)`, class: "perola" }, s); c.style.animationDelay = `${(k * 0.17).toFixed(2)}s`; }
+      [[16, 15, 3.6], [87, 21, 2.6], [90, 78, 3.2], [12, 82, 2.4]].forEach(([x, y, r], k) => { const e = estrela(s, x, y, r, "m-brilho"); e.style.animationDelay = `${k * 0.7}s`; });
+    } else if (tipo === "coquette") {
+      for (let k = 0; k < 34; k++) { const [x, y] = ponto((k / 34) * Math.PI * 2, 41.8); sv("circle", { cx: x.toFixed(2), cy: y.toFixed(2), r: 2.5, class: "renda" }, s); }
+      sv("circle", { cx: 50, cy: 50, r: 40.2, class: "renda-fio" }, s);
+      const bow = sv("g", { transform: "rotate(-40 50 50)" }, s);
+      sv("path", { d: "M49 12 L41 25 L46.5 22.6 L48.6 15Z", class: "laco-cauda" }, bow);
+      sv("path", { d: "M51 12 L59 25 L53.5 22.6 L51.4 15Z", class: "laco-cauda" }, bow);
+      sv("path", { d: "M50 9 C40 -3.5 25 -1 26.5 8.5 C28 18.5 41 14.5 50 9Z", fill: `url(#${id}l)`, class: "laco" }, bow);
+      sv("path", { d: "M50 9 C60 -3.5 75 -1 73.5 8.5 C72 18.5 59 14.5 50 9Z", fill: `url(#${id}l)`, class: "laco" }, bow);
+      sv("path", { d: "M31 5.4 C37 3.4 41 5 44.6 8", class: "laco-brilho" }, bow);
+      sv("path", { d: "M69 5.4 C63 3.4 59 5 55.4 8", class: "laco-brilho" }, bow);
+      sv("ellipse", { cx: 50, cy: 9.6, rx: 4.3, ry: 3.9, fill: `url(#${id}l)`, class: "laco-no" }, bow);
+      [[88, 76, 0.85, 0], [94, 64, 0.5, 0.9], [80, 90, 0.55, 1.6]].forEach(([x, y, e, d]) => { const h = coracao(s, x, y, e, "m-coracao"); h.style.animationDelay = `${d}s`; });
+      estrela(s, 10, 78, 2.6, "m-brilho");
+    } else if (tipo === "orbita") {
+      sv("circle", { cx: 50, cy: 50, r: 44.5, class: "orb-trilha" }, s);
+      sv("circle", { cx: 50, cy: 50, r: 40, class: "orb-trilha2" }, s);
+      const g1 = sv("g", { class: "orb orb-a" }, s), g2 = sv("g", { class: "orb orb-b" }, s);
+      estrela(g1, 50, 6, 7, "orb-e1"); estrela(g1, 50, 94, 4.6, "orb-e3");
+      estrela(g2, 10, 50, 5.6, "orb-e2"); estrela(g2, 90, 50, 3.8, "orb-e1");
+      sv("circle", { cx: 79, cy: 16, r: 1.1, class: "orb-e3" }, g1); sv("circle", { cx: 21, cy: 84, r: 1.1, class: "orb-e2" }, g2);
+    }
+    w.append(s);
+  }
   const REDUZIDO = () => window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const TOQUE = () => window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
   const NOMES_REDE = { discord: "Discord", youtube: "YouTube", twitch: "Twitch", github: "GitHub", roblox: "Roblox", spotify: "Spotify", telegram: "Telegram", instagram: "Instagram", tiktok: "TikTok", x: "X", bluesky: "Bluesky", playstation: "PlayStation", xbox: "Xbox", lastfm: "Last.fm", patreon: "Patreon", steam: "Steam", kofi: "Ko-fi", reddit: "Reddit", minecraft: "Minecraft", site: "Site" };
@@ -442,7 +485,12 @@ const PAGINA2 = (() => {
     const perfil = el("header", "pg-perfil");
     const av = vis.avatar || {};
     const avUrl = urlMidia(av.midia);
-    if (avUrl) { const i = el("img", `pg-avatar forma-${av.forma || "circulo"}${av.borda === false ? " sem-borda" : ""}`); i.src = avUrl; i.alt = ""; perfil.append(i); }
+    if (avUrl) {
+      const mold = ["aurora", "perolas", "coquette", "orbita"].includes(av.moldura) ? av.moldura : "";
+      const forma = mold && mold !== "aurora" ? "circulo" : (av.forma || "circulo");
+      const i = el("img", `pg-avatar forma-${forma}${av.borda === false || mold ? " sem-borda" : ""}`); i.src = avUrl; i.alt = "";
+      if (mold) { const w = el("div", `pg-av-wrap mold-${mold} forma-${forma}`); molduraAvatar(w, mold); w.append(i); perfil.append(w); } else perfil.append(i);
+    }
     const textos = el("div", "pg-textos");
     const h1 = el("h1", "pg-nome", d.titulo || ctx.titulo_padrao || "Minha página");
     h1.dataset.texto = d.titulo || "";
