@@ -33,12 +33,23 @@
   };
 
   // ------------------------------------------------------------------ pré-visualização
+  // widgets de verdade também na prévia: o servidor busca os dados com a configuração que a pessoa está digitando (cache de 90 s aqui)
+  const cacheWidget = new Map();
+  function widgetPrevia(id, w) {
+    const corpo = { tipo, ...(tipo === "parceiro" ? { guild_id: guildId } : {}), widget: w.tipo, config: w.config };
+    const chave = JSON.stringify([w.tipo, w.config]);
+    const antigo = cacheWidget.get(chave);
+    if (antigo && Date.now() - antigo.t < 90000) return antigo.p;
+    const p = E.chamar("POST", "/painel/api/pagina/widget-previa", corpo).then(({ r, d }) => (r.ok ? d : { ok: false, mensagem: d.mensagem || "Indisponível no momento." }));
+    cacheWidget.set(chave, { t: Date.now(), p });
+    return p;
+  }
   function previa() {
     const base = modeloPrevia || pg;
     const dados = { ...base, fundo: base.fundo ? galeriaMapa[base.fundo] || null : null, blocos: base.blocos.map((b) => (b.tipo === "galeria" ? { ...b, itens: b.itens.map((i) => ({ id: i, url: galeriaMapa[i] })) } : b)) };
     if (base.v2 && (typeof EDITOR2 !== "undefined")) dados.v2 = EDITOR2.v2Previa(base.v2);
     else delete dados.v2;
-    PAGINA.renderizar($("e-previa"), dados, { galeria: galeriaMapa, titulo_padrao: "Minha página", modo: "editor" });
+    PAGINA.renderizar($("e-previa"), dados, { galeria: galeriaMapa, titulo_padrao: "Minha página", modo: "editor", widget: widgetPrevia });
   }
 
   // ------------------------------------------------------------------ salvar (debounce)
@@ -131,8 +142,8 @@
   }
 
   function preencherAparencia() {
-    opcoes("f-temas", galeria.temas, pg.tema, "tema", (v) => { pg.tema = v; alterou(); });
-    opcoes("f-fontes", galeria.fontes, pg.fonte, "fonte", (v) => { pg.fonte = v; alterou(); });
+    opcoes("f-temas", galeria.temas, pg.tema, "tema", (v) => { pg.tema = v; if (typeof EDITOR2 !== "undefined") EDITOR2.aplicarTema(pg); alterou(); });
+    opcoes("f-fontes", galeria.fontes, pg.fonte, "fonte", (v) => { pg.fonte = v; if (typeof EDITOR2 !== "undefined") EDITOR2.aplicarTema(pg); alterou(); });
     $("f-cor").value = /^#[0-9a-f]{6}$/i.test(pg.cor) ? pg.cor : "#e5731c";
     const sel = $("f-fundo");
     sel.replaceChildren();
@@ -423,8 +434,8 @@
   // ------------------------------------------------------------------ ligações
   $("e-entrar-bt").addEventListener("click", () => E.entrar("pagina/editar"));
   $("f-slug").addEventListener("input", () => { alterou(); checarSlug(); });
-  $("f-cor").addEventListener("input", () => { pg.cor = $("f-cor").value; alterou(); });
-  $("f-fundo").addEventListener("change", () => { pg.fundo = $("f-fundo").value || null; alterou(); });
+  $("f-cor").addEventListener("input", () => { pg.cor = $("f-cor").value; if (typeof EDITOR2 !== "undefined") EDITOR2.aplicarTema(pg); alterou(); });
+  $("f-fundo").addEventListener("change", () => { pg.fundo = $("f-fundo").value || null; if (typeof EDITOR2 !== "undefined") EDITOR2.aplicarTema(pg); alterou(); });
   $("f-titulo").addEventListener("input", () => { pg.titulo = $("f-titulo").value; contadores(); alterou(); });
   $("f-bio").addEventListener("input", () => { pg.bio = $("f-bio").value; contadores(); alterou(); });
   $("f-novo-bt").addEventListener("click", () => {

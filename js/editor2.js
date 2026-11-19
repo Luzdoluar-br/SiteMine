@@ -798,5 +798,22 @@ const EDITOR2 = (() => {
     abrir(aberto);
   }
 
-  return { iniciar, registrar, v2Previa, rotuloErro };
+  // o tema, a fonte, a cor e o fundo escolhidos na aba Básico passam a valer também no formato novo (antes só mudavam nas páginas antigas)
+  const PALETAS = { madeira: ["#2b1d12", "#231910", "#efe3cb"], pergaminho: ["#f1e6d0", "#faf4e6", "#2a1d12"], noite: ["#0f1a2b", "#17263d", "#efe3cb"], floresta: ["#14231a", "#1b3024", "#e4ecd9"], brasa: ["#1d1210", "#2a1815", "#f5e3d3"], neve: ["#e8eff6", "#f6f9fc", "#17263d"] };
+  function aplicarTema(pg) {
+    const V = pg.v2;
+    if (!V) return;
+    const [fundo, cartao, texto] = PALETAS[pg.tema] || PALETAS.madeira;
+    V.visual.cores.texto = texto;
+    V.visual.cores.cartao = cartao;
+    V.visual.cores.destaque = /^#[0-9a-f]{6}$/i.test(pg.cor) ? pg.cor.toLowerCase() : V.visual.cores.destaque;
+    if (["alegreya", "fredoka", "nunito", "silkscreen"].includes(pg.fonte)) { V.visual.fonte.familia = pg.fonte; V.visual.fonte.midia = null; }
+    const f = V.visual.fundo;
+    if (pg.fundo) { f.tipo = "galeria"; f.galeria = pg.fundo; f.cor = fundo; }
+    else if (f.tipo === "galeria" || f.tipo === "cor") { f.tipo = "cor"; f.cor = fundo; f.galeria = null; }
+    else f.cor = fundo;
+    if (aberto === "visual") construir("visual");
+  }
+
+  return { iniciar, registrar, v2Previa, rotuloErro, aplicarTema };
 })();

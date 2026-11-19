@@ -309,11 +309,10 @@ const PAGINA2 = (() => {
       c.append(ul);
     } else if (w.tipo === "habilidades") {
       for (const h of cfg.itens || []) { const l = el("div", "pg-skill"); l.append(el("span", "", h.nome)); const b = el("div", "pg-skill-barra"); b.setAttribute("role", "meter"); b.setAttribute("aria-valuemin", "0"); b.setAttribute("aria-valuemax", "100"); b.setAttribute("aria-valuenow", String(h.nivel)); b.setAttribute("aria-label", `${h.nome}: ${h.nivel}%`); const i = el("i"); i.style.width = `${Math.max(0, Math.min(100, h.nivel))}%`; b.append(i); l.append(b); c.append(l); }
-    } else if (w.tipo === "visitas" && v2.visitas !== undefined && !ctx.widget) linhaDado(c, "Visitas na última semana", v2.visitas);
-    else if (!ctx.widget) c.append(el("p", "pg-w-vazio", "Os dados reais aparecem aqui quando a página está no ar."));
+    } else if (!ctx.widget) c.append(el("p", "pg-w-vazio", "Indisponível aqui."));
     else {
       c.append(el("p", "pg-w-vazio", "Carregando…"));
-      ctx.widget(w.id).then((r) => {
+      ctx.widget(w.id, w).then((r) => {
         c.replaceChildren();
         if (r && r.ok && DESENHA[w.tipo]) DESENHA[w.tipo](c, r.dados);
         else c.append(el("p", "pg-w-vazio", (r && r.mensagem) || "Indisponível no momento."));
@@ -331,7 +330,7 @@ const PAGINA2 = (() => {
     const msg = el("p", "pg-w-vazio");
     msg.setAttribute("role", "status");
     s.append(lista);
-    if (!ctx.mural) { s.append(el("p", "pg-w-vazio", "Os recados dos visitantes aparecem aqui quando a página está no ar.")); return s; }
+    if (!ctx.mural) { s.append(el("p", "pg-w-vazio", "Ainda sem recados. Os visitantes logados poderão deixar o deles aqui.")); return s; }
     const desenhar = (itens) => {
       lista.replaceChildren();
       for (const m of itens) {

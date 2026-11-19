@@ -185,6 +185,15 @@ try {
   confere((await aba.js(`document.querySelectorAll("#e-previa .pg-widget").length`)) === 5, "widgets: 5 widgets na pré-visualização");
   confere((await aba.js(`document.querySelector("#e-previa .w-relogio .pg-w-grande").textContent`)).includes(":"), "widgets: relógio mostra a hora de verdade");
 
+  await dorme(1500);
+  confere(/30/.test(await aba.js(`document.querySelector("#e-previa .w-clima .pg-w-corpo").textContent`)) && /Ze|ze/.test(await aba.js(`document.querySelector("#e-previa .w-github .pg-w-corpo").textContent`)), "widgets: a pré-visualização já mostra os dados reais (clima e GitHub) antes de publicar");
+  await aba_editor("basico");
+  await aba.js(`document.querySelector('#f-temas input[value="neve"]').click()`);
+  await dorme(500);
+  confere((await aba.js(`document.querySelector("#e-previa").style.getPropertyValue("--pg-texto")`)) === "#17263d" && (await aba.js(`document.querySelector("#e-previa").classList.contains("tema-neve")`)), "tema: escolher Neve muda na hora as cores da pré-visualização");
+  await foto("editor-tema-neve", "pc");
+  await aba.js(`document.querySelector('#f-temas input[value="floresta"]').click()`);
+  await dorme(300);
   // endereço/SEO: portão desligado, mural ligado, selos
   await aba_editor("endereco");
   await aba.js(`(() => { const c = document.querySelector("#p-endereco"); const m = [...c.querySelectorAll(".campo-check")].find((x) => x.textContent.startsWith("Mural de recados")).querySelector("input"); m.click(); const v = [...c.querySelectorAll(".campo-check")].find((x) => x.textContent.startsWith("Mostrar contador")).querySelector("input"); v.click(); })()`);
