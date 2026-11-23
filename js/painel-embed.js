@@ -5,7 +5,7 @@
 const PEMBED = (() => {
   const { el } = VULPUS;
   const LIM = { titulo: 256, descricao: 4096, campo_nome: 256, campo_valor: 1024, rodape: 2048, autor: 256, campos: 25, total: 6000 };
-  const VARIAVEIS = [["{user}", "menção de quem entrou"], ["{username}", "nome de quem entrou"], ["{server}", "nome do servidor"], ["{count}", "total de membros"]];
+  const VARIAVEIS = [["{@user}", "Menção de quem entrou"], ["{user.name}", "Nome de quem entrou"], ["{guild.name}", "Nome do servidor"], ["{guild.size}", "Total de membros"]];
 
   const vazioEmbed = () => ({
     titulo: "", titulo_url: "", descricao: "", cor: "#e5731c", autor: { nome: "", url: "", icone: "" }, imagem: "", thumbnail: "",
@@ -16,7 +16,7 @@ const PEMBED = (() => {
   // ------------------------------------------------------------------ markdown do Discord (subconjunto) -> DOM
   const RE_LINK = /^https:\/\/[^\s<>"']{4,500}$/;
   function inline(texto, amostra, pai) {
-    const re = /(`[^`\n]+`)|(\*\*[^*]+\*\*)|(__[^_]+__)|(~~[^~]+~~)|(\*[^*\n]+\*)|(_[^_\n]+_)|(\[[^\]\n]+\]\(https:\/\/[^)\s]+\))|(\{(?:user|username|server|count)\})/g;
+    const re = /(`[^`\n]+`)|(\*\*[^*]+\*\*)|(__[^_]+__)|(~~[^~]+~~)|(\*[^*\n]+\*)|(_[^_\n]+_)|(\[[^\]\n]+\]\(https:\/\/[^)\s]+\))|(\{[@\w.]+\})/g;
     let ult = 0;
     let m;
     while ((m = re.exec(texto))) {
@@ -32,7 +32,7 @@ const PEMBED = (() => {
         const mm = s.match(/^\[([^\]]+)\]\((https:\/\/[^)\s]+)\)$/);
         if (mm && RE_LINK.test(mm[2])) { n = el("a", "pk-md-link", mm[1]); n.href = mm[2]; n.target = "_blank"; n.rel = "noopener noreferrer"; }
         else n = document.createTextNode(s);
-      } else { n = el("span", "pk-md-var", amostra[s] ?? s); }
+      } else if (amostra[s] !== undefined) { n = el("span", "pk-md-var", amostra[s] || s); } else { n = document.createTextNode(s); }
       pai.append(n);
       ult = m.index + s.length;
     }
@@ -50,7 +50,9 @@ const PEMBED = (() => {
 
   // ------------------------------------------------------------------ prévia
   function previa(e, ctx) {
-    const amostra = { "{user}": "@NovaPessoa", "{username}": "NovaPessoa", "{server}": ctx.servidor || "Seu servidor", "{count}": "128" };
+    const amostra = ctx.amostra || { "{user}": "NovaPessoa", "{@user}": "@NovaPessoa", "{username}": "NovaPessoa", "{server}": ctx.servidor || "Seu servidor", "{count}": "128" };
+    // links: um https de verdade, ou {user.avatar} / {guild.icon} trocados pelo valor real
+    const url = (u) => (RE_LINK.test(u || "") ? u : (amostra[u] && RE_LINK.test(amostra[u]) ? amostra[u] : ""));
     const raiz = el("div", "pk-previa-moldura");
     raiz.append(el("div", "pk-previa-cab", "Prévia no Discord"));
     const msg = el("div", "pk-msg");
@@ -66,13 +68,13 @@ const PEMBED = (() => {
       box.style.setProperty("border-left-color", /^#[0-9a-fA-F]{6}$/.test(e.cor) ? e.cor : "#e5731c");
       if (e.autor.nome) {
         const a = el("div", "pk-dc-autor");
-        if (e.autor.icone && RE_LINK.test(e.autor.icone)) { const i = el("img"); i.src = e.autor.icone; i.alt = ""; i.referrerPolicy = "no-referrer"; a.append(i); }
+        if (url(e.autor.icone)) { const i = el("img"); i.src = url(e.autor.icone); i.alt = ""; i.referrerPolicy = "no-referrer"; a.append(i); }
         const sp = el("span"); sp.append(md(e.autor.nome, amostra)); a.append(sp);
         box.append(a);
       }
       if (e.titulo) {
         const t = el("div", "pk-dc-titulo");
-        if (e.titulo_url && RE_LINK.test(e.titulo_url)) { const a = el("a"); a.href = e.titulo_url; a.target = "_blank"; a.rel = "noopener noreferrer"; a.append(md(e.titulo, amostra)); t.append(a); }
+        if (url(e.titulo_url)) { const a = el("a"); a.href = url(e.titulo_url); a.target = "_blank"; a.rel = "noopener noreferrer"; a.append(md(e.titulo, amostra)); t.append(a); }
         else t.append(md(e.titulo, amostra));
         box.append(t);
       }
@@ -88,11 +90,11 @@ const PEMBED = (() => {
         }
         box.append(g);
       }
-      if (e.thumbnail && RE_LINK.test(e.thumbnail)) { const i = el("img", "pk-dc-thumb"); i.src = e.thumbnail; i.alt = ""; i.referrerPolicy = "no-referrer"; box.append(i); }
-      if (e.imagem && RE_LINK.test(e.imagem)) { const i = el("img", "pk-dc-img"); i.src = e.imagem; i.alt = ""; i.referrerPolicy = "no-referrer"; box.append(i); }
+      if (url(e.thumbnail)) { const i = el("img", "pk-dc-thumb"); i.src = url(e.thumbnail); i.alt = ""; i.referrerPolicy = "no-referrer"; box.append(i); }
+      if (url(e.imagem)) { const i = el("img", "pk-dc-img"); i.src = url(e.imagem); i.alt = ""; i.referrerPolicy = "no-referrer"; box.append(i); }
       if (e.rodape.texto || e.timestamp) {
         const r = el("div", "pk-dc-rodape");
-        if (e.rodape.icone && e.rodape.texto && RE_LINK.test(e.rodape.icone)) { const i = el("img"); i.src = e.rodape.icone; i.alt = ""; i.referrerPolicy = "no-referrer"; r.append(i); }
+        if (e.rodape.icone && e.rodape.texto && url(e.rodape.icone)) { const i = el("img"); i.src = url(e.rodape.icone); i.alt = ""; i.referrerPolicy = "no-referrer"; r.append(i); }
         const sp = el("span");
         if (e.rodape.texto) sp.append(md(e.rodape.texto, amostra));
         if (e.rodape.texto && e.timestamp) sp.append(document.createTextNode(" • "));
@@ -130,7 +132,7 @@ const PEMBED = (() => {
     let sujo = false;
     const marcar = () => { sujo = true; desenhar(); };
     const desenhar = () => {
-      alvoPrevia.replaceChildren(previa(estado.dados, { servidor: ctx.servidor, conteudo: estado.conteudo }));
+      alvoPrevia.replaceChildren(previa(estado.dados, { servidor: ctx.servidor, conteudo: estado.conteudo, amostra: ctx.amostra }));
       const t = somaTextos(estado.dados);
       resumo.textContent = `Soma dos textos: ${t}/${LIM.total} · campos: ${estado.dados.campos.length}/${LIM.campos}`;
       resumo.style.setProperty("color", t > LIM.total ? "#e46257" : "");
@@ -149,10 +151,10 @@ const PEMBED = (() => {
     const tituloUrl = reg("titulo_url", PUI.campo({ rotulo: "Link do título (https)", valor: estado.dados.titulo_url, placeholder: "https://…", tip: "O título vira um link clicável. Só links https.", aoMudar: (v) => { estado.dados.titulo_url = v; marcar(); } }));
     const desc = reg("descricao", PUI.campo({ rotulo: "Descrição", valor: estado.dados.descricao, max: LIM.descricao, area: true, tip: "Aceita **negrito**, *itálico*, __sublinhado__, ~~riscado~~, `código` e [texto](https://link).", aoMudar: (v) => { estado.dados.descricao = v; marcar(); } }));
     const vars = el("div", "pk-variaveis");
-    for (const [v, d] of VARIAVEIS) {
+    for (const [v, d] of (ctx.variaveis || VARIAVEIS)) {
       const b = el("button", "pk-chip", v);
       b.type = "button";
-      b.setAttribute("data-dica", `Insere ${d}. Vale nas boas-vindas; ao publicar à mão, {user} e {username} viram "membro".`);
+      b.setAttribute("data-dica", `${d}. Variáveis de pessoa só têm valor nas boas-vindas e saídas; ao publicar à mão viram "membro".`);
       b.addEventListener("click", () => {
         const a = desc.entrada;
         const i = a.selectionStart ?? a.value.length;
@@ -289,5 +291,23 @@ const PEMBED = (() => {
     return { raiz, sujo: () => sujo };
   }
 
-  return { editor, previa, vazioEmbed, mesclar, md };
+  /** Botões de variáveis que inserem a chave no campo de texto, na posição do cursor. */
+  function chips(entrada, lista) {
+    const caixa = el("div", "pk-variaveis");
+    for (const [v, d] of lista || VARIAVEIS) {
+      const b = el("button", "pk-chip", v);
+      b.type = "button";
+      b.setAttribute("data-dica", d);
+      b.addEventListener("click", () => {
+        const i = entrada.selectionStart ?? entrada.value.length;
+        entrada.value = entrada.value.slice(0, i) + v + entrada.value.slice(entrada.selectionEnd ?? i);
+        entrada.dispatchEvent(new Event("input"));
+        entrada.focus();
+      });
+      caixa.append(b);
+    }
+    return caixa;
+  }
+
+  return { editor, previa, vazioEmbed, mesclar, md, chips };
 })();

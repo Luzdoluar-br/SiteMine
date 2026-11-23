@@ -39,6 +39,9 @@
   const canais = async () => (await dados("canais", "/painel/api/kiza/canais")).canais;
   const cargos = async () => (await dados("cargos", "/painel/api/kiza/cargos")).cargos;
   const embedsSalvos = async () => (await dados("embeds", "/painel/api/kiza/embeds")).embeds;
+  const variaveis = async () => dados("variaveis", "/painel/api/kiza/variaveis"); // valores REAIS do servidor e de quem está logado
+  const modelos = async () => (await dados("modelos", "/painel/api/kiza/modelos")).modelos;
+  const listaVars = (d) => d.variaveis.map((x) => [x.chave, x.descricao]);
   const esquecer = (chave) => { delete estado.cache[`${estado.gid}:${chave}`]; };
 
   const dataHora = (s) => new Date(s * 1000).toLocaleString("pt-BR", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" });
@@ -231,6 +234,12 @@
     if (c.tipo === "texto") {
       const t = PUI.campo({ rotulo: rot, valor: valorInicial ?? "", area: nome === "mensagem", max: c.max || 0, tip: dica, aoMudar: () => leitor.sujar() });
       leitor.get[nome] = () => t.valor();
+      if (nome === "mensagem") {
+        const alvo = el("div");
+        alvo.append(t.raiz);
+        variaveis().then((v) => alvo.append(PEMBED.chips(t.entrada, listaVars(v)))).catch(() => {});
+        return alvo;
+      }
       return t.raiz;
     }
     const t = PUI.campo({ rotulo: rot, valor: valorInicial ?? "", tipo: "number", min: c.min, maxNum: c.max, tip: dica, aoMudar: () => leitor.sujar() });
@@ -245,7 +254,8 @@
     const ver = PUI.comCarga(el("button", "pk-btn", "Ver prévia"), async () => {
       const { r, d } = await chamar("GET", `/painel/api/kiza/boas_vindas/previa?guild_id=${q(estado.gid)}`);
       if (!r.ok) return PUI.toast(d.mensagem || "Não consegui montar a prévia.", "erro");
-      previa.replaceChildren(PEMBED.previa(PEMBED.mesclar(d.embed), { servidor: estado.servidor.nome, conteudo: d.previa }));
+      const v = await variaveis().catch(() => null);
+      previa.replaceChildren(PEMBED.previa(PEMBED.mesclar(d.embed), { servidor: estado.servidor.nome, conteudo: d.previa, amostra: v ? v.exemplo : undefined }));
     });
     ver.type = "button";
     const teste = PUI.comCarga(el("button", "pk-btn", "Enviar mensagem de teste"), async () => {
@@ -326,12 +336,16 @@
     const f = document.createDocumentFragment();
     f.append(titulo("Mensagens e embeds", "Monte um embed com prévia ao vivo, salve e publique direto num canal. Os embeds salvos também podem ser usados nas boas-vindas."));
     const lista = el("div", "pk-bloco");
+    const galeria = el("div", "pk-bloco");
+    const tabela = el("div", "pk-bloco");
     const editorAlvo = el("div");
-    f.append(lista, editorAlvo);
+    f.append(lista, galeria, tabela, editorAlvo);
     alvo.replaceChildren(f);
+    const vars = await variaveis().catch(() => null);
 
-    const abrir = async (id) => {
+    const abrir = async (id, modelo = null) => {
       let inicial = { id: 0, nome: "", dados: null, conteudo: "" };
+      if (modelo) inicial = { id: 0, nome: modelo.nome, dados: modelo.embed, conteudo: modelo.conteudo || "" };
       if (id) {
         const { r, d } = await chamar("GET", `/painel/api/kiza/embeds/${id}?guild_id=${q(estado.gid)}`);
         if (!r.ok) return PUI.toast(d.mensagem || "Não consegui abrir esse embed.", "erro");
@@ -339,11 +353,60 @@
       }
       editorAlvo.replaceChildren(PEMBED.editor({
         gid: estado.gid, servidor: estado.servidor.nome, chamar, carregarCanais: canais, embedInicial: inicial,
+        amostra: vars ? vars.exemplo : undefined, variaveis: vars ? listaVars(vars) : undefined,
         aoSalvar: async (novoId) => { esquecer("embeds"); await desenharLista(novoId); },
         aoApagar: async () => { esquecer("embeds"); editorAlvo.replaceChildren(); await desenharLista(0); },
       }).raiz);
-      if (id) editorAlvo.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (id || modelo) editorAlvo.scrollIntoView({ behavior: "smooth", block: "start" });
     };
+    // modelos prontos: o editor abre preenchido e você só ajusta
+    const desenharGaleria = async () => {
+      galeria.replaceChildren(el("h4", "", "Modelos prontos"), el("p", "pk-dica", "Escolha um modelo, ajuste o texto e salve. As variáveis (como {guild.name}) são trocadas na hora de enviar."));
+      let itens = [];
+      try { itens = await modelos(); } catch { galeria.append(aviso("Não consegui carregar os modelos.", "erro")); return; }
+      const porCat = {};
+      for (const m of itens) (porCat[m.categoria] = porCat[m.categoria] || []).push(m);
+      for (const [cat, ms] of Object.entries(porCat)) {
+        galeria.append(el("div", "pk-select-grupo", cat));
+        const grade = el("div", "pk-modelos");
+        for (const m of ms) {
+          const c = el("div", "pk-modelo");
+          const corBarra = el("span", "pk-modelo-cor");
+          corBarra.style.setProperty("background", (m.embed && m.embed.cor) || "#6c727a");
+          const t = el("div");
+          t.append(el("b", "", m.nome), el("p", "pk-dica", m.descricao));
+          const b = el("button", "pk-btn pk-btn-pequeno", "Usar este modelo");
+          b.type = "button";
+          b.addEventListener("click", () => abrir(0, m));
+          c.append(corBarra, t, b);
+          grade.append(c);
+        }
+        galeria.append(grade);
+      }
+    };
+    // tabela "Quais variáveis posso usar?" (valores reais do seu servidor; clique para copiar)
+    const desenharTabela = () => {
+      tabela.replaceChildren(el("h4", "", "Quais variáveis posso usar?"), el("p", "pk-dica", "Valem em qualquer texto de mensagem ou embed. Os valores abaixo são os do seu servidor e o seu próprio perfil, como exemplo."));
+      if (!vars) return;
+      const tb = el("table", "pk-tabela");
+      const cab = el("tr");
+      for (const h of ["Variável", "Valor de exemplo", "O que é"]) cab.append(el("th", "", h));
+      tb.append(cab);
+      for (const x of vars.variaveis) {
+        const tr = el("tr");
+        const ch = el("button", "pk-chip", x.chave);
+        ch.type = "button";
+        ch.addEventListener("click", () => { navigator.clipboard && navigator.clipboard.writeText(x.chave).then(() => PUI.toast(`${x.chave} copiado.`, "ok")).catch(() => {}); });
+        const td0 = el("td"); td0.append(ch);
+        tr.append(td0, el("td", "pk-valor", (x.valor || "(vazio neste servidor)").slice(0, 60)), el("td", "", x.descricao));
+        tb.append(tr);
+      }
+      const rolagem = el("div", "pk-tabela-rolagem");
+      rolagem.append(tb);
+      tabela.append(rolagem);
+    };
+    desenharTabela();
+    await desenharGaleria();
     const desenharLista = async (ativo) => {
       lista.replaceChildren(el("h4", "", "Seus embeds"));
       let itens = [];

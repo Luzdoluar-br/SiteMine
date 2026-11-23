@@ -247,3 +247,17 @@
 }
 @media (max-width: 520px) { .pk-topo { gap: 8px; } .pk-topo-titulo p { display: none; } .pk-dc-campo.lado { grid-column: 1 / -1; } .pk-tela-card { padding: 24px 18px; } }
 @media (prefers-reduced-motion: reduce) { .pk *, .pk *::before, .pk *::after { animation: none !important; transition: none !important; } }
+
+/* modelos prontos e tabela de variáveis */
+.pk-modelos { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); }
+.pk-modelo { display: grid; grid-template-columns: 6px minmax(0, 1fr); gap: 4px 12px; align-items: start; padding: 12px; border: 1px solid var(--pk-borda2); border-radius: 10px; background: var(--pk-fundo2); }
+.pk-modelo-cor { grid-row: 1 / span 2; align-self: stretch; border-radius: 4px; min-height: 100%; }
+.pk-modelo b { font-size: 1rem; }
+.pk-modelo p { margin: 2px 0 0; }
+.pk-modelo .pk-btn { grid-column: 2; justify-self: start; margin-top: 4px; }
+.pk-tabela-rolagem { overflow-x: auto; border: 1px solid var(--pk-borda); border-radius: 10px; }
+.pk-tabela { width: 100%; border-collapse: collapse; font-size: .92rem; }
+.pk-tabela th { text-align: left; padding: 9px 12px; color: var(--pk-suave); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; border-bottom: 1px solid var(--pk-borda); background: var(--pk-fundo2); }
+.pk-tabela td { padding: 8px 12px; border-bottom: 1px solid var(--pk-borda); vertical-align: top; }
+.pk-tabela tr:last-child td { border-bottom: 0; }
+.pk-valor { color: var(--pk-texto); overflow-wrap: anywhere; max-width: 320px; }
