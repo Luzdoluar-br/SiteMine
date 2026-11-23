@@ -341,11 +341,18 @@ const EDITOR2 = (() => {
         const topo = el("div", "bloco-topo");
         topo.append(el("strong", "", f.titulo || `Faixa ${i + 1}`), acoesOrdem(m.faixas, i, desenhar, `a faixa ${i + 1}`));
         const corpo = el("div", "bloco-corpo");
-        corpo.append(texto("Título", f.titulo, 60, (x) => { f.titulo = x; }), texto("Artista", f.artista, 60, (x) => { f.artista = x; }),
-          seletorMidia("Arquivo de áudio (MP3, OGG, WAV, M4A ou WebM)", ["audio"], f.midia, (x) => { f.midia = x; }),
-          marcar("Tenho o direito de usar esta música (é minha, licenciada ou livre)", f.direitos, (x) => { f.direitos = x; }, "Sem essa confirmação a página não salva. Músicas de outras pessoas: use o link externo abaixo."),
-          seletorMidia("Capa", ["imagem", "gif"], f.capa, (x) => { f.capa = x; }),
-          texto("Ou link externo (YouTube, Spotify, SoundCloud, Bandcamp, Deezer, Apple Music)", f.externo, 300, (x) => { f.externo = x; }, { dica: "Link externo vira um botão “Ouvir em …” (a música toca no site de origem, respeitando os direitos)." }));
+        if (f.fonte) {
+          // faixa que veio de um link do YouTube ou do Spotify: título, artista e capa podem ser ajustados; o áudio toca no player do próprio serviço
+          corpo.append(texto("Título", f.titulo, 60, (x) => { f.titulo = x; }), texto("Artista", f.artista, 60, (x) => { f.artista = x; }),
+            seletorMidia("Capa", ["imagem", "gif"], f.capa, (x) => { f.capa = x; }),
+            aviso(`Vem do ${f.fonte === "youtube" ? "YouTube" : "Spotify"}: ${f.externo}. ${f.fonte === "spotify" ? "O Spotify não começa sozinho e, para quem não entrou na conta dele, toca só um trecho." : "O vídeo carrega quando a pessoa toca (ou no portão, se “Tocar sozinho” estiver ligado)."}`));
+        } else {
+          corpo.append(texto("Título", f.titulo, 60, (x) => { f.titulo = x; }), texto("Artista", f.artista, 60, (x) => { f.artista = x; }),
+            seletorMidia("Arquivo de áudio (MP3, OGG, WAV, M4A ou WebM)", ["audio"], f.midia, (x) => { f.midia = x; }),
+            marcar("Tenho o direito de usar esta música (é minha, licenciada ou livre)", f.direitos, (x) => { f.direitos = x; }, "Sem essa confirmação a página não salva. Músicas de outras pessoas: use o link externo abaixo."),
+            seletorMidia("Capa", ["imagem", "gif"], f.capa, (x) => { f.capa = x; }),
+            texto("Ou link externo (YouTube, Spotify, SoundCloud, Bandcamp, Deezer, Apple Music)", f.externo, 300, (x) => { f.externo = x; }, { dica: "Link externo vira um botão “Ouvir em …” (a música toca no site de origem, respeitando os direitos)." }));
+        }
         li.append(topo, corpo);
         itemOrdenavel(li, m.faixas, i, desenhar);
         lista.append(li);
@@ -353,10 +360,34 @@ const EDITOR2 = (() => {
       if (!m.faixas.length) lista.append(el("li", "dica", "Nenhuma faixa ainda."));
     };
     desenhar();
+    // música por link: cola o link do YouTube ou do Spotify e o servidor devolve título, artista e capa (a capa vira mídia da pessoa)
+    const linkIn = el("input");
+    linkIn.type = "url"; linkIn.maxLength = 300; linkIn.placeholder = "https://www.youtube.com/watch?v=… ou https://open.spotify.com/track/…";
+    const linkSt = el("p", "dica");
+    linkSt.setAttribute("role", "status");
+    const linkBt = botao("Buscar e adicionar", async () => {
+      if (m.faixas.length >= rec.limites.faixas) return msg(linkSt, `Você já tem o máximo de ${rec.limites.faixas} faixa(s).`, true);
+      const url = linkIn.value.trim();
+      if (!url) return msg(linkSt, "Cole o link da música primeiro.", true);
+      msg(linkSt, "Buscando título e capa…");
+      linkBt.disabled = true;
+      let res;
+      try { res = await H.E.chamar("POST", "/painel/api/pagina/musica/link", { url }); } catch { res = { r: { ok: false }, d: {} }; }
+      linkBt.disabled = false;
+      const { r, d } = res;
+      if (!r.ok) return msg(linkSt, d.mensagem || "Não consegui ler esse link agora. Tente de novo.", true);
+      m.faixas.push({ titulo: d.titulo || "", artista: d.artista || "", midia: null, capa: d.capa || null, externo: d.externo, direitos: false, fonte: d.fonte, ext_id: d.ext_id, ext_tipo: d.ext_tipo });
+      linkIn.value = "";
+      msg(linkSt, `Adicionada: ${d.titulo}. Confira o título e o artista abaixo.`);
+      desenhar();
+      mudou();
+    }, "botao botao-pequeno");
+    const blocoLink = el("div", "campo");
+    blocoLink.append(campo("Adicionar música por link (YouTube ou Spotify)", linkIn, "A capa, o título e o artista vêm sozinhos. Para músicas de outras pessoas, esta é a forma certa: ela toca no player do próprio serviço."), linkBt, linkSt);
     const add = botao("Adicionar faixa", () => { if (m.faixas.length >= rec.limites.faixas) return; m.faixas.push({ titulo: "", artista: "", midia: null, capa: null, externo: "", direitos: false }); desenhar(); mudou(); }, "botao botao-pequeno");
-    c.append(grupo("Músicas", lista, add), grupo("Player", selecao("Estilo", [["compacto", "Compacto"], ["completo", "Completo (com progresso)"], ["barra", "Barra embaixo"]], m.estilo, (x) => { m.estilo = x; }),
+    c.append(grupo("Músicas", blocoLink, lista, add), grupo("Player", selecao("Estilo", [["compacto", "Compacto"], ["completo", "Completo (com progresso)"], ["barra", "Barra embaixo"]], m.estilo, (x) => { m.estilo = x; }),
       numero("Volume inicial", m.volume, 0, 100, 5, (x) => { m.volume = x; }, "%"), marcar("Mostrar o player (desligado: fica só um botão de pausa)", m.mostrar, (x) => { m.mostrar = x; }),
-      marcar("Tocar sozinho", m.autoplay, (x) => { m.autoplay = x; }, "Os navegadores só tocam áudio depois de um toque da pessoa. Por isso, junto com o portão “clique para entrar”, a música começa na hora do clique."),
+      marcar("Tocar sozinho", m.autoplay, (x) => { m.autoplay = x; }, "Os navegadores só tocam áudio depois de um toque da pessoa. Por isso, com isto ligado, a página mostra sozinha o portão “clique para entrar” e a música começa na hora do clique. Desligue para a música esperar o botão de tocar."),
       marcar("Repetir a lista", m.loop, (x) => { m.loop = x; }), marcar("Ordem aleatória", m.embaralhar, (x) => { m.embaralhar = x; })));
 
     const d = V.digitacao;

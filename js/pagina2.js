@@ -233,6 +233,16 @@ const PAGINA2 = (() => {
     const caixa = el("section", `pg-player est-${m.estilo || "compacto"}`);
     caixa.setAttribute("aria-label", "Player de música");
     const tocaveis = faixas.filter((f) => f.midia && urlMidia(f.midia));
+    // YouTube e Spotify: o id vem do servidor (recalculado do link, nunca do navegador) e aqui só vale com o formato certo. O player é o do próprio
+    // serviço (a regra deles exige o quadro visível), carregado só quando a pessoa toca: nada de terceiros antes disso.
+    const TIPOS_SP = ["track", "album", "playlist", "episode"];
+    const embedDe = (f, tocar) => {
+      const id = String(f.ext_id || "");
+      if (f.fonte === "youtube" && /^[A-Za-z0-9_-]{11}$/.test(id)) return { url: `https://www.youtube-nocookie.com/embed/${id}?rel=0&playsinline=1&modestbranding=1${tocar ? "&autoplay=1" : ""}`, classe: "pg-embed-yt", nome: "YouTube" };
+      if (f.fonte === "spotify" && TIPOS_SP.includes(f.ext_tipo) && /^[A-Za-z0-9]{22}$/.test(id)) return { url: `https://open.spotify.com/embed/${f.ext_tipo}/${id}?utm_source=generator&theme=0`, classe: f.ext_tipo === "track" || f.ext_tipo === "episode" ? "pg-embed-sp" : "pg-embed-sp lista", nome: "Spotify" };
+      return null;
+    };
+    const embutidas = faixas.filter((f) => !(f.midia && urlMidia(f.midia)) && embedDe(f, false));
     let atual = 0;
     const audio = new Audio();
     audio.preload = "none";
@@ -283,8 +293,10 @@ const PAGINA2 = (() => {
       play.addEventListener("click", () => (audio.paused ? audio.play().catch(() => {}) : audio.pause()));
       ant.addEventListener("click", () => carregar(atual - 1, !audio.paused));
       prox.addEventListener("click", () => carregar(atual + 1, !audio.paused));
-      audio.addEventListener("play", () => { caixa.classList.add("tocando"); play.setAttribute("aria-label", "Pausar"); estadoLeitor.textContent = `Tocando ${tit.textContent}`; });
-      audio.addEventListener("pause", () => { caixa.classList.remove("tocando"); play.setAttribute("aria-label", "Tocar"); estadoLeitor.textContent = "Música pausada"; });
+      // o botão troca o desenho junto com o estado: triângulo quando parado, duas barrinhas quando tocando
+      const desenho = (nome) => { play.replaceChildren(icone(nome)); };
+      audio.addEventListener("play", () => { caixa.classList.add("tocando"); play.setAttribute("aria-label", "Pausar"); desenho("pause"); estadoLeitor.textContent = `Tocando ${tit.textContent}`; });
+      audio.addEventListener("pause", () => { caixa.classList.remove("tocando"); play.setAttribute("aria-label", "Tocar"); desenho("play"); estadoLeitor.textContent = "Música pausada"; });
       audio.addEventListener("ended", () => { if (tocaveis.length > 1 || m.loop) carregar(atual + 1, true); else audio.pause(); });
       audio.addEventListener("timeupdate", () => { if (audio.duration) prog.value = String(Math.round((audio.currentTime / audio.duration) * 1000)); });
       prog.addEventListener("input", () => { if (audio.duration) audio.currentTime = (Number(prog.value) / 1000) * audio.duration; });
@@ -298,14 +310,60 @@ const PAGINA2 = (() => {
       c.append(...(tocaveis.length > 1 ? [ant] : []), play, ...(tocaveis.length > 1 ? [prox] : []), indicador);
       caixa.append(corpo, prog, vol, estadoLeitor);
     }
-    for (const f of faixas.filter((x) => x.externo && P.urlHttps(x.externo))) {
+    const quadros = [];
+    for (const f of embutidas) {
+      const e0 = embedDe(f, false);
+      const cartao = el("div", "pg-embed");
+      const cv = f.capa && urlMidia(f.capa);
+      if (cv) {
+        const im = el("img", "pg-capa");
+        im.alt = "";
+        im.src = cv;
+        cartao.append(im);
+      }
+      const inf = el("div", "pg-musica-info");
+      inf.append(el("strong", "pg-musica-titulo", f.titulo || "Sem título"), el("span", "pg-musica-artista", `${f.artista ? `${f.artista} · ` : ""}${e0.nome}`));
+      const abrir = (tocar) => {
+        if (ctx.modo === "editor" || cartao.querySelector("iframe")) return;
+        const e = embedDe(f, tocar);
+        const fr = el("iframe", `pg-embed-quadro ${e.classe}`);
+        fr.src = e.url;
+        fr.title = `${e.nome}: ${f.titulo || "música"}`;
+        fr.allow = "autoplay; encrypted-media; fullscreen; clipboard-write";
+        fr.referrerPolicy = "strict-origin-when-cross-origin";
+        fr.setAttribute("sandbox", "allow-scripts allow-same-origin allow-presentation allow-popups allow-popups-to-escape-sandbox");
+        cartao.classList.add("aberto");
+        cartao.append(fr);
+      };
+      const bt = btn(`Tocar ${f.titulo || "a música"} no ${e0.nome}`, "play", "pg-play");
+      bt.addEventListener("click", () => abrir(true));
+      if (ctx.modo === "editor") {
+        bt.disabled = true;
+        bt.title = "O player aparece na página publicada";
+      }
+      cartao.append(inf, bt);
+      quadros.push({ f, abrir });
+      limpezas.push(() => cartao.querySelector("iframe")?.remove());
+      caixa.append(cartao);
+    }
+    for (const f of faixas.filter((x) => x.externo && P.urlHttps(x.externo) && !embedDe(x, false))) {
       const a = el("a", "pg-externa", `Ouvir “${f.titulo}” em ${new URL(f.externo).hostname.replace(/^www\./, "")}`);
       a.href = f.externo; a.target = "_blank"; a.rel = "noopener noreferrer nofollow ugc";
       caixa.append(a);
     }
     if (m.mostrar === false) caixa.classList.add("so-mudo");
     // o navegador só deixa tocar depois de um toque da pessoa: devolve a função que o portão ou o primeiro clique usa
-    return { caixa, iniciar: () => { if (m.autoplay && tocaveis.length) audio.play().catch(() => {}); }, tem_audio: tocaveis.length > 0 };
+    return {
+      caixa,
+      iniciar: () => {
+        if (!m.autoplay) return;
+        if (tocaveis.length) return void audio.play().catch(() => {});
+        const yt = quadros.find((q) => q.f.fonte === "youtube"); // só o YouTube começa sozinho (o Spotify exige o toque no player dele)
+        if (yt) yt.abrir(true);
+      },
+      tem_audio: tocaveis.length > 0,
+      tem_musica: tocaveis.length > 0 || quadros.some((q) => q.f.fonte === "youtube"),
+    };
   }
 
   // ------------------------------------------------------------------ widgets
@@ -546,17 +604,23 @@ const PAGINA2 = (() => {
     const iniciar = () => { if (pl) pl.iniciar(); if (video && numero(fu.video_volume, 0) > 0) { video.muted = false; video.play().catch(() => {}); } };
 
     // portão "[ clique para entrar ]": também é o toque que o navegador exige para tocar áudio
+    // Navegador nenhum deixa tocar áudio antes de um toque da pessoa. Por isso, quando a música toca sozinha, o portão "clique para entrar" aparece
+    // sozinho e o clique nele já começa a música. Quem não quer o portão desliga o "Tocar sozinho" (aí a música espera o botão de tocar).
     const portao = v2.portao || {};
-    if (portao.ativo && ctx.modo !== "editor") {
+    const tocaSozinha = !!(pl && pl.tem_musica && (v2.musica || {}).autoplay);
+    const quer_portao = portao.ativo || tocaSozinha;
+    if (quer_portao && ctx.modo !== "editor") {
       const p = el("button", "pg-portao", portao.texto || "[ clique para entrar ]");
       p.type = "button";
       raiz.classList.add("com-portao");
       p.addEventListener("click", () => { p.remove(); raiz.classList.remove("com-portao"); iniciar(); });
       raiz.append(p);
     } else if (ctx.modo !== "editor" && pl && (v2.musica || {}).autoplay) {
-      const unica = () => { iniciar(); removeEventListener("pointerdown", unica); removeEventListener("keydown", unica); };
-      addEventListener("pointerdown", unica, { once: true });
-      addEventListener("keydown", unica, { once: true });
+      // sem portão: o primeiro toque em qualquer lugar começa a música. No celular o toque só conta como "gesto" quando termina (pointerup, touchend ou
+      // click); pointerdown não vale, e era por isso que a música não começava.
+      const eventos = ["pointerup", "touchend", "click", "keydown"];
+      const unica = () => { iniciar(); for (const e of eventos) removeEventListener(e, unica, true); };
+      for (const e of eventos) addEventListener(e, unica, { capture: true, once: true });
       iniciar();
     }
     return raiz;

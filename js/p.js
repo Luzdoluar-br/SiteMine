@@ -96,10 +96,10 @@
     seo(d);
     if (real !== slug) history.replaceState(null, "", `?u=${real}`);
     sinal(`/site/pagina/${real}/visita`, { ref: document.referrer || "" });
-    iniciarAcoes(real);
+    iniciarAcoes(real, Number(d.curtidas) || 0);
   }
 
-  function iniciarAcoes(real) {
+  function iniciarAcoes(real, curtidas) {
     const msg = (t) => {
       $("acoesMsg").textContent = t;
     };
@@ -123,24 +123,48 @@
       else qd.setAttribute("open", "");
     });
     $("qrFechar").addEventListener("click", () => qd.close());
-    if (sessaoAtiva()) {
-      VULPUS.api(`/painel/api/pagina/favorito?slug=${real}`)
-        .then(({ r, d }) => {
-          if (!r.ok || d.propria) return;
-          const b = $("favoritar");
-          const pintar = (f) => {
-            b.textContent = f ? "Favoritada (tirar)" : "Favoritar";
-            b.setAttribute("aria-pressed", String(f));
-          };
-          pintar(!!d.favorito);
-          b.hidden = false;
-          b.addEventListener("click", async () => {
-            const q = await VULPUS.api("/painel/api/pagina/favoritar", { method: "POST", body: JSON.stringify({ slug: real }) });
-            if (q.r.ok) pintar(q.d.favorito);
-          });
-        })
-        .catch(() => {});
+    // curtir: a contagem é pública (vem junto com a página); quem não entrou vê o número e, ao clicar, o convite para entrar com o Discord
+    const b = $("favoritar");
+    let total = curtidas;
+    let curtiu = false;
+    const pintar = () => {
+      b.textContent = `${curtiu ? "Curtida" : "Curtir"} (${total})`;
+      b.setAttribute("aria-pressed", String(curtiu));
+      b.setAttribute("aria-label", `${curtiu ? "Descurtir" : "Curtir"} esta página. ${total} ${total === 1 ? "curtida" : "curtidas"}`);
+      b.classList.toggle("curtir-ativo", curtiu);
+    };
+    pintar();
+    if (!sessaoAtiva()) {
+      b.addEventListener("click", () => {
+        msg("Entre com o Discord para curtir.");
+        b.replaceWith(Object.assign(document.createElement("a"), { className: "link-denuncia link-curtir", id: "favoritar", href: "../conta/?entrar=1&volta=explorar", textContent: `Entre para curtir (${total})` }));
+      });
+      return;
     }
+    VULPUS.api(`/painel/api/pagina/favorito?slug=${real}`)
+      .then(({ r, d }) => {
+        if (!r.ok) return;
+        if (Number.isFinite(Number(d.total))) total = Number(d.total);
+        if (d.propria) {
+          // a própria página não se curte: mostra só o total
+          b.disabled = true;
+          b.title = "Você não pode curtir a sua própria página";
+          pintar();
+          return;
+        }
+        curtiu = !!(d.curtida ?? d.favorito);
+        pintar();
+        b.addEventListener("click", async () => {
+          b.disabled = true;
+          const q = await VULPUS.api("/painel/api/pagina/favoritar", { method: "POST", body: JSON.stringify({ slug: real }) }).catch(() => ({ r: { ok: false }, d: {} }));
+          b.disabled = false;
+          if (!q.r.ok) return msg("Não consegui curtir agora. Tente de novo.");
+          curtiu = !!(q.d.curtida ?? q.d.favorito);
+          if (Number.isFinite(Number(q.d.total))) total = Number(q.d.total);
+          pintar();
+        });
+      })
+      .catch(() => {});
   }
 
   const dlg = $("denunciaDialogo");

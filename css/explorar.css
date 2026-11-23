@@ -14,3 +14,5 @@
 .ex-cartao p { margin: 0; font-size: .98rem; overflow-wrap: anywhere; }
 .ex-favoritas { margin-top: 32px; }
 @media (prefers-reduced-motion: reduce) { .ex-cartao { transition: none; } }
+
+.ex-curtidas { font-family: var(--f-pixel); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ex-cor); }

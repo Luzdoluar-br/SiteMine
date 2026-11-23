@@ -66,7 +66,7 @@ for (const arquivo of paginas) {
       .replaceAll("{{nome_servidor}}", CFG.servidor.nome)
       .replaceAll("{{nome_alt}}", CFG.alternativo.nome);
   const html = trocar(modelo)
-    .replace("{{csp}}", CSP)
+    .replace("{{csp}}", () => (meta.frames && meta.frames.length ? `${CSP}; frame-src ${meta.frames.join(" ")}` : CSP)) // só a página pública libera os players do YouTube e do Spotify
     .replaceAll("{{titulo}}", escapar(meta.titulo))
     .replaceAll("{{descricao}}", escapar(meta.descricao))
     .replaceAll("{{url}}", url) // aparece duas vezes (og:url e canonical): replace() trocava só a primeira

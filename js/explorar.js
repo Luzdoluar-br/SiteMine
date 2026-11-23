@@ -23,7 +23,9 @@
       i.loading = "lazy";
       av.append(i);
     } else av.textContent = (p.titulo || "?").slice(0, 1).toUpperCase();
+    const nCurt = Number(p.curtidas) || 0;
     a.append(topo, av, el("strong", "", p.titulo), el("span", "ex-tipo", p.tipo === "parceiro" ? "Parceiro" : "Kitsune"), el("p", "", p.bio || ""));
+    if (nCurt > 0) a.append(el("span", "ex-curtidas", `${nCurt} ${nCurt === 1 ? "curtida" : "curtidas"}`));
     li.append(a);
     return li;
   }

@@ -271,3 +271,18 @@
 .pg2 .pg-selo-e { line-height: 1; }
 
 .pg2 .pg-skill span { overflow-wrap: anywhere; line-height: 1.25; }
+
+/* música por link (YouTube e Spotify): cartão com capa e título; o player do serviço entra quando a pessoa toca */
+.pg-embed { flex: 1 1 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; min-width: 0; }
+.pg-embed .pg-musica-info { flex: 1 1 140px; }
+.pg-embed .pg-embed-quadro { flex: 1 1 100%; width: 100%; border: 0; border-radius: 10px; background: #000; }
+.pg-embed .pg-embed-yt { aspect-ratio: 16 / 9; max-height: 230px; }
+.pg-embed .pg-embed-sp { height: 152px; }
+.pg-embed .pg-embed-sp.lista { height: 352px; }
+.pg-embed.aberto > .pg-play { display: none; }
+.pg-player.so-mudo .pg-embed .pg-capa { display: block; }
+.pg-player.so-mudo .pg-embed .pg-musica-info { display: grid; }
+
+/* botão de curtir da página pública */
+.link-curtir[aria-pressed="true"], .link-curtir.curtir-ativo { color: #f59a3b; font-weight: 700; }
+.link-curtir:disabled { opacity: .7; cursor: default; }
