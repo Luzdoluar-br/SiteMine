@@ -1,40 +1,58 @@
-<!--pagina {"rota":"kiza/painel","titulo":"Painel da Kiza · Vulpus","descricao":"Ligue e ajuste as funções da Kiza no seu servidor. Tudo vem desligado até você ligar.","secao":"kiza","css":["base","paginas","parceiros","editor","portal"],"js":["entrada-portal","painel-kiza"],"indexar":false}-->
-<div class="faixa faixa-madeira portal-sec">
-  <div class="miolo">
-    <section id="k-carregando" class="estado"><div class="fogo" aria-hidden="true"></div><p>Acendendo as lanternas…</p></section>
+<!--pagina {"rota":"kiza/painel","titulo":"Painel da Kiza · Vulpus","descricao":"Ligue e ajuste as funções da Kiza no seu servidor. Tudo vem desligado até você ligar.","secao":"kiza","css":["base","painel"],"js":["entrada-portal","painel-ui","painel-embed","painel-kiza"],"indexar":false,"classe":"painel-app","imagens_https":true}-->
+<svg class="simbolos" width="0" height="0" aria-hidden="true" focusable="false">
+  <symbol id="p-inicio" viewBox="0 0 24 24"><path d="M3.5 11 12 4l8.5 7M6 9.8V20h4.5v-5.5h3V20H18V9.8"/></symbol>
+  <symbol id="p-funcoes" viewBox="0 0 24 24"><rect x="3.5" y="4" width="17" height="6" rx="3"/><circle cx="16.5" cy="7" r="1.6"/><rect x="3.5" y="14" width="17" height="6" rx="3"/><circle cx="7.5" cy="17" r="1.6"/></symbol>
+  <symbol id="p-mensagens" viewBox="0 0 24 24"><path d="M4 5.5h16v10H9.5L5 19.5v-4H4z"/><path d="M8 9h8M8 12h5"/></symbol>
+  <symbol id="p-ia" viewBox="0 0 24 24"><path d="M12 3.5l1.7 4.3 4.3 1.7-4.3 1.7L12 15.5l-1.7-4.3L6 9.5l4.3-1.7zM18.5 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></symbol>
+  <symbol id="p-registro" viewBox="0 0 24 24"><path d="M6 3.5h9l3 3V20.5H6z"/><path d="M9 11h6M9 14.5h6M9 7.5h3"/></symbol>
+  <symbol id="p-saude" viewBox="0 0 24 24"><path d="M3 12h4l2-6 4 12 2-6h6"/></symbol>
+  <symbol id="p-voltar" viewBox="0 0 24 24"><path d="M10 6l-6 6 6 6M4 12h16"/></symbol>
+  <symbol id="p-sair" viewBox="0 0 24 24"><path d="M14 4h5v16h-5M10 8l-4 4 4 4M6 12h10"/></symbol>
+  <symbol id="p-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="p-seta" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="p-conversa" viewBox="0 0 24 24"><path d="M5 5h14v10H11l-4 4v-4H5z"/></symbol>
+  <symbol id="p-pergunta" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.7 9.6a2.4 2.4 0 1 1 3.4 2.2c-.7.4-1.1.9-1.1 1.7M12 16.8v.1"/></symbol>
+  <symbol id="p-ola" viewBox="0 0 24 24"><path d="M12 20s-7-4.3-7-9.7A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 7 2.3C19 15.7 12 20 12 20z"/></symbol>
+  <symbol id="p-vazio" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M5.5 18.5l13-13"/></symbol>
+  <symbol id="p-livro" viewBox="0 0 24 24"><path d="M5 4.5h10a3 3 0 0 1 3 3V20H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h10"/></symbol>
+  <symbol id="p-limpeza" viewBox="0 0 24 24"><path d="M5 7h14M9 7V4.5h6V7M7 7l1 13h8l1-13"/></symbol>
+</svg>
 
-    <section id="k-entrar" hidden>
-      <p class="sobretitulo">Painel da Kiza</p>
+<div class="pk" id="pk">
+  <section class="pk-tela" id="pk-carregando"><div class="pk-tela-card"><div class="pk-marca"><svg aria-hidden="true"><use href="#sinal"/></svg>Painel da Kiza</div><p id="pk-carregando-txt">Acendendo as lanternas…</p></div></section>
+
+  <section class="pk-tela" id="pk-entrar" hidden>
+    <div class="pk-tela-card">
+      <div class="pk-marca"><svg aria-hidden="true"><use href="#sinal"/></svg>Painel da Kiza</div>
       <h1>As funções da Kiza, <em>do seu jeito.</em></h1>
-      <p class="lead">Entre com o Discord e escolha o servidor. Cada função começa <strong>desligada</strong>: só liga quem tem Gerenciar Servidor, e cada mudança fica registrada.</p>
-      <p class="acoes"><button type="button" class="botao" id="k-entrar-bt"><svg aria-hidden="true"><use href="#discord"/></svg>Entrar com o Discord</button></p>
-      <p class="pequeno">Pedimos ao Discord só o seu nome, a sua foto e a lista dos servidores que você gerencia. A chave de IA, se você usar uma, fica cifrada e nunca volta para esta tela.</p>
-      <p class="aviso" id="k-aviso" hidden></p>
-    </section>
+      <p>Entre com o Discord e escolha o servidor. Cada função começa <strong>desligada</strong>: só liga quem tem Gerenciar Servidor, e cada mudança fica registrada.</p>
+      <p class="pk-acoes"><button type="button" class="pk-btn pk-btn-primario" id="pk-entrar-bt"><svg class="i" aria-hidden="true"><use href="#discord"/></svg>Entrar com o Discord</button><a class="pk-btn pk-btn-fantasma" href="{{raiz}}kiza/">Voltar ao site</a></p>
+      <p class="pk-dica">Pedimos ao Discord só o seu nome, a sua foto e a lista dos servidores que você gerencia. Chaves de IA ficam cifradas e nunca voltam para a tela.</p>
+      <p class="pk-aviso erro" id="pk-aviso-entrar" hidden></p>
+    </div>
+  </section>
 
-    <section id="k-lista" hidden>
-      <p class="sobretitulo">Painel da Kiza</p>
-      <h1>Escolha o <em>servidor.</em></h1>
-      <ul class="lista-servidores" id="k-servidores"></ul>
-      <p class="pequeno" id="k-vazio" hidden>Nenhum servidor encontrado. Você precisa ter a permissão Gerenciar Servidor e ter entrado de novo depois de receber a permissão.</p>
-      <p class="acoes"><button type="button" class="botao botao-fio" id="k-sair">Sair</button></p>
-    </section>
-
-    <section id="k-servidor" hidden>
-      <p class="acoes"><button type="button" class="botao botao-pequeno botao-fio" id="k-voltar">← Outros servidores</button></p>
-      <p class="sobretitulo">Painel da Kiza</p>
-      <h1 id="k-nome">Servidor</h1>
-      <p class="aviso" id="k-msg" role="status" hidden></p>
-      <div id="k-modulos"></div>
-      <h2>Conversa com IA (a sua própria chave)</h2>
-      <div id="k-ia"></div>
-      <h2>Quem mudou o quê</h2>
-      <ul class="lista-simples" id="k-aud"></ul>
-      <div id="k-equipe" hidden>
-        <h2>Saúde da Kiza (equipe)</h2>
-        <p><button type="button" class="botao botao-pequeno" id="k-saude-bt">Ver saúde</button></p>
-        <pre id="k-saude" class="pequeno"></pre>
+  <div class="pk-app" id="pk-app" hidden>
+    <aside class="pk-lado" id="pk-lado" aria-label="Navegação do painel">
+      <div class="pk-marca"><svg aria-hidden="true"><use href="#sinal"/></svg>Painel da Kiza</div>
+      <nav class="pk-nav" id="pk-nav"></nav>
+      <div class="pk-lado-fim">
+        <div class="pk-usuario" id="pk-usuario"></div>
+        <a href="{{raiz}}kiza/"><svg class="i" aria-hidden="true"><use href="#p-voltar"/></svg>Voltar ao site</a>
+        <button type="button" id="pk-sair"><svg class="i" aria-hidden="true"><use href="#p-sair"/></svg>Sair</button>
       </div>
-    </section>
+    </aside>
+    <div class="pk-fundo-menu" id="pk-fundo-menu"></div>
+    <div class="pk-principal">
+      <header class="pk-topo">
+        <button type="button" class="pk-menu-btn" id="pk-menu-btn" aria-label="Abrir o menu"><svg class="i" aria-hidden="true"><use href="#p-menu"/></svg></button>
+        <div class="pk-topo-titulo"><h1 id="pk-titulo">Painel</h1><p id="pk-subtitulo"></p></div>
+        <div class="pk-topo-fim">
+          <div class="pk-servidor" id="pk-servidor"></div>
+        </div>
+      </header>
+      <div class="pk-conteudo" id="pk-vista"></div>
+    </div>
   </div>
+  <div class="pk-toasts" id="pk-toasts" role="status" aria-live="polite"></div>
 </div>

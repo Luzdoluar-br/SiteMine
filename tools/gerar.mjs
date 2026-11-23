@@ -66,7 +66,12 @@ for (const arquivo of paginas) {
       .replaceAll("{{nome_servidor}}", CFG.servidor.nome)
       .replaceAll("{{nome_alt}}", CFG.alternativo.nome);
   const html = trocar(modelo)
-    .replace("{{csp}}", () => (meta.frames && meta.frames.length ? `${CSP}; frame-src ${meta.frames.join(" ")}` : CSP)) // só a página pública libera os players do YouTube e do Spotify
+    .replace("{{csp}}", () => {
+      // só a página pública libera os players do YouTube e do Spotify; só o Painel da Kiza libera imagens https quaisquer (a prévia do embed mostra o link que o admin colou)
+      let csp = meta.imagens_https ? CSP.replace("img-src 'self'", "img-src 'self' https:") : CSP;
+      if (meta.frames && meta.frames.length) csp = `${csp}; frame-src ${meta.frames.join(" ")}`;
+      return csp;
+    })
     .replaceAll("{{titulo}}", escapar(meta.titulo))
     .replaceAll("{{descricao}}", escapar(meta.descricao))
     .replaceAll("{{url}}", url) // aparece duas vezes (og:url e canonical): replace() trocava só a primeira
