@@ -90,7 +90,7 @@ const VULPUS = (() => {
   /** Marca o link da seção atual no menu e mostra o nome de quem está logado (se estiver). */
   async function menu() {
     const aqui = document.body.dataset.secao;
-    for (const a of document.querySelectorAll(".menu a[data-secao]")) if (a.dataset.secao === aqui) a.setAttribute("aria-current", "page");
+    for (const a of document.querySelectorAll(".menu a[data-secao], .barra-celular a[data-secao]")) if (a.dataset.secao.split(" ").includes(aqui)) a.setAttribute("aria-current", "page");
     if (!sessao() || !$("quem")) return;
     try {
       const { r, d } = await api("/painel/api/eu");

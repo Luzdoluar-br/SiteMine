@@ -305,4 +305,16 @@ a.linha:hover { background: rgba(239, 227, 203, .06); color: inherit; }
 .barra > span { display: block; height: 100%; width: 0; background: var(--laranja); transition: width .6s ease; }
 .faixa-papel .barra, .faixa-pergaminho .barra { background: rgba(42, 29, 18, .15); }
 
-@media print { .topo, .rodape, .menu-btn { display: none; } body { background: #fff; color: #000; } }
+/* barra de atalhos do celular (fase 1 do redesenho): só aparece no celular; no computador o menu de cima faz esse papel */
+.barra-celular { display: none; }
+@media (max-width: 760px) {
+  .barra-celular {
+    display: grid; grid-template-columns: repeat(5, 1fr); position: fixed; left: 0; right: 0; bottom: 0; z-index: 48;
+    background: var(--carvao); border-top: 2px solid var(--laranja); padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  .barra-celular a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; min-height: 56px; padding: 6px 2px; text-decoration: none; color: var(--suave); font-size: .72rem; font-weight: 600; }
+  .barra-celular a[aria-current="page"] { color: var(--brasa); }
+  .barra-celular a:hover { color: var(--creme); }
+  body { padding-bottom: calc(60px + env(safe-area-inset-bottom, 0)); }
+}
+@media print { .topo, .rodape, .menu-btn, .barra-celular { display: none; } body { background: #fff; color: #000; } }
