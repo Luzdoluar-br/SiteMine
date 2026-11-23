@@ -533,6 +533,7 @@
     };
     if (d.status === "ativa") {
       bt("Renovar o post agora", () => acao("renovar", "Post renovado no canal de parcerias."));
+      bt("Enviar divulgação agora", () => acao("enviar_agora", "Divulgação enviada. (Um pedido por dia.)"), "botao-fio");
       bt("Pausar", () => acao("pausar", "Parceria pausada."), "botao-fio");
     } else bt("Reativar", () => acao("reativar", "Parceria reativada."));
     bt("Editar o cartão", () => { editandoCartao = !editandoCartao; formEdicao.hidden = !editandoCartao; }, "botao-fio");
@@ -592,6 +593,12 @@
       par("Entradas pelo seu convite (mês mais recente)", mes ? `${mes.parceiro_na_vulpus}` : "0");
       par("Divulgações feitas", String(est.d.divulgacoes || 0));
       par("Próxima divulgação", est.d.proxima ? dataHora(est.d.proxima) : "—");
+      for (const dest of est.d.destinos || []) {
+        // estado visível de cada canal: funcionando, ou pausado e o motivo (para ninguém ficar sem saber por que "não manda nada")
+        par(dest.rotulo, dest.pausado ? `Pausado: ${dest.motivo || "erro no canal"}. Confira o canal e as permissões da Kiza.` : dest.proxima ? `Funcionando. Próxima: ${dataHora(dest.proxima)}` : "Funcionando.");
+      }
+      if (est.d.ultimo_erro) par("Último erro de envio", `${est.d.ultimo_erro.texto} (${dataHora(est.d.ultimo_erro.em)})`);
+      if (est.d.modalidade === "normal") par("Divulgação repetida", "Só a Mega Parceria divulga de tempos em tempos; a normal usa o cartão fixo (renove quando quiser).");
       raiz.append(dl);
     }
   }
