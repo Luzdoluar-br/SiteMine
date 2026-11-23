@@ -112,6 +112,7 @@
       el("p", "pequeno", "Opcional. Sem chave, a Kiza usa só as respostas prontas (grátis). Com a sua chave da Anthropic, o gasto é seu e você define os limites. A chave fica cifrada e nunca volta para esta tela; nunca cole chave no chat do Discord."),
       el("p", "pequeno", d.aviso),
     );
+    alvo.append(guiaProvedores());
     if (!d.cofre_disponivel) {
       alvo.append(el("p", "aviso", "O cofre de chaves ainda não está ativo no servidor da Kiza. Fale com a equipe da Vulpus."));
       return;
@@ -153,6 +154,28 @@
       });
       alvo.append(lig, apagar);
     }
+  }
+
+  // guia de escolha da IA: palpites honestos, sem prometer preço (planos e preços mudam: conferir sempre no site do provedor)
+  function guiaProvedores() {
+    const caixa = el("div", "grupo");
+    caixa.append(el("h3", "", "1 · Escolher a IA"));
+    caixa.append(el("p", "pequeno", "Preços, planos gratuitos e regras de privacidade mudam. Confira sempre no site do provedor antes de colar a chave."));
+    const cartoes = [
+      ["Anthropic (Claude)", "Disponível agora. Melhor conversa em português e o modelo pequeno é barato por resposta. Paga por uso, na conta de API (não é a assinatura do chat). Recomendada.", "https://console.anthropic.com/"],
+      ["OpenAI (ChatGPT)", "Em breve. Atenção: a assinatura do ChatGPT NÃO gera chave de API; a chave vem de uma conta de API cobrada por uso.", ""],
+      ["Google Gemini", "Em breve. Tem plano gratuito com limites que mudam; no plano gratuito o Google pode usar as mensagens para treinar modelos (confira o texto atual). Evite em servidor com muita gente.", ""],
+      ["Groq (modelos abertos)", "Em breve. Plano gratuito e rápida, mas costuma perder o personagem e a conversa fica fraca.", ""],
+    ];
+    for (const [nome, texto, url] of cartoes) {
+      const c = el("div", "grupo");
+      c.append(el("h4", "", nome), el("p", "pequeno", texto));
+      if (url) { const a = el("a", "link-seta", "Abrir o site do provedor"); a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer"; c.append(a); }
+      caixa.append(c);
+    }
+    caixa.append(el("h3", "", "2 · Pegar a chave"), el("p", "pequeno", "No site do provedor, crie uma chave de API e copie. Coloque um limite de gasto lá também."));
+    caixa.append(el("h3", "", "3 · Colar e testar"), el("p", "pequeno", "Cole abaixo e use \"Testar e salvar\". A Kiza faz uma chamada mínima para conferir; depois a chave fica cifrada e nunca mais aparece."));
+    return caixa;
   }
 
   async function auditoria() {

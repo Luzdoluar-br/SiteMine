@@ -3,3 +3,16 @@
 .mais { margin-top: 28px; }
 .chamada .botao { flex: none; }
 .faixa-escura .mural .post { max-width: 860px; }
+
+/* por onde começar (fase 3 do redesenho, primeira parte) */
+.comecar { list-style: none; margin: 22px 0 8px; padding: 0; display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+.comecar a { display: flex; flex-direction: column; gap: 6px; height: 100%; padding: 18px; text-decoration: none; border: 1px solid rgba(23, 18, 14, .25); border-radius: var(--raio); background: rgba(255, 255, 255, .35); color: inherit; }
+.comecar a:hover { border-color: var(--laranja); }
+.comecar b { font-family: var(--f-titulo); font-size: 1.25rem; }
+.comecar span { font-size: .98rem; opacity: .85; }
+.cantinhos-titulo { margin: 30px 0 10px; }
+.cantinhos { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+.cantinhos nav { display: flex; flex-direction: column; gap: 6px; }
+.cantinhos h4 { margin: 0 0 4px; font-size: .9rem; letter-spacing: .08em; text-transform: uppercase; color: var(--laranja); }
+.cantinhos a { text-decoration: none; }
+.cantinhos a:hover { text-decoration: underline; }
