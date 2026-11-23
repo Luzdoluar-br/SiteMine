@@ -269,6 +269,20 @@
     return caixa;
   }
 
+  function botaoBump() {
+    const caixa = el("div", "pk-bloco");
+    caixa.append(el("h4", "", "Teste"));
+    const teste = PUI.comCarga(el("button", "pk-btn", "Enviar lembrete de teste"), async () => {
+      const { r, d } = await chamar("POST", "/painel/api/kiza/bump/teste", { guild_id: estado.gid });
+      PUI.toast(d.mensagem || (r.ok ? "Teste enviado." : "Não consegui enviar."), r.ok ? "ok" : "erro");
+    });
+    teste.type = "button";
+    const linha = el("div", "pk-acoes");
+    linha.append(teste);
+    caixa.append(el("p", "pk-dica", "O teste usa o que está SALVO e não chama o cargo. Salve antes de testar."), linha);
+    return caixa;
+  }
+
   function cartaoModulo(m) {
     const card = el("div", `pk-card${m.ligada ? " pk-ligado" : ""}`);
     const topo = el("div", "pk-card-topo");
@@ -300,6 +314,7 @@
     for (const [n, c] of Object.entries(m.campos)) (c.tipo === "int" ? numeros : corpo).append(criarCampo(n, c, m.config[n], leitor));
     if (numeros.childNodes.length) corpo.append(numeros);
     if (m.chave === "boas_vindas") corpo.append(botoesBoasVindas());
+    if (m.chave === "bump") corpo.append(botaoBump());
     card.append(corpo);
     const salvar = PUI.comCarga(el("button", "pk-btn pk-btn-primario", "Salvar"), async () => {
       const config = {};
