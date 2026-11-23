@@ -62,3 +62,7 @@
 .estat dt { font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; color: var(--suave); }
 .estat dd { margin: 0; font-family: var(--f-titulo); font-size: 1.8rem; font-weight: 700; }
 @media (max-width: 640px) { .srv { grid-template-columns: 48px minmax(0, 1fr); } .srv > :last-child { grid-column: 1 / -1; } .nav-etapas { flex-direction: column-reverse; } }
+
+/* Painel da Kiza: cada função num cartão */
+.grupo { margin: 18px 0; padding: 14px 16px; border: 1px solid rgba(239, 227, 203, .18); border-radius: var(--raio); background: rgba(0, 0, 0, .18); }
+.grupo h3 { margin-top: 0; }

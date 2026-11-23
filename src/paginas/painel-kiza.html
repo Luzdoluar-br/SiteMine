@@ -1,0 +1,40 @@
+<!--pagina {"rota":"kiza/painel","titulo":"Painel da Kiza · Vulpus","descricao":"Ligue e ajuste as funções da Kiza no seu servidor. Tudo vem desligado até você ligar.","secao":"kiza","css":["base","paginas","parceiros","editor","portal"],"js":["entrada-portal","painel-kiza"],"indexar":false}-->
+<div class="faixa faixa-madeira portal-sec">
+  <div class="miolo">
+    <section id="k-carregando" class="estado"><div class="fogo" aria-hidden="true"></div><p>Acendendo as lanternas…</p></section>
+
+    <section id="k-entrar" hidden>
+      <p class="sobretitulo">Painel da Kiza</p>
+      <h1>As funções da Kiza, <em>do seu jeito.</em></h1>
+      <p class="lead">Entre com o Discord e escolha o servidor. Cada função começa <strong>desligada</strong>: só liga quem tem Gerenciar Servidor, e cada mudança fica registrada.</p>
+      <p class="acoes"><button type="button" class="botao" id="k-entrar-bt"><svg aria-hidden="true"><use href="#discord"/></svg>Entrar com o Discord</button></p>
+      <p class="pequeno">Pedimos ao Discord só o seu nome, a sua foto e a lista dos servidores que você gerencia. A chave de IA, se você usar uma, fica cifrada e nunca volta para esta tela.</p>
+      <p class="aviso" id="k-aviso" hidden></p>
+    </section>
+
+    <section id="k-lista" hidden>
+      <p class="sobretitulo">Painel da Kiza</p>
+      <h1>Escolha o <em>servidor.</em></h1>
+      <ul class="lista-servidores" id="k-servidores"></ul>
+      <p class="pequeno" id="k-vazio" hidden>Nenhum servidor encontrado. Você precisa ter a permissão Gerenciar Servidor e ter entrado de novo depois de receber a permissão.</p>
+      <p class="acoes"><button type="button" class="botao botao-fio" id="k-sair">Sair</button></p>
+    </section>
+
+    <section id="k-servidor" hidden>
+      <p class="acoes"><button type="button" class="botao botao-pequeno botao-fio" id="k-voltar">← Outros servidores</button></p>
+      <p class="sobretitulo">Painel da Kiza</p>
+      <h1 id="k-nome">Servidor</h1>
+      <p class="aviso" id="k-msg" role="status" hidden></p>
+      <div id="k-modulos"></div>
+      <h2>Conversa com IA (a sua própria chave)</h2>
+      <div id="k-ia"></div>
+      <h2>Quem mudou o quê</h2>
+      <ul class="lista-simples" id="k-aud"></ul>
+      <div id="k-equipe" hidden>
+        <h2>Saúde da Kiza (equipe)</h2>
+        <p><button type="button" class="botao botao-pequeno" id="k-saude-bt">Ver saúde</button></p>
+        <pre id="k-saude" class="pequeno"></pre>
+      </div>
+    </section>
+  </div>
+</div>

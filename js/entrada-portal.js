@@ -8,7 +8,7 @@ const ENTRADA = (() => {
   const K_SESSAO = "vulpus_sessao";
   const K_NUMERO = "vulpus_login_n";
   const K_VOLTA = "vulpus_login_volta";
-  const VOLTAS = new Set(["pagina/editar", "parceiros/portal"]); // para onde o login pode devolver (nunca um endereço vindo da URL)
+  const VOLTAS = new Set(["pagina/editar", "parceiros/portal", "kiza/painel"]); // para onde o login pode devolver (nunca um endereço vindo da URL)
 
   const ler = (k, onde = localStorage) => {
     try {
