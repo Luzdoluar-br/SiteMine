@@ -9,8 +9,8 @@
     try {
       const { r, d } = await api("/painel/api/publico/resumo");
       if (!r.ok || !d.ok) return;
-      $("h-online").textContent = d.servidor_online ? numero(d.online) : "0";
-      $("h-online-rot").textContent = d.servidor_online ? (d.online === 1 ? "jogando agora" : "jogando agora") : "servidor fora do ar";
+      $("h-online").textContent = d.servidor_online ? `${numero(d.online)}/${numero(d.maximo || 12)}` : "0/12";
+      $("h-online-rot").textContent = d.servidor_online ? "players jogando agora" : "servidor fora do ar";
       $("h-ponto").classList.toggle("ligado", !!d.servidor_online && d.online > 0);
       $("h-membros").textContent = numero(d.membros);
       if (d.servidor_online && d.online_nomes.length) $("h-com").textContent = `Agora: ${d.online_nomes.slice(0, 4).join(", ")}${d.online > 4 ? ` e mais ${d.online - 4}` : ""}.`;

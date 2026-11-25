@@ -22,13 +22,13 @@
       if (!r.ok || !d.ok) throw new Error("sem dados");
       const no = d.servidor_online;
       // herói
-      $("hOnline").textContent = no ? numero(d.online) : "0";
-      $("hOnlineRot").textContent = no ? (d.online === 1 ? "jogando" : "jogando") : "(servidor fora do ar)";
+      $("hOnline").textContent = no ? `${numero(d.online)}/${numero(d.maximo || 12)}` : "0/12";
+      $("hOnlineRot").textContent = no ? "players jogando" : "(servidor fora do ar)";
       $("hPonto").classList.toggle("ligado", no && d.online > 0);
       $("hMembros").textContent = numero(d.membros);
       // agora na toca
-      $("fcOnline").textContent = no ? numero(d.online) : "0";
-      $("fcOnlineRot").textContent = no ? (d.online === 1 ? "pessoa jogando agora" : "pessoas jogando agora") : "servidor fora do ar agora";
+      $("fcOnline").textContent = no ? `${numero(d.online)}/${numero(d.maximo || 12)}` : "0/12";
+      $("fcOnlineRot").textContent = no ? "players jogando agora" : "servidor fora do ar agora";
       $("fcNicks").replaceChildren(...d.online_nomes.slice(0, 12).map((n) => el("li", "", n)));
       listaTop($("fcNivel"), d.destaques.nivel, "Ainda sem dados.");
       listaTop($("fcDuelos"), d.destaques.duelos, "Ninguém terminou a colocação ainda.");

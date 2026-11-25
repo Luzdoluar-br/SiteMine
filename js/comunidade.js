@@ -8,8 +8,8 @@
     try {
       const { r, d } = await api("/painel/api/publico/resumo");
       if (!r.ok || !d.ok) throw new Error();
-      $("online").textContent = d.servidor_online ? numero(d.online) : "–";
-      $("online-rot").textContent = d.servidor_online ? (d.online === 1 ? "pessoa no servidor agora" : "pessoas no servidor agora") : "servidor fora do ar agora";
+      $("online").textContent = d.servidor_online ? `${numero(d.online)}/${numero(d.maximo || 12)}` : "–";
+      $("online-rot").textContent = d.servidor_online ? "players no servidor agora" : "servidor fora do ar agora";
       $("ponto").classList.toggle("ligado", d.servidor_online);
       const nomes = $("online-nomes");
       nomes.replaceChildren(...d.online_nomes.map((n) => el("span", "", n)));
